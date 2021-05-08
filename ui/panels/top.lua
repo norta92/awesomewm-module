@@ -1,0 +1,47 @@
+local awful = require("awful")
+local theme = require("beautiful")
+local wibox = require("wibox")
+
+local screen = screen
+
+screen.connect_signal("request::desktop_decoration", function(s)
+    s.panel = awful.wibar {
+        screen          = s,
+        position        = "top",
+        height          = theme.panel_height,
+        border_width    = theme.panel_border_width,
+        border_color    = theme.panel_border_color,
+        opacity         = theme.panel_opacity,
+        ontop           = true,
+    }
+
+    s.panel:setup {
+        layout = wibox.layout.align.horizontal,
+        expand = true,
+        { -- Left widgets
+            require("widgets.panels.top.menu"),
+            require("widgets.panels.top.taglist")(s),
+            --require("widgets.panels.top.prompt")(s),
+            require("widgets.panels.top.layout")(s),
+            layout = wibox.layout.fixed.horizontal,
+            spacing = theme.panel_spacing,
+        },
+        { -- Middle widget
+            {
+                require("widgets.panels.top.tasklist")(s),
+                layout = wibox.layout.fixed.horizontal,
+                fill_space = true,
+            },
+            widget = wibox.container.margin,
+            left = theme.panel_spacing,
+            right = theme.panel_spacing,
+        },
+        { -- Right widgets
+            require("widgets.panels.top.systray"),
+            require("widgets.panels.top.clock")(s),
+            layout = wibox.layout.fixed.horizontal,
+            spacing = theme.panel_spacing,
+        },
+    }
+
+end)

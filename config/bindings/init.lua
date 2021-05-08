@@ -1,0 +1,5 @@
+require("config.bindings.mod")
+require("config.bindings.client.keys")
+require("config.bindings.client.mouse")
+require("config.bindings.global.keys")
+require("config.bindings.global.mouse")

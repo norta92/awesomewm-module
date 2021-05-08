@@ -1,0 +1,99 @@
+local awful = require("awful")
+local theme = require("beautiful")
+local dpi = theme.xresources.apply_dpi
+local wibox = require("wibox")
+local mod = require("config.bindings.mod")
+
+local client = client
+
+-- theme.spacing
+-- theme.margins
+-- theme.hover_color
+-- theme.taglist_width
+-- theme.border_width
+
+local taglist = function(s)
+
+    local tag_buttons = {
+        awful.button({ }, 1, function(t)
+            t:view_only() end),
+        awful.button({ mod.super }, 1, function(t)
+            if client.focus then
+                client.focus:move_to_tag(t)
+            end
+        end),
+        awful.button({ }, 3, awful.tag.viewtoggle),
+        awful.button({ mod.super }, 3, function(t)
+            if client.focus then
+                client.focus:toggle_tag(t)
+            end
+        end),
+    }
+
+    local tag_layout = {
+        layout = wibox.layout.flex.horizontal
+    }
+
+    local function hover_callback(widget)
+        widget:connect_signal("mouse::enter", function()
+            if widget.bg ~= theme.hover_color then
+                widget.backup     = widget.bg
+                widget.has_backup = true
+            end
+            widget.bg = theme.hover_color
+        end)
+
+        widget:connect_signal("mouse::leave", function()
+            if widget.has_backup then
+                widget.bg = widget.backup
+            end
+        end)
+    end
+
+    local tag_template = {
+        {
+            nil,
+            {
+                {
+                    {
+                        id     = "index_role",
+                        widget = wibox.widget.textbox,
+                    },
+                    {
+                        id     = "text_role",
+                        widget = wibox.widget.textbox,
+                        align = "center",
+                    },
+                    layout = wibox.layout.fixed.horizontal,
+                    fill_space = true,
+                },
+                widget= wibox.container.margin,
+                left = dpi(4),
+                right = dpi(4),
+            },
+            {
+                wibox.widget.base.make_widget(),
+                forced_height = theme.border_width,
+                forced_width  = theme.taglist_width,
+                id            = "background_role",
+                widget        = wibox.container.background,
+            },
+            layout = wibox.layout.align.vertical,
+        },
+        widget = wibox.container.background,
+        create_callback = hover_callback,
+    }
+
+    local tag_widget = awful.widget.taglist {
+        screen  = s,
+        filter  = awful.widget.taglist.filter.all,
+        buttons = tag_buttons,
+        layout  = tag_layout,
+        widget_template = tag_template,
+    }
+    return tag_widget
+end
+
+return taglist
+
+-- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80:foldmethod=marker

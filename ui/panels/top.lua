@@ -12,7 +12,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
         border_width    = theme.panel_border_width,
         border_color    = theme.panel_border_color,
         opacity         = theme.panel_opacity,
-        ontop           = true,
     }
 
     s.panel:setup {
@@ -38,10 +37,12 @@ screen.connect_signal("request::desktop_decoration", function(s)
         },
         { -- Right widgets
             require("widgets.panels.top.systray"),
-            require("widgets.panels.top.clock")(s),
+            require("widgets.panels.top.clock")(),
             layout = wibox.layout.fixed.horizontal,
             spacing = theme.panel_spacing,
         },
     }
 
 end)
+
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

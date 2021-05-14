@@ -4,12 +4,12 @@ local dpi = theme.xresources.apply_dpi
 local gears = require("gears")
 local wibox = require("wibox")
 local mod = require("config.bindings.mod")
+local common = require("utils.common")
 
 -- theme.systray_visible
 -- theme.systray_hidden
 -- theme.margins
 -- theme.panel_margin
--- theme.hover_color
 -- theme.ui_color
 
 local systray = wibox.widget {
@@ -66,22 +66,12 @@ toggle_button:buttons(
     )
 )
 
-systray_widget:connect_signal("mouse::enter", function(widget)
-    if widget.bg ~= theme.hover_color then
-        widget.backup = widget.bg
-        widget.has_backup = true
-    end
-    widget.bg = theme.hover_color
-end)
+systray_widget:connect_signal("mouse::enter", common.on_hover_color)
 
-systray_widget:connect_signal("mouse::leave", function(widget)
-    if widget.has_backup then
-        widget.bg = widget.backup
-    end
-end)
+systray_widget:connect_signal("mouse::leave", common.on_unhover_color)
 
 awful.keyboard.append_global_keybindings({
-    awful.key({ mod.super, mod.alt }, "s", function ()
+    awful.key({ mod.super, mod.alt }, "s", function()
         systray.visible = not systray.visible
         if systray.visible then
             toggle_button:set_image(theme.systray_visible)
@@ -96,4 +86,4 @@ local systray_wrapper = awful.widget.only_on_screen(systray_widget, 'primary')
 
 return systray_wrapper
 
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80:foldmethod=marker
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

@@ -2,13 +2,13 @@ local awful = require("awful")
 local theme = require("beautiful")
 local dpi = theme.xresources.apply_dpi
 local wibox = require("wibox")
+local common = require("utils.common")
 
 -- theme.border_width
 -- theme.tasklist_item_width
 -- theme.menu_width
 -- theme.margins
 -- theme.spacing
--- theme.hover_color
 
 local tasklist = function(s)
 
@@ -34,18 +34,8 @@ local tasklist = function(s)
     }
 
     local function hover_callback(widget)
-        widget:connect_signal("mouse::enter", function()
-            if widget.bg ~= theme.hover_color then
-                widget.backup     = widget.bg
-                widget.has_backup = true
-            end
-            widget.bg = theme.hover_color
-        end)
-        widget:connect_signal("mouse::leave", function()
-            if widget.has_backup then
-                widget.bg = widget.backup
-            end
-        end)
+        widget:connect_signal("mouse::enter", common.on_hover_color)
+        widget:connect_signal("mouse::leave", common.on_unhover_color)
     end
 
     local task_template = {
@@ -93,4 +83,4 @@ end
 
 return tasklist
 
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80:foldmethod=marker
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

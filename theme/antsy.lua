@@ -75,7 +75,7 @@ theme.border_radius             = dpi(0)
 theme.separator                 = " "           -- custom
 theme.spacing                   = dpi(2)        -- custom
 theme.margins                   = dpi(2)        -- custom
-theme.opacity                   = 1.0           -- custom
+theme.opacity                   = 0.9           -- custom
 
 -- General
 theme.fg_normal                 = theme.text_color
@@ -175,19 +175,27 @@ theme.titlebar_height           = dpi(20)       -- custom
 theme.bg_systray                = theme.ui_color
 theme.systray_icon_spacing      = dpi(2)
 
+-- Menu widget
+theme.menu_button_fg            = theme.ui_alt_color
+theme.menu_button_bg            = theme.ui_color
+theme.menu_button_width         = dpi(36)
+theme.menu_button_border_color  = theme.ui_alt_color
+theme.menu_button_border_width  = dpi(0)
+
 -- Menus
-theme.menu_width                    = dpi(160)
-theme.menu_height                   = dpi(20)
-theme.menu_border_color             = theme.border_color_active
-theme.menu_border_width             = theme.border_width
-theme.menu_submenu_icon             = assets_path .. "menu/submenu.svg"
+theme.menu_font                 = theme.font
+theme.menu_width                = dpi(160)
+theme.menu_height               = dpi(20)
+theme.menu_border_color         = theme.border_color_active
+theme.menu_border_width         = theme.border_width
+theme.menu_submenu_icon         = assets_path .. "menu/submenu.svg"
 
 -- Tooltips
-theme.tooltip_fg                    = theme.text_color
-theme.tooltip_bg                    = theme.ui_color .. theme.alpha
-theme.tooltip_border_color          = theme.border_color_normal
-theme.tooltip_border_width          = theme.border_width
-theme.tooltip_opacity               = theme.opacity
+theme.tooltip_fg                = theme.text_color
+theme.tooltip_bg                = theme.ui_color .. theme.alpha
+theme.tooltip_border_color      = theme.border_color_normal
+theme.tooltip_border_width      = theme.border_width
+theme.tooltip_opacity           = theme.opacity
 
 -- Notifications
 theme.notification_font         = theme.font
@@ -204,6 +212,7 @@ theme.notification_spacing      = theme.spacing
 -- Window snap
 theme.snap_bg                   = theme.new_color
 theme.snap_border_width         = theme.border_width
+theme.snap_shape                = gears.shape.rectangle
 
 -- Hotkeys popup
 theme.hotkeys_bg                = theme.ui_color .. theme.alpha
@@ -296,12 +305,12 @@ if vars.recolor_menu_icons then
 end
 
 -- Panel widget icons
-theme.launcher_icon             = assets_path .. "panel/menu-icon.svg"
+theme.menu_button_icon          = assets_path .. "panel/menu-icon.svg"
 theme.systray_visible           = assets_path .. "panel/systray-visible.svg"
 theme.systray_hidden            = assets_path .. "panel/systray-hidden.svg"
 
 if vars.recolor_panel_icons then
-    theme.launcher_icon = recolor_image(theme.launcher_icon, theme.ui_alt_color)
+    theme.menu_button_icon = recolor_image(theme.menu_button_icon, theme.menu_button_fg)
     theme.systray_visible = recolor_image(theme.systray_visible, theme.ui_alt_color)
     theme.systray_hidden = recolor_image(theme.systray_hidden, theme.ui_alt_color)
 end

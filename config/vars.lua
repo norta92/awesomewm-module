@@ -16,10 +16,22 @@ local vars = {
         awful.layout.suit.tile.top,
         awful.layout.suit.tile.left,
     },
+    -- Recolor icons
     recolor_titlebar_icons = false,
     recolor_panel_icons = true,
     recolor_layout_icons = true,
     recolor_menu_icons = true,
+    -- Dynamic opacity
+    dynamic_opacity = {
+        focus = 1,
+        unfocus = 0.9,
+    },
+    exclude_opacity = {
+        instance = {"vlc"},
+        class = {"mpv", "vlc"},
+    }
 }
 
 return vars
+
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

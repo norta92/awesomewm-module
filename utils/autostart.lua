@@ -6,3 +6,5 @@ spawn.with_shell(
    'xrdb -merge <<< "awesome.started:true";' ..
    'dex --environment Awesome --autostart --search-paths "/etc/xdg/autostart/:$XDG_CONFIG_HOME/autostart/"'
 )
+
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

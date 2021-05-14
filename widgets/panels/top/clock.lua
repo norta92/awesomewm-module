@@ -2,14 +2,14 @@ local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
 local calendar = require("awful.widget.calendar_popup").month()
-local mod = require("config.bindings.mod")
+local common = require("utils.common")
 
 -- theme.margins
--- theme.hover_color
+-- theme.panel_opacity
 
-local clock = function(s)
+local clock = function()
 
-    local textclock = wibox.widget.textclock()
+    local textclock = wibox.widget.textclock(nil, 30)
 
     local clock_widget = wibox.widget {
         {
@@ -26,30 +26,21 @@ local clock = function(s)
         widget = wibox.container.background,
     }
 
-    calendar:attach(clock_widget, "tr")
+    function calendar.call_calendar(self, offset, position, _)
+        local screen = awful.screen.focused()
+        awful.widget.calendar_popup.call_calendar(self, offset, position, screen)
+    end
 
-    clock_widget:connect_signal("mouse::enter", function(widget)
-        if widget.bg ~= theme.hover_color then
-            widget.backup = widget.bg
-            widget.has_backup = true
-        end
-        widget.bg = theme.hover_color
-    end)
+    calendar:attach(clock_widget, "tr", {on_hover=false})
+    calendar.opacity = theme.panel_opacity
 
-    clock_widget:connect_signal("mouse::leave", function(widget)
-        if widget.has_backup then widget.bg = widget.backup end
-    end)
+    clock_widget:connect_signal("mouse::enter", common.on_hover_color)
 
-    awful.keyboard.append_global_keybindings({
-        awful.key({ mod.super, mod.alt }, "i", function()
-            calendar:call_calendar(0, "tr", s)
-        end,
-        {description = "Toggle systray", group = "Awesome: widgets"})
-    })
+    clock_widget:connect_signal("mouse::leave", common.on_unhover_color)
 
     return clock_widget
 end
 
 return clock
 
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80:foldmethod=marker
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

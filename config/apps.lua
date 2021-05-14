@@ -6,5 +6,9 @@ local apps = {
     screenlocker = os.getenv("LOCKCMD") or "light-locker-command -l",
     search = "rofi -show drun",
 }
+
 apps.editor_cmd = apps.terminal .. " -e " .. apps.editor
+
 return apps
+
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

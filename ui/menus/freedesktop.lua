@@ -6,7 +6,7 @@ local menu_gen   = require("menubar.menu_gen")
 local menu_utils = require("menubar.utils")
 local icon_theme = require("menubar.icon_theme")
 
-local io, pairs, string, table, os = io, pairs, string, table, os
+local io, pairs, string, table = io, pairs, string, table
 
 -- Expecting a wm_name of awesome omits too many applications and tools
 menu_utils.wm_name = ""
@@ -26,7 +26,7 @@ end
 
 -- Remove non existent paths in order to avoid issues
 local existent_paths = {}
-for k,v in pairs(menu_gen.all_menu_dirs) do
+for _,v in pairs(menu_gen.all_menu_dirs) do
     if menu.is_dir(v) then
         table.insert(existent_paths, v)
     end
@@ -38,7 +38,7 @@ menu_gen.all_menu_dirs = existent_paths
 -- @param val the element to search for
 -- @return true if the given string is found within the search table; otherwise, false if not
 function menu.has_value (tab, val)
-    for index, value in pairs(tab) do
+    for _, value in pairs(tab) do
         if val:find(value) then
             return true
         end
@@ -66,7 +66,7 @@ function menu.build(args)
         end
 
         -- Get items table
-        for k, v in pairs(entries) do
+        for _, v in pairs(entries) do
             for _, cat in pairs(result) do
                 if cat[1] == v.category then
                     if not menu.has_value(skip_items, v.name) then
@@ -85,7 +85,7 @@ function menu.build(args)
                 table.remove(result, i)
             else
                 --Sort entries alphabetically (by name)
-                table.sort(v[2], function (a, b) return string.byte(a[1]) < string.byte(b[1]) end)
+                table.sort(v[2], function(a, b) return string.byte(a[1]) < string.byte(b[1]) end)
                 -- Replace category name with nice name
                 v[1] = menu_gen.all_categories[v[1]].name
             end
@@ -118,3 +118,5 @@ function menu.build(args)
 end
 
 return menu
+
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

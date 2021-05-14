@@ -2,9 +2,9 @@ local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
 local mod = require("config.bindings.mod")
+local common = require("utils.common")
 
 -- theme.margins
--- theme.hover_color
 
 local promptbox = function(s)
 
@@ -25,18 +25,9 @@ local promptbox = function(s)
         widget = wibox.container.background,
     }
 
-    prompt_widget:connect_signal("mouse::enter", function(widget)
-        if widget.bg ~= theme.hover_color then
-            widget.backup = widget.bg
-            widget.has_backup = true
-        end
-        widget.bg = theme.hover_color
-    end)
-    prompt_widget:connect_signal("mouse::leave", function(widget)
-        if widget.has_backup then
-            widget.bg = widget.backup
-        end
-    end)
+    prompt_widget:connect_signal("mouse::enter", common.on_hover_color)
+
+    prompt_widget:connect_signal("mouse::leave", common.on_unhover_color)
 
     return prompt_widget
 end
@@ -58,4 +49,4 @@ awful.keyboard.append_global_keybindings({
 
 return promptbox
 
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80:foldmethod=marker
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

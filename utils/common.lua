@@ -4,6 +4,20 @@ local ipairs = ipairs
 
 local common = {
 
+    scandir = function(directory, filter)
+        local i, t, popen = 0, {}, io.popen
+        if not filter then
+            filter = function() return true end
+        end
+        for filename in popen('ls -a "'..directory..'"'):lines() do
+            if filter(filename) then
+                i = i + 1
+                t[i] = filename
+            end
+        end
+        return t
+    end,
+
     has_value = function(table, value)
         for _, v in ipairs(table) do
             if v == value then return true end

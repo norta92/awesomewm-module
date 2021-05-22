@@ -46,6 +46,7 @@ local tasklist = function(s)
                     {
                         id     = "icon_role",
                         widget = wibox.widget.imagebox,
+                        resize = true,
                     },
                     {
                         id     = "text_role",
@@ -55,8 +56,10 @@ local tasklist = function(s)
                     spacing = dpi(4),
                 },
                 widget = wibox.container.margin,
-                left  = dpi(4),
-                right = dpi(4),
+                left    = dpi(4),
+                right   = dpi(4),
+                top     = dpi(1),
+                bottom  = dpi(1),
             },
             {
                 wibox.widget.base.make_widget(),

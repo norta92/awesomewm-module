@@ -15,10 +15,10 @@ theme.init(config_path .. "theme/antsy.lua")
 require("config")
 
 -- Load interface
-require("ui.desktop")
 require("ui.panels")
 require("ui.menus")
 require("ui.titlebars")
+require("ui.desktop.wallpaper")
 
 -- XDG autostart
 require("utils.autostart")

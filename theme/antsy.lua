@@ -226,6 +226,10 @@ theme.hotkeys_border_color      = theme.active_color
 theme.hotkeys_border_width      = theme.border_width
 theme.hotkeys_group_margin      = theme.margins
 
+-- Wallpaper shuffler
+theme.wallpaper_path            = os.getenv("HOME") .. "/Wallpapers/Shuffle/"
+theme.wallpaper_timeout         = 300
+
 -- Customize awesome icon
 theme.awesome_icon = theme_assets.awesome_icon(
     theme.menu_height,
@@ -314,24 +318,6 @@ if vars.recolor_panel_icons then
     theme.systray_visible = recolor_image(theme.systray_visible, theme.ui_alt_color)
     theme.systray_hidden = recolor_image(theme.systray_hidden, theme.ui_alt_color)
 end
-
--- Try to determine if we are running light or dark colorscheme:
---local bg_numberic_value = 0;
---for s in theme.bg_normal:gmatch("[a-fA-F0-9][a-fA-F0-9]") do
---    bg_numberic_value = bg_numberic_value + tonumber("0x"..s);
---end
---local is_dark_bg = (bg_numberic_value < 383)
-
--- Generate wallpaper:
---local wallpaper_bg = theme.dark_gray
---local wallpaper_fg = theme.gray
---local wallpaper_alt_fg = theme.black
---if not is_dark_bg then
---    wallpaper_bg, wallpaper_fg = wallpaper_fg, wallpaper_bg
---end
---theme.wallpaper = function(s)
---    return theme_assets.wallpaper(wallpaper_bg, wallpaper_fg, wallpaper_alt_fg, s)
---end
 
 return theme
 

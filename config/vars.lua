@@ -31,8 +31,8 @@ local vars = {
         class = {"mpv", "vlc"},
     },
     -- Wallpaper shuffler
-    wallpaper_path = os.getenv("HOME") .. "/Wallpapers/Shuffle/",
-    wallpaper_timeout = 180,
+    wallpaper_path = nil,
+    wallpaper_timeout = 60,
 }
 
 return vars

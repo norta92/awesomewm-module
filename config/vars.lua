@@ -29,7 +29,10 @@ local vars = {
     exclude_opacity = {
         instance = {"vlc"},
         class = {"mpv", "vlc"},
-    }
+    },
+    -- Wallpaper shuffler
+    wallpaper_path = os.getenv("HOME") .. "/Wallpapers/Shuffle/",
+    wallpaper_timeout = 180,
 }
 
 return vars

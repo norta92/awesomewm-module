@@ -226,10 +226,6 @@ theme.hotkeys_border_color      = theme.active_color
 theme.hotkeys_border_width      = theme.border_width
 theme.hotkeys_group_margin      = theme.margins
 
--- Wallpaper shuffler
-theme.wallpaper_path            = os.getenv("HOME") .. "/Wallpapers/Shuffle/"
-theme.wallpaper_timeout         = 300
-
 -- Customize awesome icon
 theme.awesome_icon = theme_assets.awesome_icon(
     theme.menu_height,

@@ -1,46 +1,49 @@
 -- Native wallpaper shuffler
--- Basedd on https://gist.github.com/anonymous/37f3b1c58d6616cab756
+-- Based on https://gist.github.com/anonymous/37f3b1c58d6616cab756
 
-local theme = require("beautiful")
 local gears = require("gears")
 local config_path = gears.filesystem.get_configuration_dir()
 local default_path = config_path .. "/theme/assets/wallpaper/"
 local scandir = require("utils.common").scandir
+local vars = require("config.vars")
 
 local screen = screen
 
--- theme.wallpaper_path
--- theme.wallpaper_timeout
-
 screen.connect_signal("request::wallpaper", function()
 
-    local index = 1
-    local timeout  = theme.wallpaper_timeout or 300
-    local path = theme.wallpaper_path or default_path
-    local filter = function(s)
-        return string.match(s,"%.png$") or string.match(s,"%.jpg$")
+    -- Find wallpapers
+    local path = vars.wallpaper_path or default_path
+    local filter = function(str)
+        return string.match(str,"%.png$") or string.match(str,"%.jpg$")
     end
     local files = scandir(path, filter)
-    local timer = gears.timer { timeout = timeout }
 
-    timer:connect_signal("timeout", function()
+    -- Set random wallpaper
+    local index = math.random(1, #files)
+    for s = 1, screen.count() do
+        gears.wallpaper.maximized(path .. "/" .. files[index], s, true)
+    end
 
-        for s = 1, screen.count() do
-            gears.wallpaper.maximized(path .. "/" .. files[index], s, true)
-        end
+    -- Setup timer, timeout of 0 disables timer
+    local timeout = vars.wallpaper_timeout or 300
+    if timeout >= 1 then
+        local timer = gears.timer { timeout = timeout }
 
-        timer:stop()
+        timer:connect_signal("timeout", function()
+            -- Get new random wallpaper
+            index = math.random(1, #files)
+            for s = 1, screen.count() do
+                gears.wallpaper.maximized(path .. "/" .. files[index], s, true)
+            end
 
-        index = math.random(1, #files)
+            -- Restart timer
+            timer:stop()
+            timer:start()
+        end)
 
-        if timeout == 0 then
-            return
-        end
-
-        timer.timeout = timeout
+        -- Start initial timer
         timer:start()
-    end)
+    end
 
-    timer:start()
 end)
 

@@ -1,89 +1,122 @@
-local theme = require("beautiful")
 local gears = require("gears")
-local config_path = gears.filesystem.get_configuration_dir()
 local vars = require("config.vars")
 local common = require("utils.common")
-local scandir = require("utils.common").scandir
 
 local screen = screen
-local math, string = math, string
+local io, math, string = io, math, string
+local collectgarbage = collectgarbage
 
--- theme.ui_alt_color
 -- vars.wallpaper_path
+-- vars.wallpaper_mode
+-- vars.wallpaper_color
 -- vars.wallpaper_span
 -- vars.wallpaper_timeout
 
-local default_path = config_path .. "/theme/assets/wallpaper/"
-local file_path = vars.wallpaper_path or default_path
-local fallback_color = theme.ui_alt_color or "#333333"
+local get_files = function(dir, filter)
+    local index, files, popen = 0, {}, io.popen
 
-local set_wallpaper = function(path)
-    for s = 1, screen.count() do
-        if vars.wallpaper_span then s = nil end
-        gears.wallpaper.maximized(path, s, false)
+    if not filter then
+        filter = function() return true end
     end
+
+    for file in popen('ls -a "' .. dir .. '"'):lines() do
+        if filter(file) then
+            index = index + 1
+            files[index] = file
+        end
+    end
+
+    return files
 end
 
-
---[[
-  Native wallpaper shuffler
-  Based on https://gist.github.com/anonymous/37f3b1c58d6616cab756
---]]
 local file_filter = function(file)
     return string.match(file,"%.png$") or string.match(file,"%.jpg$")
 end
 
-local get_new_index = function(index, total)
-    local i = index or 1
-    local t = total or 1
-    local o = i
-    while o == i do
-        i = math.random(1, t)
+local get_index = function(index, total)
+    local old = index
+
+    while old == index do
+        index = math.random(1, total)
     end
-    return i
+
+    return index
 end
 
-local set_selected_wallpaper = function(path, files, index)
-    for s = 1, screen.count() do
-        if vars.wallpaper_span then s = nil end
-        gears.wallpaper.maximized(path .. "/" .. files[index], s, false)
-    end
+local get_image = function(path, files, index)
+    return path .. "/" .. files[index]
 end
 
-local wallpaper_shuffler = function()
-    local files = scandir(file_path, file_filter)
-    local index = get_new_index(1, #files)
-    set_selected_wallpaper(file_path, files, index)
+local set_wallpaper = function(image, mode, s)
+    local color = vars.wallpaper_color or "#333"
 
-    local timeout = vars.wallpaper_timeout or 300
-    if timeout >= 1 then
+    if mode == 1 then
+        gears.wallpaper.centered(image, s, color, 1)
+    elseif mode == 2 then
+        gears.wallpaper.tiled(image, s, {0,0})
+    elseif mode == 3 then
+        gears.wallpaper.maximized(image, s, false, {0,0})
+    elseif mode == 4 then
+        gears.wallpaper.fit(image, s, color)
+    else
+        gears.wallpaper.set(image)
+    end
 
-        local timer = gears.timer { timeout = timeout }
-        timer:connect_signal("timeout", function()
-            index = get_new_index(index, #files)
-            set_selected_wallpaper(file_path, files, index)
+    collectgarbage("step", 4000)
+end
 
-            timer:stop()
+local path = vars.wallpaper_path
+local mode = vars.wallpaper_mode or 3
+local color = vars.wallpaper_color or "#333"
+local timeout = vars.wallpaper_timeout or 300
+
+if path then
+    if common.is_dir(path) then
+        local files = get_files(path, file_filter)
+        local index = get_index(1, #files)
+        local image = get_image(path, files, index)
+
+        for s = 1, screen.count() do
+            if vars.wallpaper_span then s = nil end
+            set_wallpaper(image, mode, s)
+            if not s then return end
+        end
+
+        if timeout >= 1 then
+            local timer = gears.timer { timeout = timeout }
+
+            timer:connect_signal("timeout", function()
+                timer:stop()
+
+                index = get_index(index, #files)
+                image = get_image(path, files, index)
+
+                for s = 1, screen.count() do
+                    if vars.wallpaper_span then s = nil end
+                    set_wallpaper(image, mode, s)
+                    if not s then return end
+                end
+
+                timer.timeout = timeout
+                timer:start()
+            end)
+
             timer:start()
-        end)
-
-        timer:start()
-    end
-end
---]]
-
-if file_path then
-    if common.is_dir(file_path) then
-        wallpaper_shuffler()
+        end
         return
     end
 
-    if common.is_file(file_path) then
-        set_wallpaper(file_path)
+    if common.is_file(path) then
+        for s = 1, screen.count() do
+            if vars.wallpaper_span then s = nil end
+            set_wallpaper(path, mode, s)
+            if not s then return end
+        end
         return
     end
 else
-    gears.wallpaper.set(fallback_color)
+    gears.wallpaper.set(color)
 end
+
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

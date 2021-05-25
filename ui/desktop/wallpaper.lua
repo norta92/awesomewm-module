@@ -1,4 +1,6 @@
+local awful = require("awful")
 local gears = require("gears")
+local mod = require("config.bindings.mod")
 local vars = require("config.vars")
 local common = require("utils.common")
 
@@ -67,8 +69,10 @@ end
 
 local path = vars.wallpaper_path
 local mode = vars.wallpaper_mode or 3
+local span = vars.wallpaper_span or false
 local color = vars.wallpaper_color or "#333"
 local timeout = vars.wallpaper_timeout or 300
+local timer = gears.timer { timeout = timeout }
 
 if path then
     if common.is_dir(path) then
@@ -77,14 +81,12 @@ if path then
         local image = get_image(path, files, index)
 
         for s = 1, screen.count() do
-            if vars.wallpaper_span then s = nil end
+            if span then s = nil end
             set_wallpaper(image, mode, s)
-            if not s then return end
+            if span then break end
         end
 
         if timeout >= 1 then
-            local timer = gears.timer { timeout = timeout }
-
             timer:connect_signal("timeout", function()
                 timer:stop()
 
@@ -92,9 +94,9 @@ if path then
                 image = get_image(path, files, index)
 
                 for s = 1, screen.count() do
-                    if vars.wallpaper_span then s = nil end
+                    if span then s = nil end
                     set_wallpaper(image, mode, s)
-                    if not s then return end
+                    if span then break end
                 end
 
                 timer.timeout = timeout
@@ -103,20 +105,29 @@ if path then
 
             timer:start()
         end
-        return
-    end
 
-    if common.is_file(path) then
-        for s = 1, screen.count() do
-            if vars.wallpaper_span then s = nil end
-            set_wallpaper(path, mode, s)
-            if not s then return end
+        if timer.started then
+            awful.keyboard.append_global_keybindings({
+                awful.key({ mod.super, mod.alt }, "w", function()
+                        timer:emit_signal("timeout")
+                end,
+                {description = "Change wallpaper", group = "Awesome: extras"})
+            })
         end
         return
+
+    elseif common.is_file(path) then
+        for s = 1, screen.count() do
+            if span then s = nil end
+            set_wallpaper(path, mode, s)
+            if span then break end
+        end
+        return
+    else
+        gears.wallpaper.set(color)
     end
 else
     gears.wallpaper.set(color)
 end
-
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

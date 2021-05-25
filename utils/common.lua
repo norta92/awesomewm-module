@@ -7,16 +7,14 @@ local io, ipairs = io, ipairs
 local common = {}
 
 common.is_file = function(path)
+    if not path then return false end
     local f = io.open(path,"r")
-    if f ~= nil then
-        io.close(f)
-        return true
-    else
-        return false
-    end
+    io.close(f)
+    return true
 end
 
 common.is_dir = function(path)
+    if not path then return false end
     local f = io.open(path)
     return not f:read(0) and f:seek("end") ~= 0
 end

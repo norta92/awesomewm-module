@@ -35,7 +35,7 @@ local vars = {
     wallpaper_mode = 3,
     wallpaper_color = "#333",
     wallpaper_span = false,
-    wallpaper_timeout = 180,
+    wallpaper_timeout = 300,
 }
 
 return vars

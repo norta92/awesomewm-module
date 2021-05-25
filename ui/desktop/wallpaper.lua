@@ -67,6 +67,15 @@ local set_wallpaper = function(image, mode, s)
     collectgarbage("step", 4000)
 end
 
+local set_keybinding = function(timer)
+    awful.keyboard.append_global_keybindings({
+        awful.key({ mod.super, mod.alt }, "w", function()
+                timer:emit_signal("timeout")
+        end,
+        {description = "Change wallpaper", group = "Awesome: extras"})
+    })
+end
+
 local path = vars.wallpaper_path
 local mode = vars.wallpaper_mode or 3
 local span = vars.wallpaper_span or false
@@ -74,7 +83,6 @@ local color = vars.wallpaper_color or "#333"
 local timeout = vars.wallpaper_timeout or 300
 local timer = gears.timer { timeout = timeout }
 
-if path then
     if common.is_dir(path) then
         local files = get_files(path, file_filter)
         local index = get_index(1, #files)
@@ -107,14 +115,8 @@ if path then
         end
 
         if timer.started then
-            awful.keyboard.append_global_keybindings({
-                awful.key({ mod.super, mod.alt }, "w", function()
-                        timer:emit_signal("timeout")
-                end,
-                {description = "Change wallpaper", group = "Awesome: extras"})
-            })
+            set_keybinding(timer)
         end
-        return
 
     elseif common.is_file(path) then
         for s = 1, screen.count() do
@@ -122,12 +124,9 @@ if path then
             set_wallpaper(path, mode, s)
             if span then break end
         end
-        return
+
     else
         gears.wallpaper.set(color)
     end
-else
-    gears.wallpaper.set(color)
-end
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

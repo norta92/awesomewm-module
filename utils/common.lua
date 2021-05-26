@@ -1,36 +1,41 @@
 local theme = require("beautiful")
+local lfs = require("lfs")
 
-local io, ipairs = io, ipairs
+local io, ipairs, os = io, ipairs, os
 
 -- theme.hover_color
 
 local common = {}
 
-common.is_file = function(path)
-    if not path then return false end
-    local f = io.open(path,"r")
-    io.close(f)
-    return true
-end
-
 common.is_dir = function(path)
-    if not path then return false end
-    local f = io.open(path)
-    return not f:read(0) and f:seek("end") ~= 0
+    if type(path) ~= "string" then return false end
+    local cd = lfs.currentdir()
+    local is = lfs.chdir(path) and true or false
+    lfs.chdir(cd)
+    return is
 end
 
-common.scandir = function(directory, filter)
-    local i, t, popen = 0, {}, io.popen
+
+common.is_file = function(path)
+    if type(path) ~= "string" then return false end
+    if not common.is_dir(path) then
+        return os.rename(path, path) and true or false
+    end
+    return false
+end
+
+common.scandir = function(dir, filter)
+    local index, files, popen = 0, {}, io.popen
     if not filter then
         filter = function() return true end
     end
-    for filename in popen('ls -a "'..directory..'"'):lines() do
-        if filter(filename) then
-            i = i + 1
-            t[i] = filename
+    for file in popen('ls -a "'.. dir .. '"'):lines() do
+        if filter(file) then
+            index = index + 1
+            files[index] = file
         end
     end
-    return t
+    return files
 end
 
 common.has_value = function(table, value)

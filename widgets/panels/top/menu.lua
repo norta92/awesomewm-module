@@ -2,7 +2,7 @@ local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
 local common = require("utils.common")
-require("ui.menus")
+local main_menu = require("widgets.menus").main()
 
 -- theme.menu_button_icon
 -- theme.menu_button_width
@@ -20,9 +20,10 @@ local menu_icon = wibox.widget {
 
 local menu_buttons = {
     awful.button({ }, 1, function()
-        _G.main_menu:toggle({coords={x=0, y=0}})
+        main_menu:toggle({coords={x=0, y=0}})
     end),
 }
+
 local menu_widget = wibox.widget {
     {
         widget = menu_icon,

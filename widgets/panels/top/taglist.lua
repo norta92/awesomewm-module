@@ -2,7 +2,7 @@ local awful = require("awful")
 local theme = require("beautiful")
 local dpi = theme.xresources.apply_dpi
 local wibox = require("wibox")
-local mod = require("config.bindings.mod")
+local mod = require("bindings.mod")
 local common = require("utils.common")
 
 local client = client

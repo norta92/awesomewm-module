@@ -1,7 +1,7 @@
 local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
-local mod = require("config.bindings.mod")
+local mod = require("bindings.mod")
 local common = require("utils.common")
 
 -- theme.margins

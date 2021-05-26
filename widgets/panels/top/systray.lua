@@ -3,7 +3,7 @@ local theme = require("beautiful")
 local dpi = theme.xresources.apply_dpi
 local gears = require("gears")
 local wibox = require("wibox")
-local mod = require("config.bindings.mod")
+local mod = require("bindings.mod")
 local common = require("utils.common")
 
 -- theme.systray_visible

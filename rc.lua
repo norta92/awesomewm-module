@@ -12,7 +12,11 @@ local config_path = require("gears.filesystem").get_configuration_dir()
 theme.init(config_path .. "theme/antsy.lua")
 
 -- Load key and mouse bindings
-require("bindings")
+require("bindings.global.keys")
+require("bindings.global.mouse")
+require("bindings.client.keys")
+require("bindings.client.mouse")
+require("bindings.apps")
 
 -- Connect signals
 require("signals.screen")

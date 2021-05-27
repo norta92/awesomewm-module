@@ -11,14 +11,16 @@ local theme = require("beautiful")
 local config_path = require("gears.filesystem").get_configuration_dir()
 theme.init(config_path .. "theme/antsy.lua")
 
--- Load configuration
-require("config")
+-- Load key and mouse bindings
+require("bindings")
 
--- Load interface
-require("ui.panels")
-require("ui.menus")
-require("ui.titlebars")
-require("ui.desktop.wallpaper")
+-- Connect signals
+require("signals.screen")
+require("signals.tag")
+require("signals.client")
+
+-- Load rules
+require("rules")
 
 -- XDG autostart
 require("utils.autostart")

@@ -18,7 +18,6 @@ local _M = function(s)
         { -- Left widgets
             require("widgets.panels.top.menu")(),
             require("widgets.panels.top.taglist")(s),
-            --require("widgets.panels.top.prompt")(s),
             require("widgets.panels.top.layout")(s),
             layout = wibox.layout.fixed.horizontal,
             spacing = theme.panel_spacing,
@@ -34,6 +33,7 @@ local _M = function(s)
             right = theme.panel_spacing,
         },
         { -- Right widgets
+            require("widgets.panels.top.prompt")(s),
             require("widgets.panels.top.systray"),
             require("widgets.panels.top.clock")(),
             require("widgets.panels.top.session")(),

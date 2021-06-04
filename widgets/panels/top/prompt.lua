@@ -2,7 +2,6 @@ local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
 local mod = require("bindings.mod")
-local common = require("utils.common")
 
 local _M = function(s)
 
@@ -22,9 +21,6 @@ local _M = function(s)
         },
         widget = wibox.container.background,
     }
-
-    prompt_widget:connect_signal("mouse::enter", common.on_hover_color)
-    prompt_widget:connect_signal("mouse::leave", common.on_unhover_color)
 
     return prompt_widget
 end

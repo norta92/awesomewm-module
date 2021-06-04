@@ -2,17 +2,21 @@ local awful = require("awful")
 local spawn = awful.spawn
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 require("awful.hotkeys_popup.keys")
+
 local apps = require("config.apps")
 local mod = require("bindings.mod")
-
-local main_menu = require("widgets.menus").main()
+local common = require("utils.common")
 
 -- Core Awesome
 awful.keyboard.append_global_keybindings({
     awful.key({ mod.super }, "Return", function() spawn(apps.terminal) end,
               {description = "open a terminal", group = "Awesome: core"}),
-    awful.key({ mod.super }, "w", function() main_menu:show({coords={x=0, y=0}}) end,
+    awful.key({ mod.super }, "w", function() _G.main_menu:show({coords={x=0, y=0}}) end,
               {description = "show main menu", group = "Awesome: core"}),
+    awful.key({ mod.super, mod.alt }, "l", function()
+            _G.session_menu:show({coords=common.session_position()})
+        end,
+              {description = "show session menu", group = "Awesome: core"}),
     awful.key({ mod.super }, "s", hotkeys_popup.show_help,
               {description="show help", group="Awesome: core"}),
     awful.key({ mod.super, mod.ctrl }, "r", awesome.restart,

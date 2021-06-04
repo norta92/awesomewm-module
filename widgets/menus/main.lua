@@ -1,13 +1,10 @@
 local theme = require("beautiful")
-local freedesktop = require("widgets.menus.freedesktop")
+local freedesktop = require("freedesktop.menu")
 local awesome_menu = require("widgets.menus.awesome")
 local apps = require("config.apps")
 
-local _M = {}
-
-_M.main = function()
+local _M = function()
     return freedesktop.build({
-        icon_size = theme.menu_height,
         before = {
             { "&Awesome", awesome_menu, theme.awesome_icon },
             { "Open &Terminal", apps.terminal, theme.terminal_icon },

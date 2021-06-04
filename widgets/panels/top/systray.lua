@@ -6,12 +6,6 @@ local wibox = require("wibox")
 local mod = require("bindings.mod")
 local common = require("utils.common")
 
--- theme.systray_visible
--- theme.systray_hidden
--- theme.margins
--- theme.panel_margin
--- theme.ui_color
-
 local systray = wibox.widget {
     {
         widget = wibox.widget.systray
@@ -67,7 +61,6 @@ toggle_button:buttons(
 )
 
 systray_widget:connect_signal("mouse::enter", common.on_hover_color)
-
 systray_widget:connect_signal("mouse::leave", common.on_unhover_color)
 
 awful.keyboard.append_global_keybindings({
@@ -79,11 +72,9 @@ awful.keyboard.append_global_keybindings({
             toggle_button:set_image(theme.systray_hidden)
         end
     end,
-    {description = "Toggle systray", group = "Awesome: widgets"})
+    {description = "toggle systray", group = "Awesome: extras"})
 })
 
-local systray_wrapper = awful.widget.only_on_screen(systray_widget, 'primary')
-
-return systray_wrapper
+return awful.widget.only_on_screen(systray_widget, 'primary')
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

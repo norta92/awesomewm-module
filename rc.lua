@@ -19,8 +19,8 @@ require("bindings.client.mouse")
 require("bindings.apps")
 
 -- Connect signals
-require("signals.screen")
 require("signals.tag")
+require("signals.screen")
 require("signals.client")
 
 -- Load rules
@@ -28,5 +28,8 @@ require("rules")
 
 -- XDG autostart
 require("utils.autostart")
+
+-- Wallpaper shuffler
+require("utils.wallpaper")
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

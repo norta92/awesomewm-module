@@ -4,13 +4,7 @@ local dpi = theme.xresources.apply_dpi
 local wibox = require("wibox")
 local common = require("utils.common")
 
--- theme.border_width
--- theme.tasklist_item_width
--- theme.menu_width
--- theme.margins
--- theme.spacing
-
-local tasklist = function(s)
+local _M = function(s)
 
     local task_buttons = {
         awful.button({ }, 1, function(c)
@@ -84,6 +78,6 @@ local tasklist = function(s)
     return task_widget
 end
 
-return tasklist
+return _M
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

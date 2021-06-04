@@ -1,3 +1,4 @@
+local awful = require("awful")
 local theme = require("beautiful")
 local lfs = require("lfs")
 
@@ -57,6 +58,21 @@ common.on_unhover_color = function(widget)
     if widget.has_backup then
         widget.bg = widget.backup
     end
+end
+
+common.session_position = function()
+    local current = awful.screen.focused().index
+    local screen_width = 0
+    local menu_width = theme.menu_width+(theme.menu_border_width*2)
+    for s = 1, screen.count() do
+        screen_width = screen_width + screen[s].geometry.width
+        if s == current then break end
+    end
+
+    return {
+        x = screen_width-menu_width,
+        y = 0,
+    }
 end
 
 return common

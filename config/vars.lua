@@ -20,7 +20,8 @@ local vars = {
     recolor_titlebar_icons = false,
     recolor_panel_icons = true,
     recolor_layout_icons = true,
-    recolor_menu_icons = true,
+    recolor_menu_icons = false,
+    recolor_session_icons = false,
     -- Dynamic opacity
     dynamic_opacity = {
         focus = 1,

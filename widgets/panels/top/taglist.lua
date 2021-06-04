@@ -7,12 +7,7 @@ local common = require("utils.common")
 
 local client = client
 
--- theme.spacing
--- theme.margins
--- theme.taglist_width
--- theme.border_width
-
-local taglist = function(s)
+local _M = function(s)
 
     local tag_buttons = {
         awful.button({ }, 1, function(t)
@@ -83,6 +78,6 @@ local taglist = function(s)
     return tag_widget
 end
 
-return taglist
+return _M
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

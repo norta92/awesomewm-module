@@ -8,10 +8,9 @@ local awesome = awesome
 
 local menu = {
    { "Show Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end, theme.hotkeys_icon },
-   { "Read Manaul", apps.terminal .. " -e man awesome", theme.manual_icon },
-   { "Edit Config", apps.editor_cmd .. " " .. awesome.conffile, theme.editor_icon },
-   { "Lock Desktop", function() spawn(apps.screenlocker) end, theme.screenlock_icon },
-   { "Restart Desktop", awesome.restart, theme.restart_icon },
+   { "Read Manaul", function() spawn(apps.terminal .. " -e man awesome") end, theme.manual_icon },
+   { "Edit Config", function() spawn(apps.editor_cmd .. " " .. awesome.conffile) end, theme.editor_icon },
+   { "Restart Desktop", function() awesome.restart() end, theme.restart_icon },
    { "Exit Desktop", function() awesome.quit() end, theme.exit_icon },
 }
 

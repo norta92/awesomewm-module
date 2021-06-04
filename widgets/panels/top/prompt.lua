@@ -4,9 +4,7 @@ local wibox = require("wibox")
 local mod = require("bindings.mod")
 local common = require("utils.common")
 
--- theme.margins
-
-local promptbox = function(s)
+local _M = function(s)
 
     s.prompt = awful.widget.prompt()
 
@@ -26,7 +24,6 @@ local promptbox = function(s)
     }
 
     prompt_widget:connect_signal("mouse::enter", common.on_hover_color)
-
     prompt_widget:connect_signal("mouse::leave", common.on_unhover_color)
 
     return prompt_widget
@@ -47,6 +44,6 @@ awful.keyboard.append_global_keybindings({
               {description = "lua execute prompt", group = "Awesome: core"}),
 })
 
-return promptbox
+return _M
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

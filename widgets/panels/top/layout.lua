@@ -3,9 +3,7 @@ local theme = require("beautiful")
 local wibox = require("wibox")
 local common = require("utils.common")
 
--- theme.margins
-
-local layoutbox = function(s)
+local _M = function(s)
 
     local layout_buttons = {
         awful.button({ }, 1, function() awful.layout.inc( 1) end),
@@ -28,12 +26,11 @@ local layoutbox = function(s)
     )
 
     layout_widget:connect_signal("mouse::enter", common.on_hover_color)
-
     layout_widget:connect_signal("mouse::leave", common.on_unhover_color)
 
     return layout_widget
 end
 
-return layoutbox
+return _M
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

@@ -182,13 +182,20 @@ theme.menu_button_width         = dpi(36)
 theme.menu_button_border_color  = theme.ui_alt_color
 theme.menu_button_border_width  = dpi(0)
 
+-- Session widget
+theme.session_button_fg            = theme.ui_alt_color
+theme.session_button_bg            = theme.ui_color
+theme.session_button_width         = dpi(20)
+theme.session_button_border_color  = theme.ui_alt_color
+theme.session_button_border_width  = dpi(0)
+
 -- Menus
 theme.menu_font                 = theme.font
 theme.menu_width                = dpi(160)
 theme.menu_height               = dpi(20)
 theme.menu_border_color         = theme.border_color_active
 theme.menu_border_width         = theme.border_width
-theme.menu_submenu_icon         = assets_path .. "menu/submenu.svg"
+theme.menu_submenu_icon         = assets_path .. "menus/submenu.svg"
 
 -- Tooltips
 theme.tooltip_fg                = theme.text_color
@@ -291,26 +298,46 @@ if vars.recolor_layout_icons then
 end
 
 -- Custom menu icons
-theme.terminal_icon             = assets_path .. "menu/terminal-emulator.svg"
-theme.filemanager_icon          = assets_path .. "menu/file-manager.svg"
-theme.hotkeys_icon              = assets_path .. "menu/show-hotkeys.svg"
-theme.manual_icon               = assets_path .. "menu/read-manual.svg"
-theme.editor_icon               = assets_path .. "menu/edit-config.svg"
-theme.screenlock_icon           = assets_path .. "menu/session-lock.svg"
-theme.restart_icon              = assets_path .. "menu/session-restart.svg"
-theme.exit_icon                 = assets_path .. "menu/session-exit.svg"
+theme.terminal_icon             = assets_path .. "menus/terminal-emulator.svg"
+theme.filemanager_icon          = assets_path .. "menus/file-manager.svg"
+theme.hotkeys_icon              = assets_path .. "menus/show-hotkeys.svg"
+theme.manual_icon               = assets_path .. "menus/read-manual.svg"
+theme.editor_icon               = assets_path .. "menus/edit-config.svg"
+theme.restart_icon              = assets_path .. "menus/session-restart.svg"
 
 if vars.recolor_menu_icons then
-    theme = theme_assets.recolor_layout(theme, theme.ui_alt_color)
+    theme.terminal_icon = recolor_image(theme.terminal_icon, theme.ui_alt_color)
+    theme.filemanager_icon = recolor_image(theme.filemanager_icon, theme.ui_alt_color)
+    theme.hotkeys_icon = recolor_image(theme.hotkeys_icon, theme.ui_alt_color)
+    theme.manual_icon = recolor_image(theme.manual_icon, theme.ui_alt_color)
+    theme.editor_icon = recolor_image(theme.editor_icon, theme.ui_alt_color)
+    theme.restart_icon = recolor_image(theme.restart_icon, theme.ui_alt_color)
+end
+
+-- Session menu icons
+theme.screenlock_icon           = assets_path .. "menus/session-lock.svg"
+theme.exit_icon                 = assets_path .. "menus/session-exit.svg"
+theme.reboot_icon               = assets_path .. "menus/system-reboot.svg"
+theme.suspend_icon              = assets_path .. "menus/system-suspend.svg"
+theme.poweroff_icon             = assets_path .. "menus/system-shutdown.svg"
+
+if vars.recolor_session_icons then
+    theme.screenlock_icon = recolor_image(theme.screenlock_icon, theme.ui_alt_color)
+    theme.exit_icon = recolor_image(theme.exit_icon, theme.ui_alt_color)
+    theme.reboot_icon = recolor_image(theme.reboot_icon, theme.ui_alt_color)
+    theme.suspend_icon = recolor_image(theme.suspend_icon, theme.ui_alt_color)
+    theme.poweroff_icon = recolor_image(theme.poweroff_icon, theme.ui_alt_color)
 end
 
 -- Panel widget icons
 theme.menu_button_icon          = assets_path .. "panel/menu-icon.svg"
+theme.session_button_icon       = assets_path .. "panel/session-menu.svg"
 theme.systray_visible           = assets_path .. "panel/systray-visible.svg"
 theme.systray_hidden            = assets_path .. "panel/systray-hidden.svg"
 
 if vars.recolor_panel_icons then
     theme.menu_button_icon = recolor_image(theme.menu_button_icon, theme.menu_button_fg)
+    theme.session_button_icon = recolor_image(theme.session_button_icon, theme.menu_button_fg)
     theme.systray_visible = recolor_image(theme.systray_visible, theme.ui_alt_color)
     theme.systray_hidden = recolor_image(theme.systray_hidden, theme.ui_alt_color)
 end

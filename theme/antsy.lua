@@ -315,14 +315,14 @@ if vars.recolor_menu_icons then
 end
 
 -- Session menu icons
-theme.screenlock_icon           = assets_path .. "menus/session-lock.svg"
+theme.lockscreen_icon           = assets_path .. "menus/session-lock.svg"
 theme.exit_icon                 = assets_path .. "menus/session-exit.svg"
 theme.reboot_icon               = assets_path .. "menus/system-reboot.svg"
 theme.suspend_icon              = assets_path .. "menus/system-suspend.svg"
 theme.poweroff_icon             = assets_path .. "menus/system-shutdown.svg"
 
 if vars.recolor_session_icons then
-    theme.screenlock_icon = recolor_image(theme.screenlock_icon, theme.ui_alt_color)
+    theme.lockscreen_icon = recolor_image(theme.lockscreen_icon, theme.ui_alt_color)
     theme.exit_icon = recolor_image(theme.exit_icon, theme.ui_alt_color)
     theme.reboot_icon = recolor_image(theme.reboot_icon, theme.ui_alt_color)
     theme.suspend_icon = recolor_image(theme.suspend_icon, theme.ui_alt_color)

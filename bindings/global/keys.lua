@@ -23,6 +23,12 @@ awful.keyboard.append_global_keybindings({
               {description = "reload awesome", group = "Awesome: core"}),
     awful.key({ mod.super, mod.ctrl }, "q", awesome.quit,
               {description = "quit awesome", group = "Awesome: core"}),
+    awful.key({ mod.super, mod.ctrl }, "b", function ()
+             for s in screen do
+                s.panel.visible = not s.panel.visible
+            end
+        end,
+              {description = "toggle wibar", group = "Awesome: core"}),
 })
 
 -- Tags

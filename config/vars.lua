@@ -1,6 +1,6 @@
 local awful = require("awful")
 
-local vars = {
+local _M = {
     -- List of named tags or nil
     --tag_list = {' term', ' webs', ' comm', ' code', ' util', ' play'},
     tag_list = nil,
@@ -24,21 +24,21 @@ local vars = {
     recolor_session_icons = false,
     -- Dynamic opacity
     dynamic_opacity = {
-        focus = 1,
-        unfocus = 0.9,
+        focus = 0.95,
+        unfocus = 0.8,
     },
     exclude_opacity = {
-        instance = {"vlc"},
-        class = {"mpv", "vlc"},
+        instance = {"vlc", "valheim.x86_64"},
+        class = {"mpv", "vlc", "valheim.x86_64"},
     },
     -- Wallpaper
-    wallpaper_path = os.getenv("HOME") .. "/Wallpapers/Shuffle/",
+    wallpaper_path = nil,
     wallpaper_mode = 3,
     wallpaper_color = "#333",
     wallpaper_span = false,
-    wallpaper_timeout = 300,
+    wallpaper_timeout = 3600,
 }
 
-return vars
+return _M
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

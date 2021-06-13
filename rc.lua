@@ -1,15 +1,24 @@
 -- awesome_mode: api-level=4:screen=on
-
 -- Load LuaRocks, if installed
 pcall(require, "luarocks.loader")
 
 -- Error handling
 require("utils.errors")
 
+---- Load globals
+--require("config")
+
 -- Load theme
-local theme = require("beautiful")
-local config_path = require("gears.filesystem").get_configuration_dir()
-theme.init(config_path .. "theme/antsy.lua")
+local themes = {
+    "antsy-next",       -- 1
+    "antsy-classic",    -- 2
+    "tango",            -- 3
+}
+
+local beautiful = require("beautiful")
+beautiful.init(string.format(
+    "%s/.config/awesome/themes/%s/theme.lua",
+    os.getenv("HOME"), themes[1]))
 
 -- Load key and mouse bindings
 require("bindings.global.keys")

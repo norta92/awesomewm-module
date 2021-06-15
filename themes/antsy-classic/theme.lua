@@ -71,12 +71,12 @@ theme.alpha                     = "e6" -- 90%
 
 -- Misc options
 theme.useless_gap               = dpi(4)
-theme.border_width              = dpi(1)
+theme.border_width              = dpi(2)
 theme.border_radius             = dpi(0)
 theme.separator                 = " "           -- custom
 theme.spacing                   = dpi(2)        -- custom
 theme.margins                   = dpi(2)        -- custom
-theme.opacity                   = 0.9           -- custom
+theme.opacity                   = 1.0           -- custom
 
 -- General
 theme.fg_normal                 = theme.text_color

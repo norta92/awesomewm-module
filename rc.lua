@@ -5,17 +5,17 @@ pcall(require, "luarocks.loader")
 -- Error handling
 require("utils.errors")
 
----- Load globals
---require("config")
+-- Load globals
+require("config")
 
 -- Load theme
+local beautiful = require("beautiful")
 local themes = {
     "antsy-next",       -- 1
     "antsy-classic",    -- 2
     "tango",            -- 3
 }
 
-local beautiful = require("beautiful")
 beautiful.init(string.format(
     "%s/.config/awesome/themes/%s/theme.lua",
     os.getenv("HOME"), themes[1]))

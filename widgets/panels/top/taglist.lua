@@ -3,7 +3,7 @@ local theme = require("beautiful")
 local dpi = theme.xresources.apply_dpi
 local wibox = require("wibox")
 local mod = require("bindings.mod")
-local common = require("utils.common")
+local utils = require("utils")
 
 local client = client
 
@@ -30,8 +30,8 @@ local _M = function(s)
     }
 
     local function hover_callback(widget)
-        widget:connect_signal("mouse::enter", common.on_hover_color)
-        widget:connect_signal("mouse::leave", common.on_unhover_color)
+        widget:connect_signal("mouse::enter", utils.on_hover_color)
+        widget:connect_signal("mouse::leave", utils.on_unhover_color)
     end
 
     local tag_template = {

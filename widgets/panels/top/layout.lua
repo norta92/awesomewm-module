@@ -1,7 +1,7 @@
 local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
-local common = require("utils.common")
+local utils = require("utils")
 
 local _M = function(s)
 
@@ -25,8 +25,8 @@ local _M = function(s)
         )
     )
 
-    layout_widget:connect_signal("mouse::enter", common.on_hover_color)
-    layout_widget:connect_signal("mouse::leave", common.on_unhover_color)
+    layout_widget:connect_signal("mouse::enter", utils.on_hover_color)
+    layout_widget:connect_signal("mouse::leave", utils.on_unhover_color)
 
     return layout_widget
 end

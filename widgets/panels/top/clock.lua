@@ -2,7 +2,7 @@ local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
 local calendar = require("awful.widget.calendar_popup").month()
-local common = require("utils.common")
+local utils = require("utils")
 
 local _M = function()
 
@@ -31,8 +31,8 @@ local _M = function()
     calendar:attach(clock_widget, "tr", {on_hover=false})
     calendar.opacity = theme.panel_opacity
 
-    clock_widget:connect_signal("mouse::enter", common.on_hover_color)
-    clock_widget:connect_signal("mouse::leave", common.on_unhover_color)
+    clock_widget:connect_signal("mouse::enter", utils.on_hover_color)
+    clock_widget:connect_signal("mouse::leave", utils.on_unhover_color)
 
     return clock_widget
 end

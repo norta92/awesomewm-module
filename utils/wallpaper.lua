@@ -3,7 +3,7 @@ local gears = require("gears")
 
 local mod = require("bindings.mod")
 local vars = require("config.vars")
-local common = require("utils.common")
+local utils = require("utils")
 
 local screen = screen
 
@@ -76,7 +76,7 @@ local color = vars.wallpaper_color or "#333"
 local timeout = vars.wallpaper_timeout or 300
 local timer = gears.timer { timeout = timeout }
 
-if common.is_dir(path) then
+if utils.is_dir(path) then
     awful.spawn.easy_async('ls -a "'.. path .. '"', function(lines)
         local files = get_files(lines)
         local index = get_index(1, #files)
@@ -113,7 +113,7 @@ if common.is_dir(path) then
             set_keybinding(timer)
         end
     end)
-elseif common.is_file(path) then
+elseif utils.is_file(path) then
     for s = 1, screen.count() do
         if span then s = nil end
         set_wallpaper(path, mode, s)

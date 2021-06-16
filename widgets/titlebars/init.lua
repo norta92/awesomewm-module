@@ -65,7 +65,6 @@ local _M = function(c)
         },
         layout = wibox.layout.align.horizontal
     }
-    awful.titlebar.enable_tooltip = false
 end
 
 return _M

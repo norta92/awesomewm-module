@@ -7,12 +7,12 @@
 ------------------------------------------------------------------------------
 --
 
-local io = io
-local ipairs = ipairs
 local os = os
 local awful = require("awful")
 local theme = require("beautiful")
 local lfs = require("lfs")
+local cairo = require('lgi').cairo
+local rsvg = require('lgi').Rsvg
 
 -- theme.hover_color
 
@@ -94,6 +94,26 @@ _M.set_menu_position = function(corner)
         }
     end
 end
+
+--- Create image from raw SVG, optional replace color.
+---- @param svg
+---- @param color
+---- @param replace
+---- @param size
+_M.svg_to_surface = function(svg, color, replace, size)
+    if not svg then return end
+    color = color or nil
+    replace = replace or "#ffffff"
+    size = size or 16
+    local surface = cairo.ImageSurface(cairo.Format.ARGB32, size, size)
+    local context = cairo.Context(surface)
+    if color then
+        svg = string.gsub(svg, replace, color)
+    end
+    rsvg.Handle.new_from_data(svg):render_cairo(context)
+    return surface
+end
+
 
 return _M
 

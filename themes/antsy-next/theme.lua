@@ -12,6 +12,7 @@ local gears                     = require("gears")
 local recolor                   = gears.color.recolor_image
 local config_path               = gears.filesystem.get_configuration_dir()
 local assets_path               = config_path .. "themes/antsy-next/assets/"
+local svg2surf                  = require("utils").svg_to_surface
 
 local theme = {}
 
@@ -245,28 +246,33 @@ theme.awesome_icon = assets.awesome_icon(
 theme.icon_theme = "Antsy"
 
 -- Titlebar icons
-theme.titlebar_minimize_button_normal                   = assets_path .. "titlebar/minimize_normal.svg"
-theme.titlebar_minimize_button_normal_hover             = assets_path .. "titlebar/minimize_normal_hover.svg"
-theme.titlebar_minimize_button_focus                    = assets_path .. "titlebar/minimize_focus.svg"
-theme.titlebar_minimize_button_focus_hover              = assets_path .. "titlebar/minimize_focus_hover.svg"
-theme.titlebar_minimize_button_focus_press              = assets_path .. "titlebar/minimize_focus_press.svg"
-theme.titlebar_close_button_normal                      = assets_path .. "titlebar/close_normal.svg"
-theme.titlebar_close_button_normal_hover                = assets_path .. "titlebar/close_normal_hover.svg"
-theme.titlebar_close_button_focus                       = assets_path .. "titlebar/close_focus.svg"
-theme.titlebar_close_button_focus_hover                 = assets_path .. "titlebar/close_focus_hover.svg"
-theme.titlebar_close_button_focus_press                 = assets_path .. "titlebar/close_focus_press.svg"
-theme.titlebar_maximized_button_focus_active            = assets_path .. "titlebar/maximized_focus_active.svg"
-theme.titlebar_maximized_button_focus_active_hover      = assets_path .. "titlebar/maximized_focus_active_hover.svg"
-theme.titlebar_maximized_button_focus_active_press      = assets_path .. "titlebar/maximized_focus_active_press.svg"
-theme.titlebar_maximized_button_focus_inactive          = assets_path .. "titlebar/maximized_focus_inactive.svg"
-theme.titlebar_maximized_button_focus_inactive_hover    = assets_path .. "titlebar/maximized_focus_inactive_hover.svg"
-theme.titlebar_maximized_button_focus_inactive_press    = assets_path .. "titlebar/maximized_focus_inactive_press.svg"
-theme.titlebar_maximized_button_normal_active           = assets_path .. "titlebar/maximized_normal_active.svg"
-theme.titlebar_maximized_button_normal_active_hover     = assets_path .. "titlebar/maximized_normal_active_hover.svg"
-theme.titlebar_maximized_button_normal_active_press     = assets_path .. "titlebar/maximized_normal_active_press.svg"
-theme.titlebar_maximized_button_normal_inactive         = assets_path .. "titlebar/maximized_normal_inactive.svg"
-theme.titlebar_maximized_button_normal_inactive_hover   = assets_path .. "titlebar/maximized_normal_inactive_hover.svg"
-theme.titlebar_maximized_button_normal_inactive_press   = assets_path .. "titlebar/maximized_normal_inactive_press.svg"
+local minimize_svg = '<svg height="16" width="16"><path d="M4 7v3h8V7z" fill="#ffffff"/></svg>'
+local maximize_svg = '<svg height="16" width="16"><path d="M6.406 4h4.504c.6 0 1.087.491 1.09 1.09v4.504zm3.206 8H5.09c-.6 0-1.09-.491-1.09-1.09V6.388L9.612 12" fill="#ffffff" fill-rule="evenodd"/></svg>'
+local close_svg = '<svg height="16" width="16"><path d="M4.003 4h1 .031a1.04 1.04 0 0 1 .687.312l2.28 2.281 2.312-2.281c.266-.23.446-.305.687-.312h1v1c0 .286-.034.551-.25.75l-2.28 2.281 2.249 2.25c.188.188.281.453.281.719v1h-1c-.265 0-.53-.093-.718-.281l-2.28-2.281-2.28 2.281c-.188.188-.453.281-.718.281h-1v-1c0-.265.093-.531.281-.719l2.28-2.25-2.28-2.281c-.211-.195-.303-.469-.281-.75z" fill="#ffffff"/></svg>'
+local close_alt_svg = '<svg height="16" width="16"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 1 0 8 2zM4.004 4h.998.031a1.04 1.04 0 0 1 .688.313l2.281 2.281 2.311-2.281c.266-.23.447-.306.688-.312h1v1c0 .286-.034.551-.25.75L9.471 8.031l2.248 2.25c.188.188.281.453.281.719v1h-1c-.265 0-.531-.093-.719-.281L8.002 9.438l-2.281 2.281c-.188.188-.454.281-.719.281h-.998v-1c0-.265.093-.531.281-.719l2.279-2.25L4.285 5.75c-.211-.195-.303-.469-.281-.75z" fill="#ffffff"/></svg>'
+
+theme.titlebar_minimize_button_normal                   = svg2surf(minimize_svg, theme.inactive_color)
+theme.titlebar_minimize_button_normal_hover             = svg2surf(minimize_svg, theme.dark_yellow)
+theme.titlebar_minimize_button_focus                    = svg2surf(minimize_svg, theme.active_color)
+theme.titlebar_minimize_button_focus_hover              = svg2surf(minimize_svg, theme.yellow)
+theme.titlebar_minimize_button_focus_press              = svg2surf(minimize_svg, theme.active_accent)
+theme.titlebar_maximized_button_focus_active            = svg2surf(maximize_svg, theme.active_color)
+theme.titlebar_maximized_button_focus_active_hover      = svg2surf(maximize_svg, theme.green)
+theme.titlebar_maximized_button_focus_active_press      = svg2surf(maximize_svg, theme.active_accent)
+theme.titlebar_maximized_button_focus_inactive          = svg2surf(maximize_svg, theme.active_color)
+theme.titlebar_maximized_button_focus_inactive_hover    = svg2surf(maximize_svg, theme.green)
+theme.titlebar_maximized_button_focus_inactive_press    = svg2surf(maximize_svg, theme.active_accent)
+theme.titlebar_maximized_button_normal_active           = svg2surf(maximize_svg, theme.inactive_color)
+theme.titlebar_maximized_button_normal_active_hover     = svg2surf(maximize_svg, theme.dark_green)
+theme.titlebar_maximized_button_normal_active_press     = svg2surf(maximize_svg, theme.inactive_accent)
+theme.titlebar_maximized_button_normal_inactive         = svg2surf(maximize_svg, theme.inactive_color)
+theme.titlebar_maximized_button_normal_inactive_hover   = svg2surf(maximize_svg, theme.dark_green)
+theme.titlebar_maximized_button_normal_inactive_press   = svg2surf(maximize_svg, theme.inactive_accent)
+theme.titlebar_close_button_normal                      = svg2surf(close_svg, theme.inactive_color)
+theme.titlebar_close_button_normal_hover                = svg2surf(close_alt_svg, theme.dark_red)
+theme.titlebar_close_button_focus                       = svg2surf(close_svg, theme.error_color)
+theme.titlebar_close_button_focus_hover                 = svg2surf(close_alt_svg, theme.red)
+theme.titlebar_close_button_focus_press                 = svg2surf(close_alt_svg, theme.error_accent)
 
 if vars.recolor_titlebar_icons then
     theme = assets.recolor_titlebar(theme, theme.inactive_color, "normal")

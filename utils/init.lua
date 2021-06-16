@@ -95,7 +95,7 @@ _M.set_menu_position = function(corner)
     end
 end
 
---- Create image from raw SVG, optional replace color.
+--- Create image from SVG, optional replace color.
 ---- @param svg
 ---- @param color
 ---- @param replace

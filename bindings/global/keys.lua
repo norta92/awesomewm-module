@@ -5,6 +5,8 @@ require("awful.hotkeys_popup.keys")
 
 local apps = require("config.apps")
 local mod = require("bindings.mod")
+local tagutil = require("utils.tags")
+local layout_list = require("config.vars").layout_list
 
 local menu_position = require("utils").set_menu_position
 
@@ -85,6 +87,16 @@ awful.keyboard.append_global_keybindings({
             end
         end,
     },
+    awful.key({ mod.super, mod.ctrl }, "n", function () tagutil.add_tag(layout_list[1]) end,
+              {description = "add new tag", group = "Awesome: tag"}),
+    awful.key({ mod.super, mod.ctrl }, "r", function () tagutil.rename_tag() end,
+              {description = "rename current tag", group = "Awesome: tag"}),
+    awful.key({ mod.super, mod.ctrl }, "[", function () tagutil.move_tag(1) end,   -- move to next tag
+              {description = "move to next tag", group = "Awesome: tag"}),
+    awful.key({ mod.super, mod.ctrl }, "]", function () tagutil.move_tag(-1) end, -- move to previous tag
+              {description = "move to previous tag", group = "Awesome: tag"}),
+    awful.key({ mod.super, mod.ctrl }, "d", function () tagutil.delete_tag() end,
+              {description = "delete current tag", group = "Awesome: tag"}),
 })
 
 

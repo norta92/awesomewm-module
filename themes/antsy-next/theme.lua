@@ -244,6 +244,13 @@ theme.awesome_icon = assets.awesome_icon(
 -- Icon theme
 theme.icon_theme = "Antsy"
 
+-- Panel widget icons
+local panel = svg_icons.panel
+theme.menu_button_icon      = svg2surf(panel.main_menu, theme.ui_alt_color, _, 24)
+theme.session_button_icon   = svg2surf(panel.session_menu, theme.ui_alt_color, _, 24)
+theme.systray_visible       = svg2surf(panel.systray_visible, theme.ui_alt_color, _, 24)
+theme.systray_hidden        = svg2surf(panel.systray_hidden, theme.ui_alt_color, _, 24)
+
 -- Titlebar icons
 local titlebar = svg_icons.titlebar
 theme.titlebar_minimize_button_normal                   = svg2surf(titlebar.minimize, theme.inactive_color)
@@ -269,89 +276,46 @@ theme.titlebar_close_button_focus                       = svg2surf(titlebar.clos
 theme.titlebar_close_button_focus_hover                 = svg2surf(titlebar.close_alt, theme.red)
 theme.titlebar_close_button_focus_press                 = svg2surf(titlebar.close_alt, theme.error_accent)
 
-if vars.recolor_titlebar_icons then
-    theme = assets.recolor_titlebar(theme, theme.inactive_color, "normal")
-    theme = assets.recolor_titlebar(theme, theme.active_color, "normal", "hover")
-    theme = assets.recolor_titlebar(theme, theme.active_accent, "normal", "press")
-    theme = assets.recolor_titlebar(theme, theme.active_color, "focus")
-    theme = assets.recolor_titlebar(theme, theme.focus_color, "focus", "hover")
-    theme = assets.recolor_titlebar(theme, theme.focus_accent, "focus", "press")
-end
-
 -- Layout icons
-theme.layout_fairh              = assets_path .. "layouts/fairhw.png"
-theme.layout_fairv              = assets_path .. "layouts/fairvw.png"
-theme.layout_floating           = assets_path .. "layouts/floatingw.png"
-theme.layout_magnifier          = assets_path .. "layouts/magnifierw.png"
-theme.layout_max                = assets_path .. "layouts/maxw.png"
-theme.layout_fullscreen         = assets_path .. "layouts/fullscreenw.png"
-theme.layout_tilebottom         = assets_path .. "layouts/tilebottomw.png"
-theme.layout_tileleft           = assets_path .. "layouts/tileleftw.png"
-theme.layout_tile               = assets_path .. "layouts/tilew.png"
-theme.layout_tiletop            = assets_path .. "layouts/tiletopw.png"
-theme.layout_spiral             = assets_path .. "layouts/spiralw.png"
-theme.layout_dwindle            = assets_path .. "layouts/dwindlew.png"
-theme.layout_cornernw           = assets_path .. "layouts/cornernww.png"
-theme.layout_cornerne           = assets_path .. "layouts/cornernew.png"
-theme.layout_cornersw           = assets_path .. "layouts/cornersww.png"
-theme.layout_cornerse           = assets_path .. "layouts/cornersew.png"
-
-if vars.recolor_layout_icons then
-    theme = assets.recolor_layout(theme, theme.ui_alt_color)
-end
+local layout = svg_icons.layout
+theme.layout_cornerne   = svg2surf(layout.cornerne, theme.ui_alt_color, _, 24)
+theme.layout_cornernw   = svg2surf(layout.cornernw, theme.ui_alt_color, _, 24)
+theme.layout_cornerse   = svg2surf(layout.cornerse, theme.ui_alt_color, _, 24)
+theme.layout_cornersw   = svg2surf(layout.cornersw, theme.ui_alt_color, _, 24)
+theme.layout_dwindle    = svg2surf(layout.dwindle, theme.ui_alt_color, _, 24)
+theme.layout_fairh      = svg2surf(layout.fairh, theme.ui_alt_color, _, 24)
+theme.layout_fairv      = svg2surf(layout.fairv, theme.ui_alt_color, _, 24)
+theme.layout_floating   = svg2surf(layout.floating, theme.ui_alt_color, _, 24)
+theme.layout_fullscreen = svg2surf(layout.fullscreen, theme.ui_alt_color, _, 24)
+theme.layout_magnifier  = svg2surf(layout.magnifier, theme.ui_alt_color, _, 24)
+theme.layout_max        = svg2surf(layout.max, theme.ui_alt_color, _, 24)
+theme.layout_spiral     = svg2surf(layout.spiral, theme.ui_alt_color, _, 24)
+theme.layout_tile       = svg2surf(layout.tile, theme.ui_alt_color, _, 24)
+theme.layout_tilebottom = svg2surf(layout.tilebottom, theme.ui_alt_color, _, 24)
+theme.layout_tileleft   = svg2surf(layout.tileleft, theme.ui_alt_color, _, 24)
+theme.layout_tiletop    = svg2surf(layout.tiletop, theme.ui_alt_color, _, 24)
 
 -- Menu icons
 local menu = svg_icons.menu
-theme.menu_submenu_icon         = svg2surf(menu.submenu, theme.ui_alt_color, _, 24)
+theme.menu_submenu_icon = svg2surf(menu.submenu, theme.text_color, _, 24)
 
 -- Custom menu icons
-theme.terminal_icon             = assets_path .. "menus/terminal-emulator.svg"
-theme.filemanager_icon          = assets_path .. "menus/file-manager.svg"
-theme.hotkeys_icon              = assets_path .. "menus/show-hotkeys.svg"
-theme.manual_icon               = assets_path .. "menus/read-manual.svg"
-theme.editor_icon               = assets_path .. "menus/edit-config.svg"
-theme.restart_icon              = assets_path .. "menus/session-restart.svg"
-
-if vars.recolor_menu_icons then
-    theme.terminal_icon = recolor(theme.terminal_icon, theme.ui_alt_color)
-    theme.filemanager_icon = recolor(theme.filemanager_icon, theme.ui_alt_color)
-    theme.hotkeys_icon = recolor(theme.hotkeys_icon, theme.ui_alt_color)
-    theme.manual_icon = recolor(theme.manual_icon, theme.ui_alt_color)
-    theme.editor_icon = recolor(theme.editor_icon, theme.ui_alt_color)
-    theme.restart_icon = recolor(theme.restart_icon, theme.ui_alt_color)
-end
+theme.terminal_icon     = assets_path .. "menus/terminal-emulator.svg"
+theme.filemanager_icon  = assets_path .. "menus/file-manager.svg"
+theme.hotkeys_icon      = assets_path .. "menus/show-hotkeys.svg"
+theme.manual_icon       = assets_path .. "menus/read-manual.svg"
+theme.editor_icon       = assets_path .. "menus/edit-config.svg"
+theme.restart_icon      = assets_path .. "menus/session-restart.svg"
 
 -- Session menu icons
-theme.lockscreen_icon           = assets_path .. "menus/session-lock.svg"
-theme.exit_icon                 = assets_path .. "menus/session-exit.svg"
-theme.reboot_icon               = assets_path .. "menus/system-reboot.svg"
-theme.suspend_icon              = assets_path .. "menus/system-suspend.svg"
-theme.poweroff_icon             = assets_path .. "menus/system-shutdown.svg"
-
-if vars.recolor_session_icons then
-    theme.lockscreen_icon = recolor(theme.lockscreen_icon, theme.ui_alt_color)
-    theme.exit_icon = recolor(theme.exit_icon, theme.ui_alt_color)
-    theme.reboot_icon = recolor(theme.reboot_icon, theme.ui_alt_color)
-    theme.suspend_icon = recolor(theme.suspend_icon, theme.ui_alt_color)
-    theme.poweroff_icon = recolor(theme.poweroff_icon, theme.ui_alt_color)
-end
-
--- Panel widget icons
-local panel = svg_icons.panel
-theme.menu_button_icon          = svg2surf(panel.main_menu, theme.ui_alt_color, _, 24)
-theme.session_button_icon       = svg2surf(panel.session_menu, theme.ui_alt_color, _, 24)
-theme.systray_visible           = svg2surf(panel.systray_visible, theme.ui_alt_color, _, 24)
-theme.systray_hidden            = svg2surf(panel.systray_hidden, theme.ui_alt_color, _, 24)
-
-if vars.recolor_panel_icons then
-    theme.menu_button_icon = recolor(theme.menu_button_icon, theme.menu_button_fg)
-    theme.session_button_icon = recolor(theme.session_button_icon, theme.menu_button_fg)
-    theme.systray_visible = recolor(theme.systray_visible, theme.ui_alt_color)
-    theme.systray_hidden = recolor(theme.systray_hidden, theme.ui_alt_color)
-end
+theme.lockscreen_icon   = assets_path .. "menus/session-lock.svg"
+theme.exit_icon         = assets_path .. "menus/session-exit.svg"
+theme.reboot_icon       = assets_path .. "menus/system-reboot.svg"
+theme.suspend_icon      = assets_path .. "menus/system-suspend.svg"
+theme.poweroff_icon     = assets_path .. "menus/system-shutdown.svg"
 
 -- Wallpaper
-vars.wallpaper_path             = assets_path .. "backgrounds/"
+vars.wallpaper_path     = assets_path .. "backgrounds/"
 
 return theme
 

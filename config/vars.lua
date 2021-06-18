@@ -16,12 +16,6 @@ local _M = {
         awful.layout.suit.tile.top,
         awful.layout.suit.tile.left,
     },
-    -- Recolor icons
-    recolor_titlebar_icons = false,
-    recolor_panel_icons = false,
-    recolor_layout_icons = true,
-    recolor_menu_icons = false,
-    recolor_session_icons = false,
     -- Dynamic opacity
     dynamic_opacity = {
         focus = 0.95,

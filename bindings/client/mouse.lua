@@ -1,3 +1,11 @@
+------------------------------------------------------------------------------
+----- Load client mouse bindings.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module bindings.client.mouse
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local mod = require("bindings.mod")
 

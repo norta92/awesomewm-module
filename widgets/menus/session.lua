@@ -1,8 +1,18 @@
+----- Session menu.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.menus.session
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local spawn = awful.spawn
 local theme = require("beautiful")
-local apps = require("config.apps")
+local apps = _G.conf.apps
 
+local awesome = awesome
+
+--- The session menu.
 local _M = function()
     return awful.menu({
         { "&Lock Desktop", function() spawn(apps.lockscreen) end, theme.lockscreen_icon },

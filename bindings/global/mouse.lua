@@ -1,13 +1,21 @@
+------------------------------------------------------------------------------
+----- Load global mouse bindings.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module bindings.global.mouse
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 
 awful.mouse.append_global_mousebindings({
     awful.button({ }, 1, function()
-        _G.main_menu:hide()
-        _G.session_menu:hide()
+        _G.menus.main:hide()
+        _G.menus.session:hide()
     end),
     awful.button({ }, 3, function()
-        _G.main_menu:hide()
-        _G.session_menu:hide()
+        _G.menus.main:hide()
+        _G.menus.session:hide()
     end),
 })
 

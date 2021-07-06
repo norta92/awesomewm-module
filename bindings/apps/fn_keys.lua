@@ -1,3 +1,11 @@
+------------------------------------------------------------------------------
+----- Setup Fn keys.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module bindings.apps.fn_keys
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local spawn = awful.spawn
 

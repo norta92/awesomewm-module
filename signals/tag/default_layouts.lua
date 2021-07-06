@@ -1,8 +1,17 @@
-local awful = require("awful")
-local vars = require("config.vars")
+------------------------------------------------------------------------------
+----- Add layout list to default layouts.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @function signals.screen.default_layouts
+------------------------------------------------------------------------------
 
+local awful = require("awful")
+local vars = _G.conf.vars
+
+--- Add default layouts.
 local _M = function()
-    awful.layout.append_default_layouts(vars.layout_list)
+    awful.layout.append_default_layouts(vars.layouts.list)
 end
 
 return _M

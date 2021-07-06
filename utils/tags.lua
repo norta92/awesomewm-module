@@ -1,39 +1,55 @@
--- Dynamic tagging from lain/util/init.lua
--- https://github.com/lcpz/lain
+------------------------------------------------------------------------------
+----- Tag utilites.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module utils.tags
+------------------------------------------------------------------------------
 
 local awful = require("awful")
 
 local _M = {}
 
--- Add a new tag
+-- Dynamic tagging from lain/util/init.lua
+-- https://github.com/lcpz/lain
+-- {{{
+
+--- Add a new tag.
+-- @param layout The default layout of the new tag.
 function _M.add_tag(layout)
+    local tags = awful.screen.focused().tags
     awful.prompt.run {
-        prompt       = "New: ",
+        prompt       = "Add: ",
+        text         = tostring(#tags+1),
         textbox      = awful.screen.focused().prompt.widget,
         exe_callback = function(name)
             if not name or #name == 0 then return end
-            awful.tag.add(name, { screen = awful.screen.focused(), layout = layout or awful.layout.suit.tile }):view_only()
+            awful.tag.add(name, {
+                screen = awful.screen.focused(),
+                layout = layout or awful.layout.suit.tile
+            }):view_only()
         end
     }
 end
 
--- Rename current tag
+--- Rename current tag.
 function _M.rename_tag()
+    local tag = awful.screen.focused().selected_tag
     awful.prompt.run {
-        prompt       = "Rename: ",
+        prompt       = "Edit: ",
+        text         = tag.name,
         textbox      = awful.screen.focused().prompt.widget,
         exe_callback = function(new_name)
             if not new_name or #new_name == 0 then return end
-            local t = awful.screen.focused().selected_tag
-            if t then
-                t.name = new_name
+            if tag then
+                tag.name = new_name
             end
         end
     }
 end
 
--- Move current tag
--- pos in {-1, 1} <-> {previous, next} tag position
+--- Move current tag.
+-- @param pos The direction to move tag (-1, 1).
 function _M.move_tag(pos)
     local tag = awful.screen.focused().selected_tag
     if tonumber(pos) <= -1 then
@@ -43,12 +59,15 @@ function _M.move_tag(pos)
     end
 end
 
--- Delete current tag
--- Any rule set on the tag shall be broken
+--- Delete current tag.
 function _M.delete_tag()
     local t = awful.screen.focused().selected_tag
     if not t then return end
     t:delete()
 end
 
+-- }}}
+
 return _M
+
+-- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

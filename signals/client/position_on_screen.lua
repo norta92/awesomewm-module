@@ -1,10 +1,23 @@
-local awful = require("awful")
+------------------------------------------------------------------------------
+----- Always place clients on screen.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module signals.client.position_on_screen
+------------------------------------------------------------------------------
 
+local awful = require("awful")
+local theme = require("beautiful")
+
+--- Always place clients on screen.
+---- @param c
 local _M = function(c)
-    if awesome.startup
-      and not c.size_hints.user_position
-      and not c.size_hints.program_position then
-        awful.placement.no_offscreen(c)
+    if not c.size_hints.user_position
+        and not c.size_hints.program_position then
+        awful.placement.no_offscreen(c, {
+            honor_workarea=true,
+            margins=theme.useless_gap
+        })
     end
 end
 

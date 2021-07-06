@@ -1,5 +1,14 @@
+------------------------------------------------------------------------------
+----- Urxvt.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module rules.apps.urxvt
+------------------------------------------------------------------------------
+
 local ruled = require("ruled")
 
+-- Urxvt rules.
 local _M = function()
     -- Make titlebar transparent to match terminal
     ruled.client.append_rule {

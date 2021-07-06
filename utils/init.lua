@@ -1,25 +1,23 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Utils library.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
----- @copyright 2021 Jeff M. Hubbard
+---- @copyright 2020-2021 Jeff M. Hubbard
 ---- @module utils
 ------------------------------------------------------------------------------
---
 
-local os = os
 local awful = require("awful")
 local theme = require("beautiful")
 local lfs = require("lfs")
 local cairo = require('lgi').cairo
 local rsvg = require('lgi').Rsvg
 
--- theme.hover_color
+local os, screen = os, screen
 
 local _M = {}
 
---- Check if path is a directory.
----- @param path
+--- Test if path is a directory.
+-- @param path The path to check.
 _M.is_dir = function(path)
     if type(path) ~= "string" then return false end
     local cd = lfs.currentdir()
@@ -28,8 +26,8 @@ _M.is_dir = function(path)
     return is
 end
 
---- Check if path is a file.
----- @param path
+--- Test if path is a file.
+-- @param path The path to check.
 _M.is_file = function(path)
     if type(path) ~= "string" then return false end
     if not _M.is_dir(path) then
@@ -38,54 +36,35 @@ _M.is_file = function(path)
     return false
 end
 
---- Set background color of widget, store previous.
----- @param widget
-_M.on_hover_color = function(widget)
-    if widget.bg ~= theme.hover_color then
-        widget.backup = widget.bg
-        widget.has_backup = true
-    end
-    widget.bg = theme.hover_color
-end
-
---- Restore background color of widget.
----- @param widget
-_M.on_unhover_color = function(widget)
-    if widget.has_backup then
-        widget.bg = widget.backup
-    end
-end
-
---- Calculate menu coords by corner (tl, tr, bl, br).
----- @param corner
+--- Calculate menu coords by corner.
+-- @param corner Then corner to position menu in (tl, tr, bl, br).
 _M.set_menu_position = function(corner)
-    local position = corner or "tl"
-    local screen_width = 0
-    local screen_height = 0
+    local width = 0
+    local height = 0
 
     local index = awful.screen.focused().index
     local menu_width = theme.menu_width+(theme.menu_border_width*2)
 
     for s = 1, screen.count() do
-        screen_width = screen_width + screen[s].geometry.width
-        screen_height = screen[s].geometry.height
+        width = width + screen[s].geometry.width
+        height = screen[s].geometry.height
         if s == index then break end
     end
 
-    if position == "tr" then
+    if corner == "tr" then
         return {
-            x = screen_width-menu_width,
+            x = width-menu_width,
             y = 0,
         }
-    elseif position == "bl" then
+    elseif corner == "bl" then
         return {
             x = 0,
-            y = screen_height,
+            y = height,
         }
-    elseif position == "br" then
+    elseif corner == "br" then
         return {
-            x = screen_width-menu_width,
-            y = screen_height,
+            x = width-menu_width,
+            y = height,
         }
     else
         return {
@@ -96,10 +75,10 @@ _M.set_menu_position = function(corner)
 end
 
 --- Create image from SVG, optional replace color.
----- @param svg
----- @param color
----- @param replace
----- @param size
+-- @param svg The string containing SVG data.
+-- @param color The color of resulting image
+-- @param replace The color to replace in data.
+-- @param size The size of the image
 _M.svg_to_surface = function(svg, color, replace, size)
     if not svg then return end
     color = color or nil
@@ -113,7 +92,6 @@ _M.svg_to_surface = function(svg, color, replace, size)
     rsvg.Handle.new_from_data(svg):render_cairo(context)
     return surface
 end
-
 
 return _M
 

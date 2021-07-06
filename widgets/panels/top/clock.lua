@@ -1,8 +1,16 @@
+----------------------------------------------------------------------------
+----- Clock widget with popup calendar.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.panels.top.clock
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
+local container = require("widgets.clickable-container")
 local calendar = require("awful.widget.calendar_popup").month()
-local utils = require("utils")
 
 local _M = function()
 
@@ -20,7 +28,7 @@ local _M = function()
             },
             layout = wibox.layout.align.vertical,
         },
-        widget = wibox.container.background,
+        widget = container,
     }
 
     function calendar.call_calendar(self, offset, position, _)
@@ -30,9 +38,6 @@ local _M = function()
 
     calendar:attach(clock_widget, "tr", {on_hover=false})
     calendar.opacity = theme.panel_opacity
-
-    clock_widget:connect_signal("mouse::enter", utils.on_hover_color)
-    clock_widget:connect_signal("mouse::leave", utils.on_unhover_color)
 
     return clock_widget
 end

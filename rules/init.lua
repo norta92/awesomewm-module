@@ -1,7 +1,17 @@
+------------------------------------------------------------------------------
+----- Rules configuration
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module rules
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local ruled = require("ruled")
 
 ruled.client.connect_signal("request::rules", function()
+
+    -- Matches all clients
     ruled.client.append_rule {
         id         = "global",
         rule       = { },

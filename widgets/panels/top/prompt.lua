@@ -1,7 +1,16 @@
+----------------------------------------------------------------------------
+----- Prompt widget.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.panels.top.prompt
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
 local mod = require("bindings.mod")
+local container = require("widgets.clickable-container")
 
 local _M = function(s)
 
@@ -19,7 +28,7 @@ local _M = function(s)
             },
             layout = wibox.layout.align.vertical,
         },
-        widget = wibox.container.background,
+        widget = container,
     }
 
     return prompt_widget

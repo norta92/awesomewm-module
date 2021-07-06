@@ -1,7 +1,15 @@
+----------------------------------------------------------------------------
+----- Layout indicator widget.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.panels.top.layout
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
-local utils = require("utils")
+local container = require("widgets.clickable-container")
 
 local _M = function(s)
 
@@ -15,7 +23,7 @@ local _M = function(s)
         buttons = layout_buttons,
     }
 
-    local layout_widget = wibox.container.background(
+    local layout_widget = container(
         wibox.container.margin(
             layoutbox,
             theme.margins,
@@ -24,9 +32,6 @@ local _M = function(s)
             theme.margins
         )
     )
-
-    layout_widget:connect_signal("mouse::enter", utils.on_hover_color)
-    layout_widget:connect_signal("mouse::leave", utils.on_unhover_color)
 
     return layout_widget
 end

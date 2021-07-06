@@ -1,13 +1,33 @@
+------------------------------------------------------------------------------
+----- Variables configuration
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module config.vars
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 
-local _M = {
+--- Variables table.
+local _M = {}
+
+_M.themes = {
+    "antsy-next",       -- 1
+    "antsy-classic",    -- 2
+}
+_M.themes.active = _M.themes[1]
+
+_M.tags = {
     -- List of named tags or nil
-    --tag_list = {' term', ' webs', ' comm', ' code', ' util', ' play'},
-    tag_list = nil,
+    --list = {' term', ' webs', ' comm', ' code', ' util', ' play'},
+    list = nil,
     -- Number of tags to create if tag_list is nil
-    auto_tags = 4,
-    -- Default layouts
-    layout_list = {
+    auto = 4,
+}
+
+-- Default layouts
+_M.layouts = {
+    list = {
         awful.layout.suit.floating,
         awful.layout.suit.tile,
         awful.layout.suit.tile.bottom,
@@ -16,21 +36,25 @@ local _M = {
         awful.layout.suit.tile.top,
         awful.layout.suit.tile.left,
     },
-    -- Dynamic opacity
-    dynamic_opacity = {
-        focus = 0.95,
-        unfocus = 0.8,
-    },
-    exclude_opacity = {
+}
+
+-- Dynamic opacity
+_M.dynamic_opacity = {
+    focus = 0.95,
+    unfocus = 0.8,
+    exclude = {
         instance = {"vlc", "valheim.x86_64"},
         class = {"mpv", "vlc", "valheim.x86_64"},
     },
-    -- Wallpaper
-    wallpaper_path = nil,
-    wallpaper_mode = 3,
-    wallpaper_color = "#333",
-    wallpaper_span = false,
-    wallpaper_timeout = 3600,
+}
+
+-- Wallpaper
+_M.wallpaper = {
+    path = nil,
+    mode = 3,
+    color = "#333",
+    span = false,
+    timeout = 3600,
 }
 
 return _M

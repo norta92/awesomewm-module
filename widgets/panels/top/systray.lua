@@ -1,10 +1,18 @@
+----------------------------------------------------------------------------
+----- Systray widget.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.panels.top.systray
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local theme = require("beautiful")
 local dpi = theme.xresources.apply_dpi
 local gears = require("gears")
 local wibox = require("wibox")
 local mod = require("bindings.mod")
-local utils = require("utils")
+local container = require("widgets.clickable-container")
 
 local systray = wibox.widget {
     {
@@ -44,7 +52,7 @@ local systray_widget = wibox.widget {
     },
     bg = theme.ui_color,
     border_width = dpi(0),
-    widget = wibox.container.background
+    widget = container,
 }
 
 toggle_button:buttons(
@@ -59,9 +67,6 @@ toggle_button:buttons(
         end)
     )
 )
-
-systray_widget:connect_signal("mouse::enter", utils.on_hover_color)
-systray_widget:connect_signal("mouse::leave", utils.on_unhover_color)
 
 awful.keyboard.append_global_keybindings({
     awful.key({ mod.super, mod.alt }, "s", function()

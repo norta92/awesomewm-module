@@ -1,3 +1,11 @@
+----------------------------------------------------------------------------
+----- Top panel.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.panels.top
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")

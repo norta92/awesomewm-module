@@ -1,19 +1,29 @@
+------------------------------------------------------------------------------
+----- Create tags from tag list or auto tags.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module signals.screen.create_tags
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 
-local vars = require("config.vars")
+local vars = _G.conf.vars
 
+--- Creats tags from list and initial layout.
+-- @param s
 local _M = function(s)
-    local tag_list = vars.tag_list or nil
-    local auto_tags = vars.auto_tags or 9
+    local list = vars.tags.list or nil
+    local auto = vars.tags.auto or 9
 
-    if not tag_list then
-        tag_list = {}
-        for n = 1,auto_tags,1 do
-            table.insert(tag_list, n)
+    if not list then
+        list = {}
+        for n = 1,auto,1 do
+            table.insert(list, n)
         end
     end
 
-    awful.tag(tag_list, s, awful.layout.layouts[1])
+    awful.tag(list, s, awful.layout.layouts[1])
 end
 
 return _M

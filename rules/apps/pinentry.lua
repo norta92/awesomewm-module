@@ -1,7 +1,17 @@
+------------------------------------------------------------------------------
+----- Pinetry dialog.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module rules.apps.pinentry
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local ruled = require("ruled")
 
+-- Pinentry rules.
 local _M = function()
+    -- Always center pinetry dialogs
     ruled.client.append_rule {
         id       = "floating",
         rule_any = {

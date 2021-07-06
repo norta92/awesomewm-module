@@ -1,9 +1,17 @@
+----------------------------------------------------------------------------
+----- Taglist widget.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.panels.top.taglist
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local theme = require("beautiful")
 local dpi = theme.xresources.apply_dpi
 local wibox = require("wibox")
+local container = require("widgets.clickable-container")
 local mod = require("bindings.mod")
-local utils = require("utils")
 
 local client = client
 
@@ -26,13 +34,8 @@ local _M = function(s)
     }
 
     local tag_layout = {
-        layout = wibox.layout.flex.horizontal
+        layout = wibox.layout.fixed.horizontal
     }
-
-    local function hover_callback(widget)
-        widget:connect_signal("mouse::enter", utils.on_hover_color)
-        widget:connect_signal("mouse::leave", utils.on_unhover_color)
-    end
 
     local tag_template = {
         {
@@ -64,8 +67,7 @@ local _M = function(s)
             },
             layout = wibox.layout.align.vertical,
         },
-        widget = wibox.container.background,
-        create_callback = hover_callback,
+        widget = container,
     }
 
     local tag_widget = awful.widget.taglist {

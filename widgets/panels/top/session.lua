@@ -1,9 +1,16 @@
+----------------------------------------------------------------------------
+----- Prompt widget.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.panels.top.prompt
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local theme = require("beautiful")
 local wibox = require("wibox")
-
-local utils = require("utils")
-local menu_position = utils.set_menu_position
+local container = require("widgets.clickable-container")
+local menu_position = require("utils").set_menu_position
 
 local _M = function()
 
@@ -17,7 +24,7 @@ local _M = function()
     local session_buttons = {
         awful.button({ }, 1, function()
             local pos = menu_position("tr")
-            _G.session_menu:toggle({coords=pos})
+            _G.menus.session:toggle({coords=pos})
         end),
     }
 
@@ -32,12 +39,9 @@ local _M = function()
         bg = theme.session_button_bg,
         border_color = theme.session_button_border_color,
         border_width = theme.session_button_border_width,
-        widget = wibox.container.background,
+        widget = container,
         buttons = session_buttons,
     }
-
-    session_widget:connect_signal("mouse::enter", utils.on_hover_color)
-    session_widget:connect_signal("mouse::leave", utils.on_unhover_color)
 
     return session_widget
 end

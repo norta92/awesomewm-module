@@ -1,14 +1,24 @@
+------------------------------------------------------------------------------
+----- Load global key bindings.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module bindings.global.keys
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local spawn = awful.spawn
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 require("awful.hotkeys_popup.keys")
 
-local apps = require("config.apps")
+local apps = _G.conf.apps
 local mod = require("bindings.mod")
 local tagutil = require("utils.tags")
-local layout_list = require("config.vars").layout_list
+local layout_list = _G.conf.vars.layouts.list
 
 local menu_position = require("utils").set_menu_position
+
+local awesome, screen, client = awesome, screen, client
 
 -- Core Awesome
 awful.keyboard.append_global_keybindings({
@@ -16,20 +26,18 @@ awful.keyboard.append_global_keybindings({
               {description = "open a terminal", group = "Awesome: core"}),
     awful.key({ mod.super }, "w", function()
             local pos = menu_position("tl")
-            _G.main_menu:show({coords=pos})
+            _G.menus.main:show({coords=pos})
         end,
               {description = "show main menu", group = "Awesome: core"}),
-    awful.key({ mod.super, mod.alt }, "l", function()
+    awful.key({ mod.super, mod.ctrl }, "q", function()
             local pos = menu_position("tr")
-            _G.session_menu:show({coords=pos})
+            _G.menus.session:show({coords=pos})
         end,
               {description = "show session menu", group = "Awesome: core"}),
     awful.key({ mod.super }, "s", hotkeys_popup.show_help,
               {description="show help", group="Awesome: core"}),
     awful.key({ mod.super, mod.ctrl }, "r", awesome.restart,
               {description = "reload awesome", group = "Awesome: core"}),
-    awful.key({ mod.super, mod.ctrl }, "q", awesome.quit,
-              {description = "quit awesome", group = "Awesome: core"}),
     awful.key({ mod.super, mod.ctrl }, "b", function ()
              for s in screen do
                 s.panel.visible = not s.panel.visible
@@ -47,12 +55,12 @@ awful.keyboard.append_global_keybindings({
         description = "only view tag",
         group       = "Awesome: tag",
         on_press    = function(index)
-            local screen = awful.screen.focused()
-            local tag = screen.tags[index]
+            local s = awful.screen.focused()
+            local tag = s.tags[index]
             if not tag then
                 return
             elseif tag.selected then
-                awful.tag.history.restore(screen, 1)
+                awful.tag.history.restore(s, 1)
             else
                 tag:view_only()
             end
@@ -65,8 +73,8 @@ awful.keyboard.append_global_keybindings({
         description = "toggle tag",
         group       = "Awesome: tag",
         on_press    = function(index)
-            local screen = awful.screen.focused()
-            local tag = screen.tags[index]
+            local s = awful.screen.focused()
+            local tag = s.tags[index]
             if tag then
                 awful.tag.viewtoggle(tag)
             end
@@ -89,8 +97,8 @@ awful.keyboard.append_global_keybindings({
     },
     awful.key({ mod.super, mod.ctrl }, "n", function () tagutil.add_tag(layout_list[1]) end,
               {description = "add new tag", group = "Awesome: tag"}),
-    awful.key({ mod.super, mod.ctrl }, "r", function () tagutil.rename_tag() end,
-              {description = "rename current tag", group = "Awesome: tag"}),
+    awful.key({ mod.super, mod.ctrl }, "e", function () tagutil.rename_tag() end,
+              {description = "edit current tag", group = "Awesome: tag"}),
     awful.key({ mod.super, mod.ctrl }, "[", function () tagutil.move_tag(1) end,   -- move to next tag
               {description = "move to next tag", group = "Awesome: tag"}),
     awful.key({ mod.super, mod.ctrl }, "]", function () tagutil.move_tag(-1) end, -- move to previous tag

@@ -1,16 +1,20 @@
 ------------------------------------------------------------------------------
------ Connect tag signals.
+----- Paths configuration
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module signals.tag
+---- @module config.apps
 ------------------------------------------------------------------------------
 
-local tag = tag
+local gfs = require('gears.filesystem')
 
---- When the default layouts are requested.
-tag.connect_signal("request::default_layouts", function()
-    require("signals.tag.default_layouts")()
-end)
+local config_dir = gfs.get_configuration_dir()
+
+return {
+    config = config_dir,
+    themes = config_dir .. "/themes/",
+    cache = os.getenv("XDG_CACHE_HOME") .. "/awesome/"
+            or config_dir .. "/awesome/cache/"
+}
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

@@ -1,8 +1,16 @@
+----------------------------------------------------------------------------
+----- Tasklist widget.
+----
+---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
+---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.panels.top.tasklist
+------------------------------------------------------------------------------
+
 local awful = require("awful")
 local theme = require("beautiful")
 local dpi = theme.xresources.apply_dpi
 local wibox = require("wibox")
-local utils = require("utils")
+local container = require("widgets.clickable-container")
 
 local _M = function(s)
 
@@ -26,11 +34,6 @@ local _M = function(s)
         max_widget_size = theme.tasklist_item_width,
         layout = wibox.layout.flex.horizontal,
     }
-
-    local function hover_callback(widget)
-        widget:connect_signal("mouse::enter", utils.on_hover_color)
-        widget:connect_signal("mouse::leave", utils.on_unhover_color)
-    end
 
     local task_template = {
         {
@@ -63,8 +66,7 @@ local _M = function(s)
             },
             layout = wibox.layout.align.vertical,
         },
-        widget = wibox.container.background,
-        create_callback = hover_callback,
+        widget = container,
     }
 
     local task_widget = awful.widget.tasklist {

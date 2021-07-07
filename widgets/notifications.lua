@@ -163,7 +163,7 @@ ruled.notification.connect_signal('request::rules', function()
     ruled.notification.append_rule {
         rule       = { urgency = 'low' },
         properties = {
-            border_color        = theme.ui_alt_color,
+            border_color        = theme.ui_accent,
             implicit_timeout    = 5
         }
     }

@@ -20,81 +20,77 @@ local render            = require("utils").svg_to_surface
 
 local theme = {}
 
--- Xresources colors
-local xres              = beautiful.xresources.get_current_theme()
-theme.black             = xres.color0       -- #000000
-theme.dark_red          = xres.color1       -- #c23621
-theme.dark_green        = xres.color2       -- #25bc24
-theme.dark_yellow       = xres.color3       -- #adad27
-theme.dark_blue         = xres.color4       -- #492ee1
-theme.dark_magenta      = xres.color5       -- #d338d3
-theme.dark_cyan         = xres.color6       -- #33bbc8
-theme.gray              = xres.color7       -- #cbcccd
-theme.dark_gray         = xres.color8       -- #818383
-theme.red               = xres.color9       -- #fc391f
-theme.green             = xres.color10      -- #31e722
-theme.yellow            = xres.color11      -- #eaec23
-theme.blue              = xres.color12      -- #5833ff
-theme.magenta           = xres.color13      -- #f935f8
-theme.cyan              = xres.color14      -- #14f0f0
-theme.white             = xres.color15      -- #e9ebeb
-theme.background        = xres.background   -- #000000
-theme.foreground        = xres.foreground   -- #cbcccd
+-- Colors
+theme.black             = "#000000"
+theme.dark_red          = "#c23621"
+theme.dark_green        = "#25bc24"
+theme.dark_yellow       = "#adad27"
+theme.dark_blue         = "#492ee1"
+theme.dark_magenta      = "#d338d3"
+theme.dark_cyan         = "#33bbc8"
+theme.gray              = "#cbcccd"
+theme.dark_gray         = "#818383"
+theme.red               = "#fc391f"
+theme.green             = "#31e722"
+theme.yellow            = "#eaec23"
+theme.blue              = "#5833ff"
+theme.magenta           = "#f935f8"
+theme.cyan              = "#14f0f0"
+theme.white             = "#e9ebeb"
 
 -- Fonts
-theme.font                      = "Hack Nerd Fonts 10"
-theme.font_bold                 = "Hack Nerd Fonts Bold 10"
-theme.font_large                = "Hack Nerd Fonts 12"
-theme.font_small                = "Hack Nerd Fonts 9"
-theme.font_extra_small          = "Hack Nerd Fonts 8"
+theme.font              = "Hack Nerd Fonts 10"
+theme.font_bold         = "Hack Nerd Fonts Bold 10"
+theme.font_large        = "Hack Nerd Fonts 12"
+theme.font_small        = "Hack Nerd Fonts 9"
 
 -- Aliases
-theme.ui_color                  = theme.background
-theme.ui_alt_color              = theme.dark_gray
-theme.ui_accent                 = theme.gray
-theme.text_color                = theme.foreground
-theme.text_alt_color            = theme.black
-theme.focus_color               = theme.blue
-theme.focus_accent              = theme.dark_blue
-theme.active_color              = theme.white
-theme.active_accent             = theme.gray
-theme.inactive_color            = theme.dark_gray
-theme.inactive_accent           = theme.gray
-theme.new_color                 = theme.yellow
-theme.new_accent                = theme.dark_yellow
-theme.urgent_color              = theme.cyan
-theme.urgent_accent             = theme.dark_cyan
-theme.marked_color              = theme.magenta
-theme.marked_accent             = theme.dark_magenta
-theme.minimize_color            = theme.black
-theme.minimize_accent           = theme.dark_gray
-theme.error_color               = theme.red
-theme.error_accent              = theme.dark_red
-theme.hover_color               = theme.active_color .. "26"
-theme.click_color               = theme.active_color .. "40"
-theme.no_color                  = "#00000000"
-theme.alpha                     = "e6" -- 90%
+theme.ui_color          = theme.black
+theme.ui_alt_color      = theme.gray
+theme.ui_accent         = theme.dark_gray
+theme.text_color        = theme.gray
+theme.text_alt_color    = theme.black
+theme.focus_color       = theme.blue
+theme.focus_accent      = theme.dark_blue
+theme.active_color      = theme.white
+theme.active_accent     = theme.gray
+theme.inactive_color    = theme.dark_gray
+theme.inactive_accent   = theme.gray
+theme.new_color         = theme.yellow
+theme.new_accent        = theme.dark_yellow
+theme.urgent_color      = theme.cyan
+theme.urgent_accent     = theme.dark_cyan
+theme.marked_color      = theme.magenta
+theme.marked_accent     = theme.dark_magenta
+theme.minimize_color    = theme.black
+theme.minimize_accent   = theme.dark_gray
+theme.error_color       = theme.red
+theme.error_accent      = theme.dark_red
+theme.hover_color       = theme.active_color .. "26"
+theme.click_color       = theme.active_color .. "40"
+theme.no_color          = "#00000000"
+theme.alpha             = "e6" -- 90%
 
 -- Misc options
-theme.useless_gap               = dpi(4)
-theme.border_width              = dpi(1)
-theme.border_radius             = dpi(0)
-theme.separator                 = " "           -- custom
-theme.spacing                   = dpi(2)        -- custom
-theme.margins                   = dpi(2)        -- custom
-theme.opacity                   = 0.95          -- custom
+theme.useless_gap       = dpi(4)
+theme.border_width      = dpi(1)
+theme.border_radius     = dpi(0)
+theme.separator         = " "           -- custom
+theme.spacing           = dpi(2)        -- custom
+theme.margins           = dpi(2)        -- custom
+theme.opacity           = 0.95          -- custom
 
 -- General
-theme.fg_normal                 = theme.text_color
-theme.bg_normal                 = theme.ui_color
-theme.wibar_fg                  = theme.text_color
-theme.wibar_bg                  = theme.ui_color
-theme.fg_focus                  = theme.text_alt_color
-theme.bg_focus                  = theme.focus_color
-theme.fg_urgent                 = theme.text_alt_color
-theme.bg_urgent                 = theme.urgent_color
-theme.fg_minimize               = theme.text_alt_color
-theme.bg_minimize               = theme.minimize_color
+theme.fg_normal         = theme.text_color
+theme.bg_normal         = theme.ui_color
+theme.wibar_fg          = theme.text_color
+theme.wibar_bg          = theme.ui_color
+theme.fg_focus          = theme.text_alt_color
+theme.bg_focus          = theme.focus_color
+theme.fg_urgent         = theme.text_alt_color
+theme.bg_urgent         = theme.urgent_color
+theme.fg_minimize       = theme.text_alt_color
+theme.bg_minimize       = theme.minimize_color
 
 -- Window border colors
 theme.border_color                      = theme.ui_color     .. theme.alpha
@@ -123,7 +119,7 @@ theme.panel_spacing             = dpi(6)
 theme.panel_opacity             = theme.opacity
 
 -- Taglist widget
-theme.taglist_fg_empty          = theme.ui_alt_color
+theme.taglist_fg_empty          = theme.ui_accent
 theme.taglist_bg_empty          = theme.no_color
 theme.taglist_fg_focus          = theme.text_color
 theme.taglist_bg_focus          = theme.focus_color
@@ -154,7 +150,7 @@ theme.tasklist_font_normal      = theme.font
 theme.tasklist_fg_focus         = theme.text_color
 theme.tasklist_bg_focus         = theme.focus_color
 theme.tasklist_font_focus       = theme.font_bold
-theme.tasklist_fg_minimize      = theme.ui_alt_color
+theme.tasklist_fg_minimize      = theme.ui_accent
 theme.tasklist_bg_minimize      = theme.ui_color
 theme.tasklist_font_minimized   = theme.font
 theme.tasklist_fg_urgent        = theme.text_color
@@ -183,17 +179,17 @@ theme.bg_systray                = theme.ui_color
 theme.systray_icon_spacing      = dpi(2)
 
 -- Menu widget
-theme.menu_button_fg            = theme.ui_alt_color
+theme.menu_button_fg            = theme.ui_accent
 theme.menu_button_bg            = theme.ui_color
 theme.menu_button_width         = dpi(36)
-theme.menu_button_border_color  = theme.ui_alt_color
+theme.menu_button_border_color  = theme.ui_accent
 theme.menu_button_border_width  = dpi(0)
 
 -- Session widget
-theme.session_button_fg            = theme.ui_alt_color
+theme.session_button_fg            = theme.ui_accent
 theme.session_button_bg            = theme.ui_color
 theme.session_button_width         = dpi(20)
-theme.session_button_border_color  = theme.ui_alt_color
+theme.session_button_border_color  = theme.ui_accent
 theme.session_button_border_width  = dpi(0)
 
 -- Menus
@@ -259,10 +255,10 @@ theme.icon_theme = "Antsy"
 
 -- Panel widget icons
 local panels = svgdata.panels
-theme.menu_button_icon      = render(panels.main_menu, theme.ui_alt_color, nil, 24)
-theme.session_button_icon   = render(panels.session_menu, theme.ui_alt_color, nil, 24)
-theme.systray_visible       = render(panels.systray_visible, theme.ui_alt_color, nil, 24)
-theme.systray_hidden        = render(panels.systray_hidden, theme.ui_alt_color, nil, 24)
+theme.menu_button_icon      = render(panels.main_menu, theme.ui_accent, nil, 24)
+theme.session_button_icon   = render(panels.session_menu, theme.ui_accent, nil, 24)
+theme.systray_visible       = render(panels.systray_visible, theme.ui_accent, nil, 24)
+theme.systray_hidden        = render(panels.systray_hidden, theme.ui_accent, nil, 24)
 
 -- Titlebar icons
 local titlebar = svgdata.titlebar
@@ -291,22 +287,22 @@ theme.titlebar_close_button_focus_press                 = render(titlebar.close_
 
 -- Layout icons
 local layouts = svgdata.layouts
-theme.layout_cornerne   = render(layouts.cornerne, theme.ui_alt_color, nil, 24)
-theme.layout_cornernw   = render(layouts.cornernw, theme.ui_alt_color, nil, 24)
-theme.layout_cornerse   = render(layouts.cornerse, theme.ui_alt_color, nil, 24)
-theme.layout_cornersw   = render(layouts.cornersw, theme.ui_alt_color, nil, 24)
-theme.layout_dwindle    = render(layouts.dwindle, theme.ui_alt_color, nil, 24)
-theme.layout_fairh      = render(layouts.fairh, theme.ui_alt_color, nil, 24)
-theme.layout_fairv      = render(layouts.fairv, theme.ui_alt_color, nil, 24)
-theme.layout_floating   = render(layouts.floating, theme.ui_alt_color, nil, 24)
-theme.layout_fullscreen = render(layouts.fullscreen, theme.ui_alt_color, nil, 24)
-theme.layout_magnifier  = render(layouts.magnifier, theme.ui_alt_color, nil, 24)
-theme.layout_max        = render(layouts.max, theme.ui_alt_color, nil, 24)
-theme.layout_spiral     = render(layouts.spiral, theme.ui_alt_color, nil, 24)
-theme.layout_tile       = render(layouts.tile, theme.ui_alt_color, nil, 24)
-theme.layout_tilebottom = render(layouts.tilebottom, theme.ui_alt_color, nil, 24)
-theme.layout_tileleft   = render(layouts.tileleft, theme.ui_alt_color, nil, 24)
-theme.layout_tiletop    = render(layouts.tiletop, theme.ui_alt_color, nil, 24)
+theme.layout_cornerne   = render(layouts.cornerne, theme.ui_accent, nil, 24)
+theme.layout_cornernw   = render(layouts.cornernw, theme.ui_accent, nil, 24)
+theme.layout_cornerse   = render(layouts.cornerse, theme.ui_accent, nil, 24)
+theme.layout_cornersw   = render(layouts.cornersw, theme.ui_accent, nil, 24)
+theme.layout_dwindle    = render(layouts.dwindle, theme.ui_accent, nil, 24)
+theme.layout_fairh      = render(layouts.fairh, theme.ui_accent, nil, 24)
+theme.layout_fairv      = render(layouts.fairv, theme.ui_accent, nil, 24)
+theme.layout_floating   = render(layouts.floating, theme.ui_accent, nil, 24)
+theme.layout_fullscreen = render(layouts.fullscreen, theme.ui_accent, nil, 24)
+theme.layout_magnifier  = render(layouts.magnifier, theme.ui_accent, nil, 24)
+theme.layout_max        = render(layouts.max, theme.ui_accent, nil, 24)
+theme.layout_spiral     = render(layouts.spiral, theme.ui_accent, nil, 24)
+theme.layout_tile       = render(layouts.tile, theme.ui_accent, nil, 24)
+theme.layout_tilebottom = render(layouts.tilebottom, theme.ui_accent, nil, 24)
+theme.layout_tileleft   = render(layouts.tileleft, theme.ui_accent, nil, 24)
+theme.layout_tiletop    = render(layouts.tiletop, theme.ui_accent, nil, 24)
 
 -- Menu icons
 local menus = svgdata.menus

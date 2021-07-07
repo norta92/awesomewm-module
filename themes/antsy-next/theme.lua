@@ -324,7 +324,7 @@ theme.suspend_icon      = res .. "menus/system-suspend.svg"
 theme.poweroff_icon     = res .. "menus/system-shutdown.svg"
 
 -- Wallpaper
-wallpaper.path          = res .. "/backgrounds/ring_fracture-2560x1440.png"
+wallpaper.path          = res .. "/backgrounds/"
 
 return theme
 

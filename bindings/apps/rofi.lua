@@ -13,15 +13,19 @@ local mod = require("bindings.mod")
 local cmd = {
     rofi = {
         apps = "rofi -show drun",
+        windows = "rofi -show window",
         pass = "rofi-pass",
         calc = "rofi -show calc",
     },
 }
 
 awful.keyboard.append_global_keybindings({
-    -- rofi
+    -- app search
     awful.key({ mod.super }, "space", function() spawn(cmd.rofi.apps, false) end,
               {description = "show application search", group = "rofi"}),
+    -- window search
+    awful.key({ mod.super }, "Tab", function() spawn(cmd.rofi.windows, false) end,
+              {description = "show window search", group = "rofi"}),
     -- rofi-pass
     awful.key({ mod.super, mod.alt }, "p", function() spawn(cmd.rofi.pass, false) end,
               {description = "show password search", group = "rofi"}),

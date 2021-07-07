@@ -13,7 +13,6 @@ local _M = {
     editor          = os.getenv("EDITOR") or "vim",
     filemanager     = os.getenv("FILEXP") or "pcmanfm",
     browser         = os.getenv("BROWSER") or "qutebrowser",
-    search          = "rofi -show drun",
     top             = "htop",
     -- session menu
     lockscreen      = "light-locker-command -l",

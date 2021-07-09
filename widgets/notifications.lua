@@ -1,9 +1,8 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Setup notifications.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.notifications
 ------------------------------------------------------------------------------
 
 local awful = require('awful')
@@ -18,7 +17,7 @@ local container = require('widgets.clickable-container')
 naughty.config.defaults.ontop = true
 naughty.config.defaults.icon_size = theme.notification_icon_size
 naughty.config.defaults.timeout = 5
-naughty.config.defaults.title = "System Information"
+naughty.config.defaults.title = 'System Information'
 naughty.config.defaults.border_width = theme.border_width
 naughty.config.defaults.max_width = theme.notification_width
 naughty.config.defaults.position = theme.notification_position
@@ -28,12 +27,12 @@ naughty.config.spacing = theme.notification_spacing
 
 -- Paths to search when looking for icons.
 naughty.config.icon_dirs = {
-    "/usr/share/icons/Antsy",
-    "/usr/share/icons/Antsy_Next",
-    "/usr/share/icons/Papirus/",
-    "/usr/share/icons/gnome/",
-    "/usr/share/icons/hicolor/",
-    "/usr/share/pixmaps/",
+    '/usr/share/icons/Antsy',
+    '/usr/share/icons/Antsy_Next',
+    '/usr/share/icons/Papirus/',
+    '/usr/share/icons/gnome/',
+    '/usr/share/icons/hicolor/',
+    '/usr/share/pixmaps/',
 }
 
 -- File formats to filter when looking for icons.

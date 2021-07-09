@@ -3,7 +3,6 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module signals.naughty
 ------------------------------------------------------------------------------
 
 local awful = require('awful')
@@ -12,7 +11,7 @@ local theme = require('beautiful')
 local get_icon = require('signals.naughty.get_icon')
 
 -- Load notification widget
-require("widgets.notifications")
+require('widgets.notifications')
 
 --- Error handling.
 -- @param message
@@ -29,7 +28,7 @@ end)
 
 --- When new notifications are added.
 -- @param n
-naughty.connect_signal("added", function(n)
+naughty.connect_signal('added', function(n)
     require('signals.naughty.history')(n)
 end)
 

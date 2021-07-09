@@ -3,7 +3,6 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @theme themes.antsy-classic.svgicons
 ------------------------------------------------------------------------------
 
 local _M = {}

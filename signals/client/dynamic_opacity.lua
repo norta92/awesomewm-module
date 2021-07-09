@@ -3,7 +3,6 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module signals.client.dynamic_opacity
 ------------------------------------------------------------------------------
 
 local opacity = _G.conf.vars.dynamic_opacity

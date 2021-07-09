@@ -3,10 +3,9 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @function signals.screen.default_layouts
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
+local awful = require('awful')
 local vars = _G.conf.vars
 
 --- Add default layouts.

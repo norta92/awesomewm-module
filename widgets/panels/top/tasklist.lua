@@ -1,24 +1,23 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Tasklist widget.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.panels.top.tasklist
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
+local awful = require('awful')
+local theme = require('beautiful')
 local dpi = theme.xresources.apply_dpi
-local wibox = require("wibox")
-local container = require("widgets.clickable-container")
+local wibox = require('wibox')
+local container = require('widgets.clickable-container')
 
 local _M = function(s)
 
     local task_buttons = {
         awful.button({ }, 1, function(c)
             c:activate {
-                context = "tasklist",
-                action = "toggle_minimization",
+                context = 'tasklist',
+                action = 'toggle_minimization',
             }
         end),
         awful.button({ }, 3, function()
@@ -41,12 +40,12 @@ local _M = function(s)
             {
                 {
                     {
-                        id     = "icon_role",
+                        id     = 'icon_role',
                         widget = wibox.widget.imagebox,
                         resize = true,
                     },
                     {
-                        id     = "text_role",
+                        id     = 'text_role',
                         widget = wibox.widget.textbox,
                     },
                     layout = wibox.layout.fixed.horizontal,
@@ -61,7 +60,7 @@ local _M = function(s)
             {
                 wibox.widget.base.make_widget(),
                 forced_height = theme.border_width,
-                id            = "background_role",
+                id            = 'background_role',
                 widget        = wibox.container.background,
             },
             layout = wibox.layout.align.vertical,

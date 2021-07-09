@@ -1,16 +1,15 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Prompt widget.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.panels.top.prompt
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
-local wibox = require("wibox")
-local mod = require("bindings.mod")
-local container = require("widgets.clickable-container")
+local awful = require('awful')
+local theme = require('beautiful')
+local wibox = require('wibox')
+local mod = require('bindings.mod')
+local container = require('widgets.clickable-container')
 
 local _M = function(s)
 
@@ -35,18 +34,18 @@ local _M = function(s)
 end
 
 awful.keyboard.append_global_keybindings({
-    awful.key({ mod.super, mod.alt }, "r", function() awful.screen.focused().prompt:run() end,
-              {description = "run prompt", group = "Awesome: core"}),
-    awful.key({ mod.super, mod.alt }, "x",
+    awful.key({ mod.super, mod.alt }, 'r', function() awful.screen.focused().prompt:run() end,
+              {description = 'run prompt', group = 'Awesome: core'}),
+    awful.key({ mod.super, mod.alt }, 'x',
               function()
                   awful.prompt.run {
-                    prompt       = "Run Lua: ",
+                    prompt       = 'Run Lua: ',
                     textbox      = awful.screen.focused().prompt.widget,
                     exe_callback = awful.util.eval,
-                    history_path = awful.util.get_cache_dir() .. "/history_eval"
+                    history_path = awful.util.get_cache_dir() .. '/history_eval'
                   }
               end,
-              {description = "lua execute prompt", group = "Awesome: core"}),
+              {description = 'lua execute prompt', group = 'Awesome: core'}),
 })
 
 return _M

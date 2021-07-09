@@ -3,7 +3,6 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module signals.naughty.get_icon
 ------------------------------------------------------------------------------
 
 local lookup_icon = require('menubar.utils').lookup_icon

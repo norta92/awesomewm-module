@@ -3,11 +3,10 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module signals.client.position_on_screen
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
+local awful = require('awful')
+local theme = require('beautiful')
 
 --- Always place clients on screen.
 ---- @param c

@@ -3,12 +3,11 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module utils
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
-local lfs = require("lfs")
+local awful = require('awful')
+local theme = require('beautiful')
+local lfs = require('lfs')
 local cairo = require('lgi').cairo
 local rsvg = require('lgi').Rsvg
 
@@ -19,7 +18,7 @@ local _M = {}
 --- Test if path is a directory.
 -- @param path The path to check.
 _M.is_dir = function(path)
-    if type(path) ~= "string" then return false end
+    if type(path) ~= 'string' then return false end
     local cd = lfs.currentdir()
     local is = lfs.chdir(path) and true or false
     lfs.chdir(cd)
@@ -29,7 +28,7 @@ end
 --- Test if path is a file.
 -- @param path The path to check.
 _M.is_file = function(path)
-    if type(path) ~= "string" then return false end
+    if type(path) ~= 'string' then return false end
     if not _M.is_dir(path) then
         return os.rename(path, path) and true or false
     end
@@ -51,17 +50,17 @@ _M.set_menu_position = function(corner)
         if s == index then break end
     end
 
-    if corner == "tr" then
+    if corner == 'tr' then
         return {
             x = width-menu_width,
             y = 0,
         }
-    elseif corner == "bl" then
+    elseif corner == 'bl' then
         return {
             x = 0,
             y = height,
         }
-    elseif corner == "br" then
+    elseif corner == 'br' then
         return {
             x = width-menu_width,
             y = height,
@@ -82,7 +81,7 @@ end
 _M.svg_to_surface = function(svg, color, replace, size)
     if not svg then return end
     color = color or nil
-    replace = replace or "#ffffff"
+    replace = replace or '#ffffff'
     size = size or 16
     local surface = cairo.ImageSurface(cairo.Format.ARGB32, size, size)
     local context = cairo.Context(surface)

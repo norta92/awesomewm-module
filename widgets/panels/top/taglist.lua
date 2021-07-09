@@ -1,17 +1,16 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Taglist widget.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.panels.top.taglist
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
+local awful = require('awful')
+local theme = require('beautiful')
 local dpi = theme.xresources.apply_dpi
-local wibox = require("wibox")
-local container = require("widgets.clickable-container")
-local mod = require("bindings.mod")
+local wibox = require('wibox')
+local container = require('widgets.clickable-container')
+local mod = require('bindings.mod')
 
 local client = client
 
@@ -43,13 +42,13 @@ local _M = function(s)
             {
                 {
                     {
-                        id     = "index_role",
+                        id     = 'index_role',
                         widget = wibox.widget.textbox,
                     },
                     {
-                        id     = "text_role",
+                        id     = 'text_role',
                         widget = wibox.widget.textbox,
-                        align = "center",
+                        align = 'center',
                     },
                     layout = wibox.layout.fixed.horizontal,
                     fill_space = true,
@@ -62,7 +61,7 @@ local _M = function(s)
                 wibox.widget.base.make_widget(),
                 forced_height = theme.border_width,
                 forced_width  = theme.taglist_width,
-                id            = "background_role",
+                id            = 'background_role',
                 widget        = wibox.container.background,
             },
             layout = wibox.layout.align.vertical,

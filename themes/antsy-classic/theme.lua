@@ -4,46 +4,45 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module themes.antsy-classic.theme
 ------------------------------------------------------------------------------
 
-local beautiful         = require("beautiful")
+local beautiful         = require('beautiful')
 local assets            = beautiful.theme_assets
 local dpi               = beautiful.xresources.apply_dpi
-local gears             = require("gears")
+local gears             = require('gears')
 local wallpaper         = _G.conf.vars.wallpaper
 local themes            = _G.conf.paths.themes
 local active            = _G.conf.vars.themes.active
-local res               = themes .. active .. "/resources/"
-local svgdata           = require("themes." .. active .. ".svgicons")
-local render            = require("utils").svg_to_surface
+local res               = themes .. active .. '/resources/'
+local svgdata           = require('themes.' .. active .. '.svgicons')
+local render            = require('utils').svg_to_surface
 
 local theme = {}
 
 -- Xresources colors
-theme.black                     = "#000000"
-theme.dark_red                  = "#cd0000"
-theme.dark_green                = "#00cd00"
-theme.dark_yellow               = "#cdcd00"
-theme.dark_blue                 = "#0000ee"
-theme.dark_magenta              = "#cd00cd"
-theme.dark_cyan                 = "#00cdcd"
-theme.gray                      = "#e5e5e5"
-theme.dark_gray                 = "#7f7f7f"
-theme.red                       = "#ff0000"
-theme.green                     = "#00ff00"
-theme.yellow                    = "#ffff00"
-theme.blue                      = "#5c5cff"
-theme.magenta                   = "#ff00ff"
-theme.cyan                      = "#00ffff"
-theme.white                     = "#ffffff"
+theme.black                     = '#000000'
+theme.dark_red                  = '#cd0000'
+theme.dark_green                = '#00cd00'
+theme.dark_yellow               = '#cdcd00'
+theme.dark_blue                 = '#0000ee'
+theme.dark_magenta              = '#cd00cd'
+theme.dark_cyan                 = '#00cdcd'
+theme.gray                      = '#e5e5e5'
+theme.dark_gray                 = '#7f7f7f'
+theme.red                       = '#ff0000'
+theme.green                     = '#00ff00'
+theme.yellow                    = '#ffff00'
+theme.blue                      = '#5c5cff'
+theme.magenta                   = '#ff00ff'
+theme.cyan                      = '#00ffff'
+theme.white                     = '#ffffff'
 
 -- Fonts
-theme.font                      = "Hack Nerd Font Mono 10"
-theme.font_bold                 = "Hack Nerd Font Mono Bold 10"
-theme.font_large                = "Hack Nerd Font Mono 12"
-theme.font_small                = "Hack Nerd Font Mono 9"
-theme.font_extra_small          = "Hack Nerd Font Mono 8"
+theme.font                      = 'Hack Nerd Font Mono 10'
+theme.font_bold                 = 'Hack Nerd Font Mono Bold 10'
+theme.font_large                = 'Hack Nerd Font Mono 12'
+theme.font_small                = 'Hack Nerd Font Mono 9'
+theme.font_extra_small          = 'Hack Nerd Font Mono 8'
 
 -- Aliases
 theme.ui_color                  = theme.black
@@ -67,16 +66,16 @@ theme.minimize_color            = theme.black
 theme.minimize_accent           = theme.dark_gray
 theme.error_color               = theme.red
 theme.error_accent              = theme.dark_red
-theme.hover_color               = theme.active_color .. "26"
-theme.click_color               = theme.focus_color .. "26"
-theme.no_color                  = "#00000000"
-theme.alpha                     = "e6" -- 90%
+theme.hover_color               = theme.active_color .. '26'
+theme.click_color               = theme.focus_color .. '26'
+theme.no_color                  = '#00000000'
+theme.alpha                     = 'e6' -- 90%
 
 -- Misc options
 theme.useless_gap               = dpi(4)
 theme.border_width              = dpi(2)
 theme.border_radius             = dpi(0)
-theme.separator                 = " "           -- custom
+theme.separator                 = ' '           -- custom
 theme.spacing                   = dpi(2)        -- custom
 theme.margins                   = dpi(2)        -- custom
 theme.opacity                   = 1.0           -- custom
@@ -252,7 +251,7 @@ theme.awesome_notification_icon = assets.awesome_icon(
     theme.black)
 
 -- Icon theme
-theme.icon_theme = "Antsy"
+theme.icon_theme = 'Antsy'
 
 -- Panel widget icons
 local panels = svgdata.panels
@@ -310,22 +309,22 @@ local menus = svgdata.menus
 theme.menu_submenu_icon = render(menus.submenu, theme.text_color, nil, 24)
 
 -- Custom menu icons
-theme.terminal_icon     = res .. "menus/terminal-emulator.svg"
-theme.filemanager_icon  = res .. "menus/file-manager.svg"
-theme.hotkeys_icon      = res .. "menus/show-hotkeys.svg"
-theme.manual_icon       = res .. "menus/read-manual.svg"
-theme.editor_icon       = res .. "menus/edit-config.svg"
-theme.restart_icon      = res .. "menus/session-restart.svg"
+theme.terminal_icon     = res .. 'menus/terminal-emulator.svg'
+theme.filemanager_icon  = res .. 'menus/file-manager.svg'
+theme.hotkeys_icon      = res .. 'menus/show-hotkeys.svg'
+theme.manual_icon       = res .. 'menus/read-manual.svg'
+theme.editor_icon       = res .. 'menus/edit-config.svg'
+theme.restart_icon      = res .. 'menus/session-restart.svg'
 
 -- Session menu icons
-theme.lockscreen_icon   = res .. "menus/session-lock.svg"
-theme.exit_icon         = res .. "menus/session-exit.svg"
-theme.reboot_icon       = res .. "menus/system-reboot.svg"
-theme.suspend_icon      = res .. "menus/system-suspend.svg"
-theme.poweroff_icon     = res .. "menus/system-shutdown.svg"
+theme.lockscreen_icon   = res .. 'menus/session-lock.svg'
+theme.exit_icon         = res .. 'menus/session-exit.svg'
+theme.reboot_icon       = res .. 'menus/system-reboot.svg'
+theme.suspend_icon      = res .. 'menus/system-suspend.svg'
+theme.poweroff_icon     = res .. 'menus/system-shutdown.svg'
 
 -- Wallpaper
-wallpaper.path          = "/usr/share/backgrounds/archlinux/"
+wallpaper.path          = '/usr/share/backgrounds/archlinux/'
 
 return theme
 

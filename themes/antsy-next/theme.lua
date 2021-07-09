@@ -4,45 +4,44 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module themes.antsy-next.theme
 ------------------------------------------------------------------------------
 
-local beautiful         = require("beautiful")
+local beautiful         = require('beautiful')
 local assets            = beautiful.theme_assets
 local dpi               = beautiful.xresources.apply_dpi
-local gears             = require("gears")
-local wallpaper         = _G.conf.vars.wallpaper
+local gears             = require('gears')
 local themes            = _G.conf.paths.themes
 local active            = _G.conf.vars.themes.active
-local res               = themes .. active .. "/resources/"
-local svgdata           = require("themes." .. active .. ".svgicons")
-local render            = require("utils").svg_to_surface
+local wallpaper         = _G.conf.vars.wallpaper
+local res               = themes .. active .. '/resources/'
+local svgdata           = require('themes.' .. active .. '.svgicons')
+local render            = require('utils').svg_to_surface
 
 local theme = {}
 
 -- Colors
-theme.black             = "#000000"
-theme.dark_red          = "#c23621"
-theme.dark_green        = "#25bc24"
-theme.dark_yellow       = "#adad27"
-theme.dark_blue         = "#492ee1"
-theme.dark_magenta      = "#d338d3"
-theme.dark_cyan         = "#33bbc8"
-theme.gray              = "#cbcccd"
-theme.dark_gray         = "#818383"
-theme.red               = "#fc391f"
-theme.green             = "#31e722"
-theme.yellow            = "#eaec23"
-theme.blue              = "#5833ff"
-theme.magenta           = "#f935f8"
-theme.cyan              = "#14f0f0"
-theme.white             = "#e9ebeb"
+theme.black             = '#000000'
+theme.dark_red          = '#c23621'
+theme.dark_green        = '#25bc24'
+theme.dark_yellow       = '#adad27'
+theme.dark_blue         = '#492ee1'
+theme.dark_magenta      = '#d338d3'
+theme.dark_cyan         = '#33bbc8'
+theme.gray              = '#cbcccd'
+theme.dark_gray         = '#818383'
+theme.red               = '#fc391f'
+theme.green             = '#31e722'
+theme.yellow            = '#eaec23'
+theme.blue              = '#5833ff'
+theme.magenta           = '#f935f8'
+theme.cyan              = '#14f0f0'
+theme.white             = '#e9ebeb'
 
 -- Fonts
-theme.font              = "Hack Nerd Fonts 10"
-theme.font_bold         = "Hack Nerd Fonts Bold 10"
-theme.font_large        = "Hack Nerd Fonts 12"
-theme.font_small        = "Hack Nerd Fonts 9"
+theme.font              = 'Noto Sans 10'
+theme.font_bold         = 'Noto Sans Bold 10'
+theme.font_large        = 'Noto Sans 12'
+theme.font_small        = 'Noto Sans 9'
 
 -- Aliases
 theme.ui_color          = theme.black
@@ -66,16 +65,16 @@ theme.minimize_color    = theme.black
 theme.minimize_accent   = theme.dark_gray
 theme.error_color       = theme.red
 theme.error_accent      = theme.dark_red
-theme.hover_color       = theme.active_color .. "26"
-theme.click_color       = theme.active_color .. "40"
-theme.no_color          = "#00000000"
-theme.alpha             = "e6" -- 90%
+theme.hover_color       = theme.active_color .. '26'
+theme.click_color       = theme.active_color .. '40'
+theme.no_color          = '#00000000'
+theme.alpha             = 'e6' -- 90%
 
 -- Misc options
 theme.useless_gap       = dpi(4)
 theme.border_width      = dpi(1)
 theme.border_radius     = dpi(0)
-theme.separator         = " "           -- custom
+theme.separator         = ' '           -- custom
 theme.spacing           = dpi(2)        -- custom
 theme.margins           = dpi(2)        -- custom
 theme.opacity           = 0.95          -- custom
@@ -251,7 +250,7 @@ theme.awesome_notification_icon = assets.awesome_icon(
     theme.black)
 
 -- Icon theme
-theme.icon_theme = "Antsy"
+theme.icon_theme = 'Antsy'
 
 -- Panel widget icons
 local panels = svgdata.panels
@@ -308,23 +307,25 @@ theme.layout_tiletop    = render(layouts.tiletop, theme.ui_accent, nil, 24)
 local menus = svgdata.menus
 theme.menu_submenu_icon = render(menus.submenu, theme.text_color, nil, 24)
 
--- Custom menu icons
-theme.terminal_icon     = res .. "menus/terminal-emulator.svg"
-theme.filemanager_icon  = res .. "menus/file-manager.svg"
-theme.hotkeys_icon      = res .. "menus/show-hotkeys.svg"
-theme.manual_icon       = res .. "menus/read-manual.svg"
-theme.editor_icon       = res .. "menus/edit-config.svg"
-theme.restart_icon      = res .. "menus/session-restart.svg"
+-- Main menu icons
+theme.terminal_icon     = res .. 'menus/terminal-emulator.svg'
+theme.filemanager_icon  = res .. 'menus/file-manager.svg'
+
+-- Awesome menu icons
+theme.hotkeys_icon      = res .. 'menus/show-hotkeys.svg'
+theme.manual_icon       = res .. 'menus/read-manual.svg'
+theme.editor_icon       = res .. 'menus/edit-config.svg'
+theme.restart_icon      = res .. 'menus/session-restart.svg'
 
 -- Session menu icons
-theme.lockscreen_icon   = res .. "menus/session-lock.svg"
-theme.exit_icon         = res .. "menus/session-exit.svg"
-theme.reboot_icon       = res .. "menus/system-reboot.svg"
-theme.suspend_icon      = res .. "menus/system-suspend.svg"
-theme.poweroff_icon     = res .. "menus/system-shutdown.svg"
+theme.lockscreen_icon   = res .. 'menus/session-lock.svg'
+theme.exit_icon         = res .. 'menus/session-exit.svg'
+theme.reboot_icon       = res .. 'menus/system-reboot.svg'
+theme.suspend_icon      = res .. 'menus/system-suspend.svg'
+theme.poweroff_icon     = res .. 'menus/system-shutdown.svg'
 
 -- Wallpaper
-wallpaper.path          = res .. "/backgrounds/"
+wallpaper.path          = res .. '/backgrounds/'
 
 return theme
 

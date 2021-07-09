@@ -3,25 +3,29 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module signals.global
 ------------------------------------------------------------------------------
 
-local awesome = awesome
+local awful = require('awful')
+
+local awesome, screen = awesome, screen
 
 --- AwesomeWM is about to enter the event loop.
-awesome.connect_signal("startup", function()
+awesome.connect_signal('startup', function()
+
+    -- Focus primary screen
+    awful.screen.focus(screen.primary)
 
     -- Load menus
     _G.menus = {
-        main = require("widgets.menus.main")(),
-        session = require("widgets.menus.session")(),
+        main = require('widgets.menus.main')(),
+        session = require('widgets.menus.session')(),
     }
 
-    -- Wallpaper shuffler
-    require("widgets.wallpaper")
+    -- Wallpaper
+    require('widgets.wallpaper')
 
     -- XDG autostart
-    require("utils.autostart")
+    require('utils.autostart')
 
 end)
 

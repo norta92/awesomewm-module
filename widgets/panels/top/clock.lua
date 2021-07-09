@@ -1,16 +1,15 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Clock widget with popup calendar.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.panels.top.clock
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
-local wibox = require("wibox")
-local container = require("widgets.clickable-container")
-local calendar = require("awful.widget.calendar_popup").month()
+local awful = require('awful')
+local theme = require('beautiful')
+local wibox = require('wibox')
+local container = require('widgets.clickable-container')
+local calendar = require('awful.widget.calendar_popup').month()
 
 local _M = function()
 
@@ -36,7 +35,7 @@ local _M = function()
         awful.widget.calendar_popup.call_calendar(self, offset, position, screen)
     end
 
-    calendar:attach(clock_widget, "tr", {on_hover=false})
+    calendar:attach(clock_widget, 'tr', {on_hover=false})
     calendar.opacity = theme.panel_opacity
 
     return clock_widget

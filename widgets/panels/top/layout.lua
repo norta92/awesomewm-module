@@ -1,15 +1,14 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Layout indicator widget.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.panels.top.layout
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
-local wibox = require("wibox")
-local container = require("widgets.clickable-container")
+local awful = require('awful')
+local theme = require('beautiful')
+local wibox = require('wibox')
+local container = require('widgets.clickable-container')
 
 local _M = function(s)
 

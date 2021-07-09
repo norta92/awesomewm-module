@@ -3,10 +3,9 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module signals.client.center_over_parent
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
+local awful = require('awful')
 
 --- Center over parent.
 ---- @param c

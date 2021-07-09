@@ -3,20 +3,19 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module rules.apps.pinentry
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local ruled = require("ruled")
+local awful = require('awful')
+local ruled = require('ruled')
 
 -- Pinentry rules.
 local _M = function()
     -- Always center pinetry dialogs
     ruled.client.append_rule {
-        id       = "floating",
+        id       = 'floating',
         rule_any = {
-            instance = { "pinentry-gtk-2" },
-            class = { "Pinentry-gtk-2" },
+            instance = { 'pinentry-gtk-2' },
+            class = { 'Pinentry-gtk-2' },
         },
         properties = {
             focus     = awful.client.focus.filter,

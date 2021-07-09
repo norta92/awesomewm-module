@@ -3,11 +3,10 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.clickable-container
 ------------------------------------------------------------------------------
 
-local theme = require("beautiful")
-local wibox = require("wibox")
+local theme = require('beautiful')
+local wibox = require('wibox')
 
 local mouse = mouse
 
@@ -23,7 +22,7 @@ local _M = function(w)
     local old_wibox
 
     -- Hover begin
-    widget:connect_signal("mouse::enter", function()
+    widget:connect_signal('mouse::enter', function()
         widget.bg = theme.hover_color
         local cur_wibox = mouse.current_wibox
         if w then
@@ -32,7 +31,7 @@ local _M = function(w)
     end)
 
     -- Hover end.
-    widget:connect_signal("mouse::leave", function()
+    widget:connect_signal('mouse::leave', function()
         widget.bg = theme.no_color
         if old_wibox then
             old_wibox = nil
@@ -40,12 +39,12 @@ local _M = function(w)
     end)
 
     -- Click begin.
-    widget:connect_signal("button::press", function()
+    widget:connect_signal('button::press', function()
         widget.bg = theme.click_color
     end)
 
     -- Click end.
-    widget:connect_signal("button::release", function()
+    widget:connect_signal('button::release', function()
         widget.bg = theme.hover_color
     end)
 

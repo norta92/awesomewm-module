@@ -3,10 +3,9 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module config
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
+local awful = require('awful')
 
 -- Misc. options that don't have a better place to go
 
@@ -21,9 +20,9 @@ awful.mouse.snap.edge_enabled = true
 awful.mouse.snap.client_enabled = true
 
 return {
-    vars = require("config.vars"),
-    apps = require("config.apps"),
-    paths = require("config.paths"),
+    vars = require('config.vars'),
+    apps = require('config.apps'),
+    paths = require('config.paths'),
 }
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

@@ -3,10 +3,9 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module bindings.global.mouse
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
+local awful = require('awful')
 
 awful.mouse.append_global_mousebindings({
     awful.button({ }, 1, function()

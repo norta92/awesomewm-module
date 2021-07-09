@@ -1,18 +1,17 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Systray widget.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.panels.top.systray
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
+local awful = require('awful')
+local theme = require('beautiful')
 local dpi = theme.xresources.apply_dpi
-local gears = require("gears")
-local wibox = require("wibox")
-local mod = require("bindings.mod")
-local container = require("widgets.clickable-container")
+local gears = require('gears')
+local wibox = require('wibox')
+local mod = require('bindings.mod')
+local container = require('widgets.clickable-container')
 
 local systray = wibox.widget {
     {
@@ -69,7 +68,7 @@ toggle_button:buttons(
 )
 
 awful.keyboard.append_global_keybindings({
-    awful.key({ mod.super, mod.alt }, "s", function()
+    awful.key({ mod.super, mod.alt }, 's', function()
         systray.visible = not systray.visible
         if systray.visible then
             toggle_button:set_image(theme.systray_visible)
@@ -77,7 +76,7 @@ awful.keyboard.append_global_keybindings({
             toggle_button:set_image(theme.systray_hidden)
         end
     end,
-    {description = "toggle systray", group = "Awesome: extras"})
+    {description = 'toggle systray', group = 'Awesome: extras'})
 })
 
 return awful.widget.only_on_screen(systray_widget, 'primary')

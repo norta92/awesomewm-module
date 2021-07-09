@@ -3,10 +3,9 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module signals.screen.create_tags
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
+local awful = require('awful')
 
 local vars = _G.conf.vars
 

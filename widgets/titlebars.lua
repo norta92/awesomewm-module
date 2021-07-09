@@ -1,15 +1,14 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Titlebar widget.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.titlebars
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
-local wibox = require("wibox")
-local mod = require("bindings.mod")
+local awful = require('awful')
+local theme = require('beautiful')
+local wibox = require('wibox')
+local mod = require('bindings.mod')
 
 --- Create titlebar for client.
 -- @param c Titlebar to create client for.
@@ -25,26 +24,26 @@ local _M = function(c)
     local buttons = {
         -- Left-click, move client.
         awful.button({ }, 1, function()
-            c:activate { context = "titlebar", action = "mouse_move"  }
+            c:activate { context = 'titlebar', action = 'mouse_move'  }
         end),
         -- Middle-click, maximize client.
         awful.button({ }, 2, function()
             c.maximized = not c.maximized
-            c:activate { context = "titlebar", raise = true }
+            c:activate { context = 'titlebar', raise = true }
         end),
         -- Crtl + middle-click, maximize client vertically.
         awful.button({ mod.ctrl }, 2, function()
             c.maximized_vertical = not c.maximized_vertical
-            c:activate { context = "titlebar", raise = true }
+            c:activate { context = 'titlebar', raise = true }
         end),
         -- Shift + middle-click, maximize client horizontally.
         awful.button({ mod.shift }, 2, function()
             c.maximized_horizontal = not c.maximized_horizontal
-            c:activate { context = "titlebar", raise = true }
+            c:activate { context = 'titlebar', raise = true }
         end),
         -- Right click, resize client.
         awful.button({ }, 3, function()
-            c:activate { context = "titlebar", action = "mouse_resize"}
+            c:activate { context = 'titlebar', action = 'mouse_resize'}
         end),
     }
 
@@ -65,7 +64,7 @@ local _M = function(c)
         },
         { -- Middle
             { -- Title
-                align = "center",
+                align = 'center',
                 widget = awful.titlebar.widget.titlewidget(c)
             },
             buttons = buttons,

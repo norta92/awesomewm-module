@@ -3,10 +3,9 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module utils.tags
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
+local awful = require('awful')
 
 local _M = {}
 
@@ -19,7 +18,7 @@ local _M = {}
 function _M.add_tag(layout)
     local tags = awful.screen.focused().tags
     awful.prompt.run {
-        prompt       = "Add: ",
+        prompt       = 'Add: ',
         text         = tostring(#tags+1),
         textbox      = awful.screen.focused().prompt.widget,
         exe_callback = function(name)
@@ -36,7 +35,7 @@ end
 function _M.rename_tag()
     local tag = awful.screen.focused().selected_tag
     awful.prompt.run {
-        prompt       = "Edit: ",
+        prompt       = 'Edit: ',
         text         = tag.name,
         textbox      = awful.screen.focused().prompt.widget,
         exe_callback = function(new_name)

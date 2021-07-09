@@ -1,16 +1,15 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ----- Main menu widget.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
----- @module widgets.panels.top.menu
 ------------------------------------------------------------------------------
 
-local awful = require("awful")
-local theme = require("beautiful")
-local wibox = require("wibox")
-local container = require("widgets.clickable-container")
-local menu_position = require("utils").set_menu_position
+local awful = require('awful')
+local theme = require('beautiful')
+local wibox = require('wibox')
+local container = require('widgets.clickable-container')
+local menu_position = require('utils').set_menu_position
 
 local _M = function()
 
@@ -23,7 +22,7 @@ local _M = function()
 
     local menu_buttons = {
         awful.button({ }, 1, function()
-            local pos = menu_position("tl")
+            local pos = menu_position('tl')
             _G.menus.main:toggle({coords=pos})
         end),
     }

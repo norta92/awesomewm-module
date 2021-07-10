@@ -326,6 +326,9 @@ theme.poweroff_icon     = res .. 'menus/system-shutdown.svg'
 -- Wallpaper
 wallpaper.path          = '/usr/share/backgrounds/archlinux/'
 
+-- Rofi theme
+theme.rofi              = active
+
 return theme
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

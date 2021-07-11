@@ -12,6 +12,9 @@ local _M = {}
 --- Set opacity of focused client.
 ---- @param c
 _M.focus = function(c)
+    if c.fullscreen or c.exclude_opacity then
+        return
+    end
     c.opacity = opacity.focus or 1
 end
 

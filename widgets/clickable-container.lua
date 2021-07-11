@@ -3,6 +3,10 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @themevars
+----    theme.hover_color
+----    theme.click_color
+----    theme.no_color
 ------------------------------------------------------------------------------
 
 local theme = require('beautiful')

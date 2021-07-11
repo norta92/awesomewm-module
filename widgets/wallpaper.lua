@@ -62,18 +62,18 @@ end
 
 --- Set wallpaper for screen.
 -- @param image The image path.
--- @param mode The display mode (centered, tiled, maximized, fit).
+-- @param mode The display mode (center, tile, max, fit).
 -- @param s The screen to set the wallpaper for. Set to nil to span.
 local set_wallpaper = function(image, mode, s)
     local color = wallpaper.color or '#333'
 
-    if mode == 1 then
+    if mode == 'center' then
         gears.wallpaper.centered(image, s, color, 1)
-    elseif mode == 2 then
+    elseif mode == 'tile' then
         gears.wallpaper.tiled(image, s, {0,0})
-    elseif mode == 3 then
+    elseif mode == 'max' then
         gears.wallpaper.maximized(image, s, false, {0,0})
-    elseif mode == 4 then
+    elseif mode == 'fit' then
         gears.wallpaper.fit(image, s, color)
     else
         gears.wallpaper.set(image)
@@ -94,7 +94,7 @@ local set_keybinding = function(timer)
 end
 
 local path = wallpaper.path
-local mode = wallpaper.mode or 3
+local mode = wallpaper.mode or 'max'
 local span = wallpaper.span or false
 local color = wallpaper.color or '#333'
 local timeout = wallpaper.timeout or 300

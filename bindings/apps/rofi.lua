@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
------ rofi-based apps.
+----- Setup bindings for rofi.
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
@@ -7,11 +7,12 @@
 
 local awful = require('awful')
 local spawn = awful.spawn
-local theme = require('beautiful')
-local vars = require('config.vars').rofi
+local vars = require('config.vars')
 local mod = require('bindings.mod')
 
+-- Commands table
 local cmd = {
+    exe = 'rofi',
     apps = 'rofi -show drun',
     windows = 'rofi -show window',
     pass = 'rofi-pass',
@@ -19,13 +20,20 @@ local cmd = {
 }
 
 -- Try to use matching rofi theme
-if vars.follow_theme then
+if vars.rofi.follow_theme then
     for k, v in pairs(cmd) do
-        cmd[k] = v .. ' -theme ' .. theme.rofi
+        local opts = {
+            ' -theme ' .. vars.themes.active,
+            ' -location ' .. vars.rofi.location,
+            ' -xoffset '.. vars.rofi.offset[1],
+            ' -yoffset ' .. vars.rofi.offset[2],
+        }
+        cmd[k] = v .. table.concat(opts, '')
     end
 end
 
-awful.keyboard.append_global_keybindings({
+-- Key table
+local keys = {
     -- app search
     awful.key({ mod.super }, 'space', function() spawn(cmd.apps, false) end,
               {description = 'show application search', group = 'rofi'}),
@@ -38,6 +46,12 @@ awful.keyboard.append_global_keybindings({
     -- rofi-calc
     awful.key({ mod.super, mod.alt }, 'c', function() spawn(cmd.calc, false) end,
               {description = 'show calculator', group = 'rofi'}),
-})
+}
+
+-- Add bindings
+spawn.easy_async_with_shell('command -v ' .. cmd.exe , function(path)
+    if not path then return end
+    awful.keyboard.append_global_keybindings(keys)
+end)
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

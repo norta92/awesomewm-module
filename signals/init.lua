@@ -7,10 +7,10 @@
 
 return {
     require('signals.awesome'),
+    require('signals.naughty'),
     require('signals.tag'),
     require('signals.screen'),
     require('signals.client'),
-    require('signals.naughty'),
 }
 
 -- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

@@ -3,6 +3,11 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+----    theme.lockscreen_icon
+----    theme.exit_icon
+----    theme.reboot_icon
+----    theme.suspend_icon
+----    theme.poweroff_icon
 ------------------------------------------------------------------------------
 
 local awful = require('awful')

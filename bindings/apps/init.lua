@@ -6,7 +6,9 @@
 ------------------------------------------------------------------------------
 
 return {
-    require('bindings.apps.fn_keys'),
+    require('bindings.apps.mpc'),
+    require('bindings.apps.pactl'),
+    require('bindings.apps.xbacklight'),
     require('bindings.apps.rofi'),
     require('bindings.apps.screen-capture'),
     require('bindings.apps.touchpad-toggle'),

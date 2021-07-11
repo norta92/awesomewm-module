@@ -3,6 +3,12 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @themevars
+----    theme.hotkeys_icon
+----    theme.manual_icon
+----    theme.editor_icon
+----    theme.restart_icon
+----    theme.exit_icon
 ------------------------------------------------------------------------------
 
 local awful = require('awful')

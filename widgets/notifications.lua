@@ -3,6 +3,22 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @themevars
+----    theme.notification_position
+----    theme.notification_width
+----    theme.notification_icon_size
+----    theme.notification_margin
+----    theme.notification_padding
+----    theme.notification_spacing
+----    theme.border_width
+----    theme.margins
+----    theme.spacing
+----    theme.font
+----    theme.font_bold
+----    theme.ui_color
+----    theme.ui_accent
+----    theme.error_color
+----    theme.alpha
 ------------------------------------------------------------------------------
 
 local awful = require('awful')

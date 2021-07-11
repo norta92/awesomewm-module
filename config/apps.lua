@@ -12,7 +12,7 @@ local _M = {
     editor          = os.getenv('EDITOR') or 'vim',
     filemanager     = os.getenv('FILEXP') or 'pcmanfm',
     browser         = os.getenv('BROWSER') or 'qutebrowser',
-    top             = 'htop',
+    sysmon          = 'htop',
     -- session menu
     lockscreen      = 'light-locker-command -l',
     reboot          = 'systemctl reboot',
@@ -23,7 +23,7 @@ local _M = {
 -- Commands that need a terminal
 _M.editor_cmd = _M.terminal .. ' -e ' .. _M.editor
 _M.manual_cmd = _M.terminal .. ' -e man awesome'
-_M.top_cmd = _M.terminal .. ' -e ' .. _M.top
+_M.sysmon_cmd = _M.terminal .. ' -e ' .. _M.sysmon
 
 return _M
 

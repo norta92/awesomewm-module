@@ -3,6 +3,9 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @themevars
+----    theme.border_width
+----    theme.taglist_width
 ------------------------------------------------------------------------------
 
 local awful = require('awful')

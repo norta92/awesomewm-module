@@ -3,6 +3,11 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @themevars
+----    theme.margins
+----    theme.systray_visible
+----    theme.systray_hidden
+----    theme.panel_margin
 ------------------------------------------------------------------------------
 
 local awful = require('awful')
@@ -49,7 +54,6 @@ local systray_widget = wibox.widget {
         bottom = theme.panel_margin,
         widget = wibox.container.margin
     },
-    bg = theme.ui_color,
     border_width = dpi(0),
     widget = container,
 }

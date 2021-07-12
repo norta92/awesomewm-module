@@ -3,6 +3,11 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @themevars
+----    theme.menu_width
+----    theme.tasklist_item_width
+----    theme.task_width
+----    theme.border_width
 ------------------------------------------------------------------------------
 
 local awful = require('awful')

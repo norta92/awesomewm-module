@@ -3,6 +3,13 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @themevars
+----    theme.session_button_icon
+----    theme.session_button_width
+----    theme.session_button_fg
+----    theme.session_button_bg
+----    theme.session_button_border_color
+----    theme.session_button_border_width
 ------------------------------------------------------------------------------
 
 local awful = require('awful')

@@ -38,10 +38,10 @@ theme.cyan              = '#14f0f0'
 theme.white             = '#e9ebeb'
 
 -- Fonts
-theme.font              = 'Noto Sans 10'
-theme.font_bold         = 'Noto Sans Bold 10'
-theme.font_large        = 'Noto Sans 12'
-theme.font_small        = 'Noto Sans 9'
+theme.font              = 'Hack Nerd Fonts 10'
+theme.font_bold         = 'Hack Nerd Fonts Bold 10'
+theme.font_large        = 'Hack Nerd Fonts 12'
+theme.font_small        = 'Hack Nerd Fonts 9'
 
 -- Aliases
 theme.ui_color          = theme.black
@@ -112,7 +112,7 @@ theme.border_color_fullscreen_urgent    = theme.ui_color
 --theme.panel_width               = dpi(0)
 theme.panel_height              = dpi(20)
 theme.panel_border_color        = theme.ui_color
-theme.panel_border_width        = dpi(0)
+theme.panel_border_width        = dpi(1)
 theme.panel_margin              = dpi(2)
 theme.panel_spacing             = dpi(6)
 theme.panel_opacity             = theme.opacity
@@ -232,8 +232,8 @@ theme.hotkeys_fg                = theme.text_color
 theme.hotkeys_label_bg          = theme.ui_color
 theme.hotkeys_label_fg          = theme.text_alt_color
 theme.hotkeys_modifiers_fg      = theme.marked_color
-theme.hotkeys_font              = theme.font_bold
-theme.hotkeys_description_font  = theme.font
+theme.hotkeys_font              = theme.font_small
+theme.hotkeys_description_font  = theme.font_small
 theme.hotkeys_border_color      = theme.active_color
 theme.hotkeys_border_width      = theme.border_width
 theme.hotkeys_group_margin      = theme.margins

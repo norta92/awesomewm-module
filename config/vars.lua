@@ -26,7 +26,15 @@ _M.wallpaper = {
     mode = 'max',       -- center, tile, max, fit
     color = '#333',     -- color to set if no image found (or path is nil)
     span = false,       -- span multiple screens
-    timeout = 3600,     -- how often to shuffle wallpaper
+    timeout = 10  ,     -- how often to shuffle wallpaper (in minutes)
+}
+
+-- Panels
+_M.panels = {
+    top = {
+        tasklist = { button_width = 256, },
+        systray = { auto_hide = true, },
+    },
 }
 
 --- Tags
@@ -41,11 +49,21 @@ _M.layouts = {
     list = {            -- defaults (order matters)
         awful.layout.suit.floating,
         awful.layout.suit.tile,
-        --awful.layout.suit.tile.bottom,
         awful.layout.suit.fair,
-        --awful.layout.suit.fair.horizontal,
-        --awful.layout.suit.tile.top,
         awful.layout.suit.tile.left,
+        -- awful.layout.suit.floating,
+        -- awful.layout.suit.tile,
+        -- awful.layout.suit.tile.left,
+        -- awful.layout.suit.tile.bottom,
+        -- awful.layout.suit.tile.top,
+        -- awful.layout.suit.fair,
+        -- awful.layout.suit.fair.horizontal,
+        -- awful.layout.suit.spiral,
+        -- awful.layout.suit.spiral.dwindle,
+        -- awful.layout.suit.max,
+        -- awful.layout.suit.max.fullscreen,
+        -- awful.layout.suit.magnifier,
+        -- awful.layout.suit.corner.nw,
     },
 }
 

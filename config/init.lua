@@ -9,6 +9,9 @@ local awful = require('awful')
 
 -- Misc. options that don't have a better place to go
 
+-- Enable show apps in hotkeys popup
+require('awful.hotkeys_popup.keys')
+
 -- Enable auto DPI support
 awful.screen.set_auto_dpi_enabled(true)
 

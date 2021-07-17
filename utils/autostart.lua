@@ -6,14 +6,14 @@
 ------------------------------------------------------------------------------
 
 local spawn = require('awful.spawn')
-local paths = _G.conf.paths
+local search_paths = _G.conf.paths.autostart
 
 -- Commands table
 local cmd = {
     exe = 'dex',
     run = 'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
           'xrdb -merge <<< "awesome.started:true";' ..
-          'dex --environment AwesomeWM --autostart --search-paths "' .. paths.autostart .. '"',
+          'dex --environment AwesomeWM --autostart --search-paths "' .. search_paths .. '"',
 }
 
 -- Run dex.

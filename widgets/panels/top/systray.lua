@@ -18,6 +18,11 @@ local wibox = require('wibox')
 local mod = require('bindings.mod')
 local container = require('widgets.clickable-container')
 
+local vars = _G.conf.vars.panels.top.systray
+local _V = {
+    auto_hide = vars.auto_hide or nil,
+}
+
 local systray = wibox.widget {
     {
         widget = wibox.widget.systray
@@ -30,8 +35,8 @@ local systray = wibox.widget {
 local toggle_button = wibox.widget {
     id = 'icon',
     image = theme.systray_visible,
-    widget = wibox.widget.imagebox,
     resize = false,
+    widget = wibox.widget.imagebox,
 }
 
 local toggle_widget = wibox.widget {

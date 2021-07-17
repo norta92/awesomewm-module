@@ -3,11 +3,12 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @submodule widgets.panels.top
 ---- @themevars
+----    theme.border_width
 ----    theme.menu_width
 ----    theme.tasklist_item_width
 ----    theme.task_width
-----    theme.border_width
 ------------------------------------------------------------------------------
 
 local awful = require('awful')
@@ -15,6 +16,12 @@ local theme = require('beautiful')
 local dpi = theme.xresources.apply_dpi
 local wibox = require('wibox')
 local container = require('widgets.clickable-container')
+
+local vars = _G.conf.vars.panels.top.tasklist
+local _V = {
+    button_width = vars.button_width or theme.tasklist_button_width,
+    menu_width = vars.menu_width or theme.tasklist_menu_width,
+}
 
 local _M = function(s)
 
@@ -27,7 +34,7 @@ local _M = function(s)
         end),
         awful.button({ }, 3, function()
             awful.menu.client_list {
-                theme = { width = theme.menu_width }
+                theme = { width = _V.menu_width }
             }
         end),
         awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
@@ -35,7 +42,7 @@ local _M = function(s)
     }
 
     local task_layout = {
-        max_widget_size = theme.tasklist_item_width,
+        max_widget_size = _V.button_width,
         layout = wibox.layout.flex.horizontal,
     }
 
@@ -46,26 +53,26 @@ local _M = function(s)
                 {
                     {
                         id     = 'icon_role',
-                        widget = wibox.widget.imagebox,
                         resize = true,
+                        widget = wibox.widget.imagebox,
                     },
                     {
                         id     = 'text_role',
                         widget = wibox.widget.textbox,
                     },
-                    layout = wibox.layout.fixed.horizontal,
                     spacing = dpi(4),
+                    layout = wibox.layout.fixed.horizontal,
                 },
-                widget = wibox.container.margin,
                 left    = dpi(4),
                 right   = dpi(4),
                 top     = dpi(1),
                 bottom  = dpi(1),
+                widget = wibox.container.margin,
             },
             {
                 wibox.widget.base.make_widget(),
-                forced_height = theme.border_width,
                 id            = 'background_role',
+                forced_height = theme.border_width,
                 widget        = wibox.container.background,
             },
             layout = wibox.layout.align.vertical,

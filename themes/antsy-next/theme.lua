@@ -133,14 +133,7 @@ theme.taglist_width             = dpi(20)
 theme.taglist_spacing           = theme.spacing
 theme.taglist_squares_sel       = nil
 theme.taglist_squares_unsel     = nil
-
-theme.taglist_shape_border_width            = dpi(0)
-theme.taglist_shape_border_color            = theme.no_color
-theme.taglist_shape_border_color_empty      = theme.no_color
-theme.taglist_shape_border_color_focus      = theme.no_color
-theme.taglist_shape_border_color_urgent     = theme.no_color
-theme.taglist_shape_border_color_volatile   = theme.no_color
-
+theme.taglist_shape_border_width    = dpi(0)
 
 -- Tasklist widget
 theme.tasklist_fg_normal        = theme.text_color
@@ -155,7 +148,8 @@ theme.tasklist_font_minimized   = theme.font
 theme.tasklist_fg_urgent        = theme.text_color
 theme.tasklist_bg_urgent        = theme.urgent_color
 theme.tasklist_font_urgent      = theme.font_bold
-theme.tasklist_item_width       = dpi(256)      -- custom
+theme.tasklist_button_width     = dpi(256)
+theme.tasklist_menu_width       = dpi(160)
 theme.tasklist_spacing          = theme.spacing
 theme.tasklist_shape_border_width           = theme.border_width
 theme.tasklist_shape_border_color           = theme.inactive_color
@@ -171,7 +165,7 @@ theme.titlebar_fg_focus         = theme.text_color
 theme.titlebar_bg_focus         = theme.ui_color
 theme.titlebar_font_focus       = theme.font_bold
 theme.titlebar_bg_transparent   = theme.ui_color .. theme.alpha
-theme.titlebar_height           = dpi(20)       -- custom
+theme.titlebar_height           = dpi(20)
 
 -- Systray widget
 theme.bg_systray                = theme.ui_color

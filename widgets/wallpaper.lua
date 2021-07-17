@@ -3,11 +3,11 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.wallpaper
 ------------------------------------------------------------------------------
 
 local awful = require('awful')
 local gears = require('gears')
-
 local mod = require('bindings.mod')
 local wallpaper = _G.conf.vars.wallpaper
 local utils = require('utils')
@@ -87,7 +87,7 @@ end
 local set_keybinding = function(timer)
     awful.keyboard.append_global_keybindings({
         awful.key({ mod.super, mod.alt }, 'w', function()
-                timer:emit_signal('timeout')
+                timer:emit_signal('wallpaper_shuffle')
         end,
         {description = 'set random wallpaper', group = 'Awesome: extras'})
     })
@@ -97,7 +97,7 @@ local path = wallpaper.path
 local mode = wallpaper.mode or 'max'
 local span = wallpaper.span or false
 local color = wallpaper.color or '#333'
-local timeout = wallpaper.timeout or 300
+local timeout = wallpaper.timeout or 10
 local timer = gears.timer { timeout = timeout }
 
 -- If path is directory, enable shuffler
@@ -113,8 +113,11 @@ if utils.is_dir(path) then
             if span then break end
         end
 
+        -- Convert timeout to seconds
+        timeout = timeout*60
+
         if timeout >= 1 then
-            timer:connect_signal('timeout', function()
+            timer:connect_signal('wallpaper_shuffle', function()
                 timer:stop()
 
                 index = get_index(index, #files)
@@ -123,7 +126,6 @@ if utils.is_dir(path) then
                 for s = 1, screen.count() do
                     if span then s = nil end
                     set_wallpaper(image, mode, s)
-
                     if span then break end
                 end
 

@@ -3,11 +3,12 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module config
 ------------------------------------------------------------------------------
 
 local awful = require('awful')
 
--- Misc. options that don't have a better place to go
+--{{ Misc. options that don't have a better place to go
 
 -- Enable show apps in hotkeys popup
 require('awful.hotkeys_popup.keys')
@@ -21,6 +22,8 @@ awful.titlebar.enable_tooltip = false
 -- Enable window snap
 awful.mouse.snap.edge_enabled = true
 awful.mouse.snap.client_enabled = true
+
+--}}
 
 return {
     vars = require('config.vars'),

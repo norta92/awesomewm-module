@@ -36,7 +36,7 @@ local systray = wibox.widget {
 
 local toggle_button = wibox.widget {
     id = 'icon',
-    image = theme.systray_visible,
+    image = theme.systray_visible_icon,
     resize = false,
     widget = wibox.widget.imagebox,
 }
@@ -78,10 +78,10 @@ end
 toggle_button:connect_signal("systray_toggle", function()
     systray.visible = not systray.visible
     if systray.visible then
-        toggle_button:set_image(theme.systray_visible)
+        toggle_button:set_image(theme.systray_visible_icon)
         create_hide_timer()
     else
-        toggle_button:set_image(theme.systray_hidden)
+        toggle_button:set_image(theme.systray_hidden_icon)
     end
 end)
 

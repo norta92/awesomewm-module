@@ -171,26 +171,22 @@ theme.titlebar_height           = dpi(20)
 theme.bg_systray                = theme.ui_color
 theme.systray_icon_spacing      = dpi(2)
 
--- Menu widget
-theme.menu_button_fg            = theme.ui_accent
-theme.menu_button_bg            = theme.ui_color
-theme.menu_button_width         = dpi(36)
-theme.menu_button_border_color  = theme.ui_accent
-theme.menu_button_border_width  = dpi(0)
-
--- Session widget
-theme.session_button_fg            = theme.ui_accent
-theme.session_button_bg            = theme.ui_color
-theme.session_button_width         = dpi(20)
-theme.session_button_border_color  = theme.ui_accent
-theme.session_button_border_width  = dpi(0)
-
 -- Menus
 theme.menu_font                 = theme.font
 theme.menu_width                = dpi(160)
 theme.menu_height               = dpi(20)
 theme.menu_border_color         = theme.border_color_active
 theme.menu_border_width         = theme.border_width
+
+-- Main menu widget
+theme.menu_button_fg            = theme.ui_accent
+theme.menu_button_bg            = theme.ui_color
+theme.menu_button_width         = dpi(36)
+
+-- Session menu widget
+theme.session_button_fg             = theme.ui_accent
+theme.session_button_bg             = theme.ui_color
+theme.session_button_width          = dpi(20)
 
 -- Tooltips
 theme.tooltip_fg                = theme.text_color
@@ -232,26 +228,24 @@ theme.hotkeys_border_color      = theme.active_color
 theme.hotkeys_border_width      = theme.border_width
 theme.hotkeys_group_margin      = theme.margins
 
--- Customize awesome icon
+-- Custom Awesome icon
 theme.awesome_icon = assets.awesome_icon(
     theme.menu_height,
     theme.magenta,
     theme.black)
 
+-- Custom Awesome icon for notifications
 theme.awesome_notification_icon = assets.awesome_icon(
     theme.notification_icon_size,
     theme.magenta,
     theme.black)
 
--- Icon theme
-theme.icon_theme = 'Antsy'
-
 -- Panel widget icons
 local panels = svgdata.panels
 theme.menu_button_icon      = render(panels.main_menu, theme.ui_accent, nil, 24)
 theme.session_button_icon   = render(panels.session_menu, theme.ui_accent, nil, 24)
-theme.systray_visible       = render(panels.systray_visible, theme.ui_accent, nil, 24)
-theme.systray_hidden        = render(panels.systray_hidden, theme.ui_accent, nil, 24)
+theme.systray_visible_icon  = render(panels.systray_visible, theme.ui_accent, nil, 24)
+theme.systray_hidden_icon   = render(panels.systray_hidden, theme.ui_accent, nil, 24)
 
 -- Titlebar icons
 local titlebar = svgdata.titlebar
@@ -318,11 +312,14 @@ theme.reboot_icon       = res .. 'menus/system-reboot.svg'
 theme.suspend_icon      = res .. 'menus/system-suspend.svg'
 theme.poweroff_icon     = res .. 'menus/system-shutdown.svg'
 
--- Wallpaper
-wallpaper.path          = res .. '/backgrounds/'
+-- Icon theme
+theme.icon_theme    = 'Antsy'
 
 -- Rofi theme
-theme.rofi              = active
+theme.rofi_theme    = active
+
+-- Wallpaper
+wallpaper.path      = res .. '/backgrounds/'
 
 return theme
 

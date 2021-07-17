@@ -43,8 +43,6 @@ local _M = function()
         },
         fg = theme.session_button_fg,
         bg = theme.session_button_bg,
-        border_color = theme.session_button_border_color,
-        border_width = theme.session_button_border_width,
         widget = container,
         buttons = session_buttons,
     }

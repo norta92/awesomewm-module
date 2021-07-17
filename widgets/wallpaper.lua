@@ -12,13 +12,12 @@ local mod = require('bindings.mod')
 local wallpaper = _G.conf.vars.wallpaper
 local utils = require('utils')
 
-local screen = screen
-
 local math, string = math, string
 local collectgarbage = collectgarbage
+local screen = screen
 
 --- Filter specific image formats.
--- @param file The file to check.
+-- @tparam str file The file to check.
 local file_filter = function(file)
     return string.match(file,'%.png$')
         or string.match(file,'%.jpg$')
@@ -26,7 +25,7 @@ local file_filter = function(file)
 end
 
 --- Return table of file paths.
--- @param lines The output of ls.
+-- @tparam str lines The output of ls.
 local get_files = function(lines)
     local files = {}
     for file in lines:gmatch('[^\r\n]+') do
@@ -40,8 +39,8 @@ local get_files = function(lines)
 end
 
 --- Return random and unique table index.
--- @param index The last index used.
--- @param total The total number of items in table.
+-- @tparam int index The last index used.
+-- @tparam int total The total number of items in table.
 local get_index = function(index, total)
     local old = index
 
@@ -53,17 +52,17 @@ local get_index = function(index, total)
 end
 
 --- Get image path from table.
--- @param path The directory containing the images
--- @param files The files table.
--- @param index The table index to use.
+-- @tparam str path The directory containing the images
+-- @tparam table files The files table.
+-- @tparam int index The table index to use.
 local get_image = function(path, files, index)
     return path .. '/' .. files[index]
 end
 
 --- Set wallpaper for screen.
--- @param image The image path.
--- @param mode The display mode (center, tile, max, fit).
--- @param s The screen to set the wallpaper for. Set to nil to span.
+-- @param str image The image path.
+-- @param str mode The display mode (center, tile, max, fit).
+-- @param screen s The screen to set the wallpaper for. Set to nil to span.
 local set_wallpaper = function(image, mode, s)
     local color = wallpaper.color or '#333'
 
@@ -83,7 +82,7 @@ local set_wallpaper = function(image, mode, s)
 end
 
 --- Set keybinding to shuffle wallpaper.
--- @param timer The shuffle timer.
+-- @tparam obj timer The shuffle timer.
 local set_keybinding = function(timer)
     awful.keyboard.append_global_keybindings({
         awful.key({ mod.super, mod.alt }, 'w', function()
@@ -140,15 +139,19 @@ if utils.is_dir(path) then
             set_keybinding(timer)
         end
     end)
+
 -- If path is file, set single wallpaper
 elseif utils.is_file(path) then
+
     for s = 1, screen.count() do
         if span then s = nil end
         set_wallpaper(path, mode, s)
         if span then break end
     end
+
 -- If anything else, set solid color
 else
+    -- TODO: generate Awesome wallpaper instead
     gears.wallpaper.set(color)
 end
 

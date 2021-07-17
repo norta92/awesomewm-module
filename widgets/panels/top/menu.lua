@@ -43,8 +43,6 @@ local _M = function()
         },
         fg = theme.menu_button_fg,
         bg = theme.menu_button_bg,
-        border_color = theme.menu_button_border_color,
-        border_width = theme.menu_button_border_width,
         widget = container,
         buttons = menu_buttons,
     }

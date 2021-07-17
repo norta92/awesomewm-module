@@ -3,6 +3,7 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @submodule config.apps
 ------------------------------------------------------------------------------
 
 local awful = require('awful')

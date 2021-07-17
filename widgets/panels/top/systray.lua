@@ -12,11 +12,13 @@
 
 local awful = require('awful')
 local theme = require('beautiful')
-local dpi = theme.xresources.apply_dpi
 local gears = require('gears')
+local timer = gears.timer
 local wibox = require('wibox')
 local mod = require('bindings.mod')
 local container = require('widgets.clickable-container')
+
+local tonumber = tonumber
 
 local vars = _G.conf.vars.panels.top.systray
 local _V = {
@@ -59,34 +61,49 @@ local systray_widget = wibox.widget {
         bottom = theme.panel_margin,
         widget = wibox.container.margin
     },
-    border_width = dpi(0),
     widget = container,
 }
 
-toggle_button:buttons(
-    gears.table.join(
-        awful.button({}, 1, function()
-            systray.visible = not systray.visible
-            if systray.visible then
-                toggle_button:set_image(theme.systray_visible)
-            else
-                toggle_button:set_image(theme.systray_hidden)
-            end
+--- If auto_hide enabled, create timer
+local create_hide_timer = function()
+    if _V.auto_hide then
+        local timeout = tonumber(_V.auto_hide)
+        timer.start_new(timeout, function()
+            toggle_button:emit_signal("systray_toggle")
         end)
-    )
-)
+    end
+end
 
+--- Setup signal
+toggle_button:connect_signal("systray_toggle", function()
+    systray.visible = not systray.visible
+    if systray.visible then
+        toggle_button:set_image(theme.systray_visible)
+        create_hide_timer()
+    else
+        toggle_button:set_image(theme.systray_hidden)
+    end
+end)
+
+--- Add mouse bindings
+toggle_button:buttons(gears.table.join(
+    awful.button({}, 1, function()
+        toggle_button:emit_signal("systray_toggle")
+    end)
+))
+
+--- Add key bindings
 awful.keyboard.append_global_keybindings({
     awful.key({ mod.super, mod.alt }, 's', function()
-        systray.visible = not systray.visible
-        if systray.visible then
-            toggle_button:set_image(theme.systray_visible)
-        else
-            toggle_button:set_image(theme.systray_hidden)
-        end
+        toggle_button:emit_signal("systray_toggle")
     end,
     {description = 'toggle systray', group = 'Awesome: extras'})
 })
+
+--- Hide at startup
+if _V.auto_hide then
+    toggle_button:emit_signal("systray_toggle")
+end
 
 return awful.widget.only_on_screen(systray_widget, 'primary')
 

@@ -14,6 +14,11 @@ local wibox = require('wibox')
 local container = require('widgets.clickable-container')
 local calendar = require('awful.widget.calendar_popup').month()
 
+local vars = _G.conf.vars.panels.top.clock
+local _V = {
+    calendar = vars.show_calendar,
+}
+
 local _M = function()
 
     local textclock = wibox.widget.textclock('%a %b %d, %H:%M', 30)
@@ -33,13 +38,15 @@ local _M = function()
         widget = container,
     }
 
-    function calendar.call_calendar(self, offset, position, _)
-        local screen = awful.screen.focused()
-        awful.widget.calendar_popup.call_calendar(self, offset, position, screen)
-    end
+    if _V.calendar then
+        function calendar.call_calendar(self, offset, position, _)
+            local screen = awful.screen.focused()
+            awful.widget.calendar_popup.call_calendar(self, offset, position, screen)
+        end
 
-    calendar:attach(clock_widget, 'tr', {on_hover=false})
-    calendar.opacity = theme.panel_opacity
+        calendar:attach(clock_widget, 'tr', { on_hover=false })
+        calendar.opacity = theme.panel_opacity
+    end
 
     return clock_widget
 end

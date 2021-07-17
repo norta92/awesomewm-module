@@ -29,11 +29,12 @@ _M.wallpaper = {
     timeout = 10  ,     -- how often to shuffle wallpaper (in minutes)
 }
 
--- Panels
+--- Panels
 _M.panels = {
     top = {
+        clock = { show_calendar = true, },
         tasklist = { button_width = 256, },
-        systray = { auto_hide = true, },
+        systray = { auto_hide = nil, },
     },
 }
 

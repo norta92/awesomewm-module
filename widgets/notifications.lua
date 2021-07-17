@@ -29,6 +29,11 @@ local wibox = require('wibox')
 local naughty = require('naughty')
 local container = require('widgets.clickable-container')
 
+local paths = _G.conf.paths
+local _V = {
+    search_paths = paths.icons or {},
+}
+
 -- Naughty only reads these values, so we set them from the theme.
 naughty.config.defaults.ontop = true
 naughty.config.defaults.icon_size = theme.notification_icon_size
@@ -42,14 +47,7 @@ naughty.config.padding = theme.notification_padding
 naughty.config.spacing = theme.notification_spacing
 
 -- Paths to search when looking for icons.
-naughty.config.icon_dirs = {
-    '/usr/share/icons/Antsy',
-    '/usr/share/icons/Antsy_Next',
-    '/usr/share/icons/Papirus/',
-    '/usr/share/icons/gnome/',
-    '/usr/share/icons/hicolor/',
-    '/usr/share/pixmaps/',
-}
+naughty.config.icon_dirs = _V.search_paths
 
 -- File formats to filter when looking for icons.
 naughty.config.icon_formats = { 'svg', 'png' }

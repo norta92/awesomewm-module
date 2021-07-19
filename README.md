@@ -1,49 +1,47 @@
-﻿# Penguin AwesomeWM config
+﻿# nGUI for AwesomeWM
 
-#### Requirements (minimum)
+A minimal, yet functional desktop.
+
+### Requirements
+#### Minimal
 + [awesome-git](https://aur.archlinux.org/awesome-git) - git version required
-+ [dex](https://archlinux.org/packages/community/any/dex/) - autostart applications
-+ [xorg-xrdb](https://archlinux.org/packages/extra/x86_64/xorg-xrdb/) - theme dependency
+#### Optional
++ [dex](https://archlinux.org/packages/community/any/dex/) - XDG autostart
++ [xorg-xrdb](https://archlinux.org/packages/extra/x86_64/xorg-xrdb/) - autostart dependency
++ [awesome-freedesktop-git](https://aur.archlinux.org/awesome-freedesktop-git) - XDG menus
++ [picom-tryone-git](https://aur.archlinux.org/picom-tryone-git) - compositor with kawaze blur
++ [rxvt-unicode-cvs-patched-wideglyphs](https://aur.archlinux.org/rxvt-unicode-cvs-patched-wideglyphs) - terminal emulator
++ [rofi](https://archlinux.org/packages/community/x86_64/rofi/) - application search and switcher
 
-#### Installation
+### Installation
 ```sh
-git clone https://git.linuxit.us/awesome $XDG_CONFIG_HOME/awesome
-```
-
-#### Configuration
-Colors ***must*** be set in `.Xresources`
-```
-*color0:                #000000
-*color1:                #c23621
-*color2:                #25bc24
-*color3:                #adad27
-*color4:                #492ee1
-*color5:                #d338d3
-*color6:                #33bbc8
-*color7:                #cbcccd
-*color8:                #818383
-*color9:                #fc391f
-*color10:               #31e722
-*color11:               #eaec23
-*color12:               #5833ff
-*color13:               #f935f8
-*color14:               #14f0f0
-*color15:               #e9ebeb
+git clone https://git.linuxit.us/penguin/ngui $XDG_CONFIG_HOME/ngui
+ln -s $XDG_CONFIG_HOME/ngui $XDG_CONFIG_HOME/awesome
 ```
 
 Some environment variables are expected to be set:
-```
-# ~/.xinitrc (or ~/.xsession)
+```sh
+# ~/.xsession (or ~/.xinitrc)
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
-export XDG_CURRENT_DESKTOP=awesome
-
-# you'll want to set these as well
-export TERMINAL=urxvtc
-export EDITOR=vim
-export FILEXP=pcmanfm
-export BROWSER=qutebrowser
 ```
 
+### Configuration
+#### Main
+There are three main configuration files:
++ `config/vars.lua`: variables can be set here (theme, wallpaper, layouts, etc)
++ `config/apps.lua`: apps used in menus and bindings
++ `config/paths.lua`: commonly used paths
+
+#### Themes
+In each theme directory (`themes/[active]`):
++ `theme.lua`: theme variables (colors, fonts, etc)
++ `svgicons.lua`: minified SVG icons
+
+#### Autostart
 Autostart items should be place in `$XDG_CONFIG_HOME/autostart`.
+
+By default, nGUI loads both system and user autostart items. To change this behavior, edit `config/paths.lua`.
+
+###

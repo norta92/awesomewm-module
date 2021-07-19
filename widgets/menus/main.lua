@@ -3,9 +3,11 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @submodule widgets.menus
+---- @themevars
 ----    theme.awesome_icon
-----    theme.terminal_icon
 ----    theme.filemanager_icon
+----    theme.terminal_icon
 ------------------------------------------------------------------------------
 
 local awful = require('awful')

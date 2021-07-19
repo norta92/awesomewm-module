@@ -3,18 +3,25 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @submodule bindings
 ------------------------------------------------------------------------------
 
 local awful = require('awful')
 
+local pairs = pairs
+
+local hide_menus = function()
+    for _, m in pairs(_G.menus) do
+        m:hide()
+    end
+end
+
 awful.mouse.append_global_mousebindings({
     awful.button({ }, 1, function()
-        _G.menus.main:hide()
-        _G.menus.session:hide()
+        hide_menus()
     end),
     awful.button({ }, 3, function()
-        _G.menus.main:hide()
-        _G.menus.session:hide()
+        hide_menus()
     end),
 })
 

@@ -38,10 +38,10 @@ theme.cyan              = '#14f0f0'
 theme.white             = '#e9ebeb'
 
 -- Fonts
-theme.font              = 'Noto Sans 10'
-theme.font_bold         = 'Noto Sans Bold 10'
-theme.font_large        = 'Noto Sans 12'
-theme.font_small        = 'Noto Sans 9'
+theme.font              = 'Hack Nerd Fonts 10'
+theme.font_bold         = 'Hack Nerd Fonts Bold 10'
+theme.font_large        = 'Hack Nerd Fonts 12'
+theme.font_small        = 'Hack Nerd Fonts 9'
 
 -- Aliases
 theme.ui_color          = theme.black
@@ -112,7 +112,7 @@ theme.border_color_fullscreen_urgent    = theme.ui_color
 --theme.panel_width               = dpi(0)
 theme.panel_height              = dpi(20)
 theme.panel_border_color        = theme.ui_color
-theme.panel_border_width        = dpi(0)
+theme.panel_border_width        = dpi(1)
 theme.panel_margin              = dpi(2)
 theme.panel_spacing             = dpi(6)
 theme.panel_opacity             = theme.opacity
@@ -133,14 +133,7 @@ theme.taglist_width             = dpi(20)
 theme.taglist_spacing           = theme.spacing
 theme.taglist_squares_sel       = nil
 theme.taglist_squares_unsel     = nil
-
-theme.taglist_shape_border_width            = dpi(0)
-theme.taglist_shape_border_color            = theme.no_color
-theme.taglist_shape_border_color_empty      = theme.no_color
-theme.taglist_shape_border_color_focus      = theme.no_color
-theme.taglist_shape_border_color_urgent     = theme.no_color
-theme.taglist_shape_border_color_volatile   = theme.no_color
-
+theme.taglist_shape_border_width    = dpi(0)
 
 -- Tasklist widget
 theme.tasklist_fg_normal        = theme.text_color
@@ -155,7 +148,8 @@ theme.tasklist_font_minimized   = theme.font
 theme.tasklist_fg_urgent        = theme.text_color
 theme.tasklist_bg_urgent        = theme.urgent_color
 theme.tasklist_font_urgent      = theme.font_bold
-theme.tasklist_item_width       = dpi(256)      -- custom
+theme.tasklist_button_width     = dpi(256)
+theme.tasklist_menu_width       = dpi(160)
 theme.tasklist_spacing          = theme.spacing
 theme.tasklist_shape_border_width           = theme.border_width
 theme.tasklist_shape_border_color           = theme.inactive_color
@@ -171,25 +165,11 @@ theme.titlebar_fg_focus         = theme.text_color
 theme.titlebar_bg_focus         = theme.ui_color
 theme.titlebar_font_focus       = theme.font_bold
 theme.titlebar_bg_transparent   = theme.ui_color .. theme.alpha
-theme.titlebar_height           = dpi(20)       -- custom
+theme.titlebar_height           = dpi(20)
 
 -- Systray widget
 theme.bg_systray                = theme.ui_color
 theme.systray_icon_spacing      = dpi(2)
-
--- Menu widget
-theme.menu_button_fg            = theme.ui_accent
-theme.menu_button_bg            = theme.ui_color
-theme.menu_button_width         = dpi(36)
-theme.menu_button_border_color  = theme.ui_accent
-theme.menu_button_border_width  = dpi(0)
-
--- Session widget
-theme.session_button_fg            = theme.ui_accent
-theme.session_button_bg            = theme.ui_color
-theme.session_button_width         = dpi(20)
-theme.session_button_border_color  = theme.ui_accent
-theme.session_button_border_width  = dpi(0)
 
 -- Menus
 theme.menu_font                 = theme.font
@@ -197,6 +177,16 @@ theme.menu_width                = dpi(160)
 theme.menu_height               = dpi(20)
 theme.menu_border_color         = theme.border_color_active
 theme.menu_border_width         = theme.border_width
+
+-- Main menu widget
+theme.menu_button_fg            = theme.ui_accent
+theme.menu_button_bg            = theme.ui_color
+theme.menu_button_width         = dpi(36)
+
+-- Session menu widget
+theme.session_button_fg             = theme.ui_accent
+theme.session_button_bg             = theme.ui_color
+theme.session_button_width          = dpi(20)
 
 -- Tooltips
 theme.tooltip_fg                = theme.text_color
@@ -232,32 +222,30 @@ theme.hotkeys_fg                = theme.text_color
 theme.hotkeys_label_bg          = theme.ui_color
 theme.hotkeys_label_fg          = theme.text_alt_color
 theme.hotkeys_modifiers_fg      = theme.marked_color
-theme.hotkeys_font              = theme.font_bold
-theme.hotkeys_description_font  = theme.font
+theme.hotkeys_font              = theme.font_small
+theme.hotkeys_description_font  = theme.font_small
 theme.hotkeys_border_color      = theme.active_color
 theme.hotkeys_border_width      = theme.border_width
 theme.hotkeys_group_margin      = theme.margins
 
--- Customize awesome icon
+-- Custom Awesome icon
 theme.awesome_icon = assets.awesome_icon(
     theme.menu_height,
     theme.magenta,
     theme.black)
 
+-- Custom Awesome icon for notifications
 theme.awesome_notification_icon = assets.awesome_icon(
     theme.notification_icon_size,
     theme.magenta,
     theme.black)
 
--- Icon theme
-theme.icon_theme = 'Antsy'
-
 -- Panel widget icons
 local panels = svgdata.panels
 theme.menu_button_icon      = render(panels.main_menu, theme.ui_accent, nil, 24)
 theme.session_button_icon   = render(panels.session_menu, theme.ui_accent, nil, 24)
-theme.systray_visible       = render(panels.systray_visible, theme.ui_accent, nil, 24)
-theme.systray_hidden        = render(panels.systray_hidden, theme.ui_accent, nil, 24)
+theme.systray_visible_icon  = render(panels.systray_visible, theme.ui_accent, nil, 24)
+theme.systray_hidden_icon   = render(panels.systray_hidden, theme.ui_accent, nil, 24)
 
 -- Titlebar icons
 local titlebar = svgdata.titlebar
@@ -324,11 +312,14 @@ theme.reboot_icon       = res .. 'menus/system-reboot.svg'
 theme.suspend_icon      = res .. 'menus/system-suspend.svg'
 theme.poweroff_icon     = res .. 'menus/system-shutdown.svg'
 
--- Wallpaper
-wallpaper.path          = res .. '/backgrounds/'
+-- Icon theme
+theme.icon_theme    = 'Antsy'
 
 -- Rofi theme
-theme.rofi              = active
+theme.rofi_theme    = active
+
+-- Wallpaper
+wallpaper.path      = res .. '/backgrounds/'
 
 return theme
 

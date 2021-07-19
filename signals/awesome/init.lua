@@ -3,17 +3,13 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module signals.awesome
 ------------------------------------------------------------------------------
 
-local awful = require('awful')
-
-local awesome, screen = awesome, screen
+local awesome = awesome
 
 --- AwesomeWM is about to enter the event loop.
 awesome.connect_signal('startup', function()
-
-    -- Focus primary screen
-    awful.screen.focus(screen.primary)
 
     -- Load menus
     _G.menus = {

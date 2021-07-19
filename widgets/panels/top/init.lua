@@ -3,6 +3,12 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @themevars
+----    theme.panel_height
+----    theme.panel_border_width
+----    theme.panel_border_color
+----    theme.panel_opacity
+----    theme.panel_spacing
 ------------------------------------------------------------------------------
 
 local awful = require("awful")

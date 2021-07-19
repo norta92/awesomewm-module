@@ -3,6 +3,13 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @themevars
+----    theme.menu_button_icon
+----    theme.menu_button_width
+----    theme.menu_button_fg
+----    theme.menu_button_bg
+----    theme.menu_button_border_color
+----    theme.menu_button_border_width
 ------------------------------------------------------------------------------
 
 local awful = require('awful')
@@ -36,8 +43,6 @@ local _M = function()
         },
         fg = theme.menu_button_fg,
         bg = theme.menu_button_bg,
-        border_color = theme.menu_button_border_color,
-        border_width = theme.menu_button_border_width,
         widget = container,
         buttons = menu_buttons,
     }

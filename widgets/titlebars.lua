@@ -3,11 +3,12 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.titlebars
 ---- @themevars
+----    theme.margins
 ----    theme.titlebar_bg_normal
 ----    theme.titlebar_bg_transparent
 ----    theme.titlebar_height
-----    theme.margins
 ------------------------------------------------------------------------------
 
 local awful = require('awful')

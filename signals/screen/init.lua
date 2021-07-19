@@ -3,9 +3,21 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module signals.screen
 ------------------------------------------------------------------------------
 
+local awful = require('awful')
+
 local screen = screen
+
+--- When new screen is added.
+-- @param s
+screen.connect_signal('added', function()
+
+    -- Focus primary screen
+    awful.screen.focus(screen.primary)
+
+end)
 
 --- When the decorations need to be added to a new screen.
 -- @param s

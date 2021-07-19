@@ -3,18 +3,16 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @submodule bindings
 ------------------------------------------------------------------------------
 
 local awful = require('awful')
 local spawn = awful.spawn
 local hotkeys_popup = require('awful.hotkeys_popup').widget
-require('awful.hotkeys_popup.keys')
-
 local apps = _G.conf.apps
 local mod = require('bindings.mod')
 local tagutil = require('utils.tags')
 local layout_list = _G.conf.vars.layouts.list
-
 local menu_position = require('utils').set_menu_position
 
 local awesome, screen, client = awesome, screen, client
@@ -94,14 +92,19 @@ awful.keyboard.append_global_keybindings({
             end
         end,
     },
-    awful.key({ mod.super, mod.ctrl }, 'n', function () tagutil.add_tag(layout_list[1]) end,
+    -- Add new tag
+    awful.key({ mod.super, mod.ctrl }, 'a', function () tagutil.add_tag(layout_list[1]) end,
               {description = 'add new tag', group = 'Awesome: tag'}),
+    -- Edit current tag name
     awful.key({ mod.super, mod.ctrl }, 'e', function () tagutil.rename_tag() end,
               {description = 'edit current tag', group = 'Awesome: tag'}),
-    awful.key({ mod.super, mod.ctrl }, '[', function () tagutil.move_tag(1) end,   -- move to next tag
+    -- Move current tag to next
+    awful.key({ mod.super, mod.ctrl }, '[', function () tagutil.move_tag(1) end,
               {description = 'move to next tag', group = 'Awesome: tag'}),
-    awful.key({ mod.super, mod.ctrl }, ']', function () tagutil.move_tag(-1) end, -- move to previous tag
+    -- Move current tag to previous
+    awful.key({ mod.super, mod.ctrl }, ']', function () tagutil.move_tag(-1) end,
               {description = 'move to previous tag', group = 'Awesome: tag'}),
+    -- Delete current tag
     awful.key({ mod.super, mod.ctrl }, 'd', function () tagutil.delete_tag() end,
               {description = 'delete current tag', group = 'Awesome: tag'}),
 })

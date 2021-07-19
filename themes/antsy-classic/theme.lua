@@ -45,52 +45,52 @@ theme.font_small                = 'Hack Nerd Font Mono 9'
 theme.font_extra_small          = 'Hack Nerd Font Mono 8'
 
 -- Aliases
-theme.ui_color                  = theme.black
-theme.ui_alt_color              = theme.dark_gray
-theme.ui_accent                 = theme.gray
-theme.text_color                = theme.gray
-theme.text_alt_color            = theme.black
-theme.focus_color               = theme.blue
-theme.focus_accent              = theme.dark_blue
-theme.active_color              = theme.white
-theme.active_accent             = theme.gray
-theme.inactive_color            = theme.dark_gray
-theme.inactive_accent           = theme.gray
-theme.new_color                 = theme.yellow
-theme.new_accent                = theme.dark_yellow
-theme.urgent_color              = theme.cyan
-theme.urgent_accent             = theme.dark_cyan
-theme.marked_color              = theme.magenta
-theme.marked_accent             = theme.dark_magenta
-theme.minimize_color            = theme.black
-theme.minimize_accent           = theme.dark_gray
-theme.error_color               = theme.red
-theme.error_accent              = theme.dark_red
-theme.hover_color               = theme.active_color .. '26'
-theme.click_color               = theme.focus_color .. '26'
-theme.no_color                  = '#00000000'
-theme.alpha                     = 'e6' -- 90%
+theme.ui_color          = theme.black
+theme.ui_alt_color      = theme.dark_gray
+theme.ui_accent         = theme.gray
+theme.text_color        = theme.gray
+theme.text_alt_color    = theme.black
+theme.focus_color       = theme.blue
+theme.focus_accent      = theme.dark_blue
+theme.active_color      = theme.white
+theme.active_accent     = theme.gray
+theme.inactive_color    = theme.dark_gray
+theme.inactive_accent   = theme.gray
+theme.new_color         = theme.yellow
+theme.new_accent        = theme.dark_yellow
+theme.urgent_color      = theme.cyan
+theme.urgent_accent     = theme.dark_cyan
+theme.marked_color      = theme.magenta
+theme.marked_accent     = theme.dark_magenta
+theme.minimize_color    = theme.black
+theme.minimize_accent   = theme.dark_gray
+theme.error_color       = theme.red
+theme.error_accent      = theme.dark_red
+theme.hover_color       = theme.active_color .. '26'
+theme.click_color       = theme.active_color .. '40'
+theme.no_color          = '#00000000'
+theme.alpha             = 'e6' -- 90%
 
 -- Misc options
-theme.useless_gap               = dpi(4)
-theme.border_width              = dpi(2)
-theme.border_radius             = dpi(0)
-theme.separator                 = ' '           -- custom
-theme.spacing                   = dpi(2)        -- custom
-theme.margins                   = dpi(2)        -- custom
-theme.opacity                   = 1.0           -- custom
+theme.useless_gap       = dpi(4)
+theme.border_width      = dpi(2)
+theme.border_radius     = dpi(0)
+theme.separator         = ' '           -- custom
+theme.spacing           = dpi(2)        -- custom
+theme.margins           = dpi(2)        -- custom
+theme.opacity           = 1.0           -- custom
 
 -- General
-theme.fg_normal                 = theme.text_color
-theme.bg_normal                 = theme.ui_color
-theme.wibar_fg                  = theme.text_color
-theme.wibar_bg                  = theme.ui_color
-theme.fg_focus                  = theme.text_alt_color
-theme.bg_focus                  = theme.focus_color
-theme.fg_urgent                 = theme.text_alt_color
-theme.bg_urgent                 = theme.urgent_color
-theme.fg_minimize               = theme.text_alt_color
-theme.bg_minimize               = theme.minimize_color
+theme.fg_normal         = theme.text_color
+theme.bg_normal         = theme.ui_color
+theme.wibar_fg          = theme.text_color
+theme.wibar_bg          = theme.ui_color
+theme.fg_focus          = theme.text_alt_color
+theme.bg_focus          = theme.focus_color
+theme.fg_urgent         = theme.text_alt_color
+theme.bg_urgent         = theme.urgent_color
+theme.fg_minimize       = theme.text_alt_color
+theme.bg_minimize       = theme.minimize_color
 
 -- Window border colors
 theme.border_color                      = theme.ui_color
@@ -113,7 +113,7 @@ theme.border_color_fullscreen_urgent    = theme.ui_color
 --theme.panel_width               = dpi(0)
 theme.panel_height              = dpi(20)
 theme.panel_border_color        = theme.ui_color
-theme.panel_border_width        = dpi(0)
+theme.panel_border_width        = dpi(1)
 theme.panel_margin              = dpi(2)
 theme.panel_spacing             = dpi(6)
 theme.panel_opacity             = theme.opacity
@@ -134,14 +134,7 @@ theme.taglist_width             = dpi(20)
 theme.taglist_spacing           = theme.spacing
 theme.taglist_squares_sel       = nil
 theme.taglist_squares_unsel     = nil
-
-theme.taglist_shape_border_width            = dpi(0)
-theme.taglist_shape_border_color            = theme.no_color
-theme.taglist_shape_border_color_empty      = theme.no_color
-theme.taglist_shape_border_color_focus      = theme.no_color
-theme.taglist_shape_border_color_urgent     = theme.no_color
-theme.taglist_shape_border_color_volatile   = theme.no_color
-
+theme.taglist_shape_border_width    = dpi(0)
 
 -- Tasklist widget
 theme.tasklist_fg_normal        = theme.text_color
@@ -156,7 +149,8 @@ theme.tasklist_font_minimized   = theme.font
 theme.tasklist_fg_urgent        = theme.text_color
 theme.tasklist_bg_urgent        = theme.urgent_color
 theme.tasklist_font_urgent      = theme.font_bold
-theme.tasklist_item_width       = dpi(256)      -- custom
+theme.tasklist_button_width     = dpi(256)
+theme.tasklist_menu_width       = dpi(160)
 theme.tasklist_spacing          = theme.spacing
 theme.tasklist_shape_border_width           = theme.border_width
 theme.tasklist_shape_border_color           = theme.inactive_color
@@ -172,25 +166,11 @@ theme.titlebar_fg_focus         = theme.text_color
 theme.titlebar_bg_focus         = theme.ui_color
 theme.titlebar_font_focus       = theme.font_bold
 theme.titlebar_bg_transparent   = theme.ui_color
-theme.titlebar_height           = dpi(20)       -- custom
+theme.titlebar_height           = dpi(20)
 
 -- Systray widget
 theme.bg_systray                = theme.ui_color
 theme.systray_icon_spacing      = dpi(2)
-
--- Menu widget
-theme.menu_button_fg            = theme.ui_accent
-theme.menu_button_bg            = theme.ui_color
-theme.menu_button_width         = dpi(36)
-theme.menu_button_border_color  = theme.ui_accent
-theme.menu_button_border_width  = dpi(0)
-
--- Session widget
-theme.session_button_fg            = theme.ui_accent
-theme.session_button_bg            = theme.ui_color
-theme.session_button_width         = dpi(20)
-theme.session_button_border_color  = theme.ui_accent
-theme.session_button_border_width  = dpi(0)
 
 -- Menus
 theme.menu_font                 = theme.font
@@ -198,6 +178,16 @@ theme.menu_width                = dpi(160)
 theme.menu_height               = dpi(20)
 theme.menu_border_color         = theme.border_color_active
 theme.menu_border_width         = theme.border_width
+
+-- Main menu widget
+theme.menu_button_fg            = theme.ui_accent
+theme.menu_button_bg            = theme.ui_color
+theme.menu_button_width         = dpi(36)
+
+-- Session menu widget
+theme.session_button_fg             = theme.ui_accent
+theme.session_button_bg             = theme.ui_color
+theme.session_button_width          = dpi(20)
 
 -- Tooltips
 theme.tooltip_fg                = theme.text_color
@@ -228,23 +218,24 @@ theme.snap_border_width         = theme.border_width
 theme.snap_shape                = gears.shape.rectangle
 
 -- Hotkeys popup
-theme.hotkeys_bg                = theme.ui_color
+theme.hotkeys_bg                = theme.ui_color .. theme.alpha
 theme.hotkeys_fg                = theme.text_color
 theme.hotkeys_label_bg          = theme.ui_color
 theme.hotkeys_label_fg          = theme.text_alt_color
 theme.hotkeys_modifiers_fg      = theme.marked_color
-theme.hotkeys_font              = theme.font_bold
-theme.hotkeys_description_font  = theme.font
+theme.hotkeys_font              = theme.font_small
+theme.hotkeys_description_font  = theme.font_small
 theme.hotkeys_border_color      = theme.active_color
 theme.hotkeys_border_width      = theme.border_width
 theme.hotkeys_group_margin      = theme.margins
 
--- Customize awesome icon
+-- Custom Awesome icon
 theme.awesome_icon = assets.awesome_icon(
     theme.menu_height,
     theme.magenta,
     theme.black)
 
+-- Custom Awesome icon for notifications
 theme.awesome_notification_icon = assets.awesome_icon(
     theme.notification_icon_size,
     theme.magenta,
@@ -257,8 +248,8 @@ theme.icon_theme = 'Antsy'
 local panels = svgdata.panels
 theme.menu_button_icon      = render(panels.main_menu, theme.ui_accent, nil, 24)
 theme.session_button_icon   = render(panels.session_menu, theme.ui_accent, nil, 24)
-theme.systray_visible       = render(panels.systray_visible, theme.ui_accent, nil, 24)
-theme.systray_hidden        = render(panels.systray_hidden, theme.ui_accent, nil, 24)
+theme.systray_visible_icon  = render(panels.systray_visible, theme.ui_accent, nil, 24)
+theme.systray_hidden_icon   = render(panels.systray_hidden, theme.ui_accent, nil, 24)
 
 -- Titlebar icons
 local titlebar = svgdata.titlebar
@@ -308,9 +299,11 @@ theme.layout_tiletop    = render(layouts.tiletop, theme.ui_accent, nil, 24)
 local menus = svgdata.menus
 theme.menu_submenu_icon = render(menus.submenu, theme.text_color, nil, 24)
 
--- Custom menu icons
+-- Main menu icons
 theme.terminal_icon     = res .. 'menus/terminal-emulator.svg'
 theme.filemanager_icon  = res .. 'menus/file-manager.svg'
+
+-- Awesome menu icons
 theme.hotkeys_icon      = res .. 'menus/show-hotkeys.svg'
 theme.manual_icon       = res .. 'menus/read-manual.svg'
 theme.editor_icon       = res .. 'menus/edit-config.svg'
@@ -323,11 +316,14 @@ theme.reboot_icon       = res .. 'menus/system-reboot.svg'
 theme.suspend_icon      = res .. 'menus/system-suspend.svg'
 theme.poweroff_icon     = res .. 'menus/system-shutdown.svg'
 
--- Wallpaper
-wallpaper.path          = '/usr/share/backgrounds/archlinux/'
+-- Icon theme
+theme.icon_theme    = 'Antsy'
 
 -- Rofi theme
-theme.rofi              = active
+theme.rofi_theme    = active
+
+-- Wallpaper
+wallpaper.path      = res .. '/backgrounds/'
 
 return theme
 

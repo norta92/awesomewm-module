@@ -3,9 +3,10 @@
 ----
 ---- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
 ---- @copyright 2020-2021 Jeff M. Hubbard
+---- @module widgets.clickable-container
 ---- @themevars
-----    theme.hover_color
 ----    theme.click_color
+----    theme.hover_color
 ----    theme.no_color
 ------------------------------------------------------------------------------
 
@@ -15,7 +16,7 @@ local wibox = require('wibox')
 local mouse = mouse
 
 --- Wrap widget in background, connect signals to change bg color.
--- @param w The widget to be wrapped.
+-- @tparam widget w The widget to be wrapped.
 local _M = function(w)
 
     -- Wrap original widget.
@@ -25,7 +26,7 @@ local _M = function(w)
     }
     local old_wibox
 
-    -- Hover begin
+    -- Hover begin.
     widget:connect_signal('mouse::enter', function()
         widget.bg = theme.hover_color
         local cur_wibox = mouse.current_wibox

@@ -1,1 +1,1 @@
-﻿# Base theme for AwesomeWM
+﻿# AwesomeWM default theme with modular config

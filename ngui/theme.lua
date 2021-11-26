@@ -8,9 +8,11 @@ local res_path      = gfs.get_configuration_dir()..'/resources/'
 local shape         = gears.shape
 local debug         = gears.debug
 local colors        = require('utils.colors')
-local svg           = require('svgicons')
+local svg           = require('resources.svgicons')
 local render        = svg.render_icon
 local cairo         = require("lgi").cairo
+
+require('modules.thwap')
 
 local theme = dofile(themes_path..'default/theme.lua')
 
@@ -19,7 +21,6 @@ if not theme.gtk then
     debug.print_warning("Can't load GTK+3 theme. You're going to have a bad time.")
     return theme
 end
-
 local button_shape                  = function(cr, w, h)
                                           shape.rounded_rect(cr, w, h, theme.border_radius)
                                       end
@@ -76,10 +77,10 @@ theme.osd_fg                        = theme.gtk.osd_fg_color
 theme.osd_bg                        = theme.gtk.osd_bg_color
 theme.osd_border_color              = theme.gtk.osd_border_color
 
-theme.border_color                  = theme.bg_normal
-theme.border_color_normal           = theme.bg_normal
-theme.border_color_active           = theme.bg_focus
-theme.border_color_marked           = theme.bg_warning
+theme.border_color                  = theme.gtk.wm_bg_color
+theme.border_color_normal           = theme.gtk.wm_bg_color
+theme.border_color_active           = theme.gtk.wm_border_focused_color
+theme.border_color_marked           = theme.gtk.warning_color
 theme.border_width                  = dpi(theme.gtk.button_border_width or 1)
 theme.border_radius                 = dpi(theme.gtk.button_border_radius or 0)
 
@@ -240,9 +241,14 @@ theme.tasklist_fg_urgent            = theme.base_fg
 theme.tasklist_bg_urgent            = theme.bg_success
 theme.tasklist_fg_minimize          = theme.button_border_color
 theme.tasklist_bg_minimize          = theme.button_bg
-theme.tasklist_button_width         = dpi(240)
-theme.tasklist_menu_width           = dpi(160)
-theme.tasklist_plain_task_name      = true
+theme.tasklist_sticky               = ' '
+theme.tasklist_ontop                = ' '
+theme.tasklist_above                = ' '
+theme.tasklist_below                = ' '
+theme.tasklist_floating             = ' '
+theme.tasklist_maximized            = ' '
+theme.tasklist_maximized_horizontal = ' '
+theme.tasklist_maximized_vertical   = ' '
 
 theme.taglist_fg_empty              = theme.button_border_color
 theme.taglist_bg_empty              = theme.button_bg
@@ -264,7 +270,7 @@ theme.menu_fg_normal                = theme.menubar_fg
 theme.menu_bg_normal                = theme.menubar_bg
 theme.menu_border_width             = theme.button_border_width
 theme.menu_border_color             = theme.base_bg
-theme.menu_width                    = dpi(150)
+theme.menu_width                    = dpi(160)
 theme.menu_height                   = dpi(24)
 theme.menu_submenu                  = render(svg.menus.submenu, theme.fg_normal, nil, 24)
 theme.menu_submenu_icon             = render(svg.menus.submenu, theme.fg_normal, nil, 24)
@@ -312,7 +318,7 @@ theme.calendar_focus_bg_color       = theme.bg_focus
 theme.calendar_header_fg_color      = theme.header_fg
 theme.calendar_header_bg_color      = theme.header_bg
 theme.calendar_header_border_color  = theme.header_border_color
-theme.calendar_weekday_fg_color     = theme.button_border_color
+theme.calendar_weekday_fg_color     = theme.border_color_active
 theme.calendar_weekday_bg_color     = theme.button_bg
 theme.calendar_weekday_border_color = theme.button_bg
 
@@ -357,11 +363,11 @@ theme.hotkeys_border_width          = theme.border_width
 theme.hotkeys_shape                 = button_shape
 theme.hotkeys_group_margin          = dpi(2)
 
-local function awesomer_icon(args)
-    args = args or {}
+local function awesomer_icon(user_args)
+    local args = user_args or {}
     local fg = args.fg or theme.bg_normal
     local bg = args.bg or theme.bg_focus
-    local border_color = args.border_color or theme.bg_normal
+    local border_color = args.border_color or theme.transparent
     local border_width = args.border_width or theme.border_width
     local size = args.size or theme.menu_height
     local margin = args.margin or theme.border_width
@@ -377,21 +383,21 @@ local function awesomer_icon(args)
     return img
 end
 
-theme.awesome_menu_icon = awesomer_icon({})
+theme.awesome_menu_icon = awesomer_icon({bg=theme.border_color_active})
 
 theme.default_app_icon = awesomer_icon {
     fg = theme.base_bg,
     bg = theme.base_fg,
-    border_color = theme.base_bg,
+    border_color = theme.transparent,
 }
 
 theme.notification_default_icon = awesomer_icon {
     fg = theme.bg_normal,
     bg = theme.bg_focus,
-    border_color = theme.bg_normal,
+    border_color = theme.transparent,
     size = theme.notification_icon_size,
 }
 
-theme.icon_theme = 'nGUI'
+theme.icon_theme = _G.gtkrc['gtk-icon-theme-name'] or nil
 
 return theme

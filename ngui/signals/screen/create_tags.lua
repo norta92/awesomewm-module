@@ -1,24 +1,21 @@
 local awful = require('awful')
-local vars = _G.cfg.vars.tags
+local cfg_vars = _G.cfg.vars.screen.create_tags
 
-local _V = {
-    list = vars.list or nil,
-    auto = vars.auto or 9,
-}
+local _M = function(kwargs)
+    local args = cfg_vars or kwargs or {}
+    local list = args.list or nil
+    local auto = args.auto or 9
 
-screen.connect_signal('request::desktop_decoration', function(s)
-    if not _V.list then
-        _V.list = {}
-        for n = 1,_V.auto,1 do
-            table.insert(_V.list, n)
+    screen.connect_signal('request::desktop_decoration', function(s)
+        if not list then
+            list = {}
+            for n = 1,auto,1 do
+                table.insert(list, n)
+            end
         end
-    end
 
-    --if type(_V.list[1]) == 'table' then
-    --    awful.tag(_V.list[s], s, awful.layout.layouts[1])
-    --else
-    --    awful.tag(_V.list, s, awful.layout.layouts[1])
-    --end
+            awful.tag(list, s, awful.layout.layouts[1])
+    end)
+end
 
-        awful.tag(_V.list, s, awful.layout.layouts[1])
-end)
+return _M

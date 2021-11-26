@@ -1,16 +1,11 @@
-------------------------------------------------------------------------------
------ Backdrop menu.
-----
----- @author Jeff M. Hubbard &lt;jeffmhubbard@gmail.com&gt;
----- @copyright 2020-2021 Jeff M. Hubbard
-------------------------------------------------------------------------------
-
 local awful = require('awful')
 local theme = require('beautiful')
 
-local _M = function(timer)
+local cfg_vars = _G.cfg.vars.backdrop
 
-    local mode = _G.cfg.vars.backdrop.mode
+local _M = function(timer, kwargs)
+    local args = cfg_vars or kwargs or {}
+    local mode = args.mode or 'shuffle'
 
     local menu = {
         {

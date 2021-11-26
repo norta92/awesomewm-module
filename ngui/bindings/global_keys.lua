@@ -2,7 +2,7 @@ local awful = require('awful')
 local hotkeys_popup = require('awful.hotkeys_popup')
 local mod = require('bindings.mod')
 local apps = _G.cfg.apps
-local focus = _G.cfg.vars.focus
+local focus = _G.cfg.vars.client.mouse_focus
 local menu_position = require('utils.menus').set_menu_position
 
 awful.keyboard.append_global_keybindings({

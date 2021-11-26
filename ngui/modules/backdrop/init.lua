@@ -3,20 +3,17 @@ local gears = require('gears')
 local notify = require('naughty.notification')
 local lfs = require('lfs')
 local mod = require('bindings.mod')
-local vars = _G.cfg.vars.backdrop
+local cfg_vars = _G.cfg.vars.backdrop
 
-local _V = {
-    path = vars.path or nil,
-    mode = vars.mode or 'shuffle',
-    scale = vars.scale or 'max',
-    color = vars.color or '#333',
-    span = vars.span or false,
-    timeout = vars.timeout or 10,
-}
-
-_V.timeout = _V.timeout * 60
-
-local _M = function()
+local _M = function(kwargs)
+    local args = cfg_vars or kwargs or {}
+    local path = args.path or nil
+    local mode = args.mode or 'shuffle'
+    local scale = args.scale or 'max'
+    local color = args.color or '#333'
+    local span = args.span or false
+    local timeout = args.timeout or 10
+    timeout = timeout * 60
 
     local filter = function(file)
         return string.match(file, '%.png$')
@@ -34,30 +31,30 @@ local _M = function()
         return index
     end
 
-    local is_dir = function(path)
-        if type(path) ~= 'string' then return false end
+    local is_dir = function(directory)
+        if type(directory) ~= 'string' then return false end
 
         local cd = lfs.currentdir()
-        local is = lfs.chdir(path) and true or false
+        local is = lfs.chdir(directory) and true or false
         lfs.chdir(cd)
 
         return is
     end
 
-    local is_file = function(path)
-        if type(path) ~= 'string' then return false end
+    local is_file = function(file)
+        if type(file) ~= 'string' then return false end
 
-        if not is_dir(path) then
-            return os.rename(path, path) and true or false
+        if not is_dir(file) then
+            return os.rename(file, file) and true or false
         end
 
         return false
     end
 
-    local scandir = function(path)
+    local scandir = function(directory)
         local files = {}
 
-        for file in lfs.dir(path) do
+        for file in lfs.dir(directory) do
             if file ~= '.' and file ~= '..' then
                 local filepath = path .. '/' .. file
                 if (is_file(filepath) and filter(filepath)) then
@@ -67,7 +64,7 @@ local _M = function()
         end
 
         if #files == 0 then
-            notify {message = '"'..path..'" does not contain any supported images!'}
+            notify {message = '"'..directory..'" does not contain any supported images!'}
         end
 
         return files
@@ -75,21 +72,21 @@ local _M = function()
 
     local set = function(image)
         for s = 1, screen.count() do
-            if _V.span then s = nil end
+            if span then s = nil end
 
-            if _V.scale == 'center' then
-                gears.wallpaper.centered(image, s, _V.color, 2)
-            elseif _V.scale == 'tile' then
+            if scale == 'center' then
+                gears.wallpaper.centered(image, s, color, 2)
+            elseif scale == 'tile' then
                 gears.wallpaper.tiled(image, s, {0,0})
-            elseif _V.scale == 'max' then
+            elseif scale == 'max' then
                 gears.wallpaper.maximized(image, s, false, {0,0})
-            elseif _V.scale == 'fit' then
-                gears.wallpaper.fit(image, s, _V.color)
+            elseif scale == 'fit' then
+                gears.wallpaper.fit(image, s, color)
             else
                 gears.wallpaper.set(image)
             end
 
-            if _V.span then break end
+            if span then break end
         end
 
         collectgarbage('collect')
@@ -130,7 +127,7 @@ local _M = function()
         local wallpapers = scandir(path)
         local index = get_random_index(1, #wallpapers)
 
-        set(wallpapers[index], _V.scale)
+        set(wallpapers[index], scale)
     end
 
     local shuffle = function(path)
@@ -142,11 +139,11 @@ local _M = function()
 
         local index = get_random_index(1, #wallpapers)
 
-        local timer = gears.timer { timeout = _V.timeout, autostart = true }
+        local timer = gears.timer { timeout = timeout, autostart = true }
 
         timer:connect_signal('timeout', function()
             index = get_random_index(index, #wallpapers)
-            set(wallpapers[index], _V.scale)
+            set(wallpapers[index], scale)
         end)
 
         timer:connect_signal('start', function()
@@ -173,14 +170,14 @@ local _M = function()
         local index = 1
         local total = #wallpapers
 
-        local timer = gears.timer { timeout = _V.timeout, autostart = true }
+        local timer = gears.timer { timeout = timeout, autostart = true }
 
         timer:connect_signal('timeout', function()
             if index <= total then
-                set(wallpapers[index], _V.scale)
+                set(wallpapers[index], scale)
                 index = index + 1
             else
-                set(wallpapers[1], _V.scale)
+                set(wallpapers[1], scale)
                 index = 1
             end
         end)
@@ -203,20 +200,20 @@ local _M = function()
     end
 
     do
-        if _V.path then
-            if vars.mode == modes[1] and is_file(_V.path) then
-                set(_V.path)
-            elseif vars.mode == modes[1] and is_dir(_V.path) then
-                single(_V.path)
-            elseif vars.mode == modes[2] and is_dir(_V.path) then
-                slideshow(_V.path)
-            elseif vars.mode == modes[3] and is_dir(_V.path) then
-                shuffle(_V.path)
+        if path then
+            if mode == modes[1] and is_file(path) then
+                set(path)
+            elseif mode == modes[1] and is_dir(path) then
+                single(path)
+            elseif mode == modes[2] and is_dir(path) then
+                slideshow(path)
+            elseif mode == modes[3] and is_dir(path) then
+                shuffle(path)
             else
-                notify { message = '"'.._V.path..'" is invalid path!' }
+                notify { message = '"'..path..'" is invalid path!' }
             end
         else
-            gears.wallpaper.set(_V.color)
+            gears.wallpaper.set(color)
         end
     end
 

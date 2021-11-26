@@ -1,11 +1,11 @@
-local _M = {}
+local _color = {}
 
-_M.hex_color_match = "[a-fA-F0-9][a-fA-F0-9]"
+_color.hex_color_match = "[a-fA-F0-9][a-fA-F0-9]"
 
-function _M.darker(color_value, darker_n)
+function _color.darker(color_value, darker_n)
     local result = "#"
     local channel_counter = 1
-    for s in color_value:gmatch(_M.hex_color_match) do
+    for s in color_value:gmatch(_color.hex_color_match) do
         local bg_numeric_value = tonumber("0x"..s)
         if channel_counter <= 3 then
             bg_numeric_value = bg_numeric_value - darker_n
@@ -18,10 +18,10 @@ function _M.darker(color_value, darker_n)
     return result
 end
 
-function _M.is_dark(color_value)
+function _color.is_dark(color_value)
     local bg_numeric_value = 0;
     local channel_counter = 1
-    for s in color_value:gmatch(_M.hex_color_match) do
+    for s in color_value:gmatch(_color.hex_color_match) do
         bg_numeric_value = bg_numeric_value + tonumber("0x"..s);
         if channel_counter == 3 then
             break
@@ -32,11 +32,11 @@ function _M.is_dark(color_value)
     return is_dark_bg
 end
 
-function _M.mix(color1, color2, ratio)
+function _color.mix(color1, color2, ratio)
     ratio = ratio or 0.5
     local result = "#"
-    local channels1 = color1:gmatch(_M.hex_color_match)
-    local channels2 = color2:gmatch(_M.hex_color_match)
+    local channels1 = color1:gmatch(_color.hex_color_match)
+    local channels2 = color2:gmatch(_color.hex_color_match)
     for _ = 1,3 do
         local bg_numeric_value = math.ceil(
           tonumber("0x"..channels1())*ratio +
@@ -49,20 +49,20 @@ function _M.mix(color1, color2, ratio)
     return result
 end
 
-function _M.reduce_contrast(color, ratio)  -- luacheck: no unused
+function _color.reduce_contrast(color, ratio)  -- luacheck: no unused
     ratio = ratio or 50
-    return _M.darker(color, _M.is_dark(color) and -ratio or ratio)
+    return _color.darker(color, _color.is_dark(color) and -ratio or ratio)
 end
 
-function _M.choose_contrast_color(reference, candidate1, candidate2)  -- luacheck: no unused
-    if _M.is_dark(reference) then
-        if not _M.is_dark(candidate1) then
+function _color.choose_contrast_color(reference, candidate1, candidate2)  -- luacheck: no unused
+    if _color.is_dark(reference) then
+        if not _color.is_dark(candidate1) then
             return candidate1
         else
             return candidate2
         end
     else
-        if _M.is_dark(candidate1) then
+        if _color.is_dark(candidate1) then
             return candidate1
         else
             return candidate2
@@ -70,4 +70,4 @@ function _M.choose_contrast_color(reference, candidate1, candidate2)  -- luachec
     end
 end
 
-return _M
+return _color

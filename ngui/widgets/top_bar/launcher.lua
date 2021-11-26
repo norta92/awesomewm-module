@@ -4,7 +4,11 @@ local wibox = require('wibox')
 local container = require('widgets.buttons.gtk')
 local menu_position = require('utils.menus').set_menu_position
 
-local _M = function()
+local cfg_vars = _G.cfg.vars.top_bar.launcher
+
+local _M = function(kwargs)
+    local args = cfg_vars or kwargs or {}
+    local menu_pos = args.menu_pos or 'tl'
 
     local icon = wibox.widget {
         id = 'icon',
@@ -15,8 +19,7 @@ local _M = function()
 
     local buttons = {
         awful.button({ }, 1, function()
-            local pos = menu_position('tl')
-            _G.menus.main:toggle({coords=pos})
+            _G.menus.main:toggle({coords=menu_position(menu_pos)})
         end),
     }
 

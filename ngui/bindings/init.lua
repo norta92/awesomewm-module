@@ -4,4 +4,5 @@ return {
     require('bindings.client_keys'),
     require('bindings.client_mouse'),
     require('bindings.apps'),
+    require('utils.tags'),
 }

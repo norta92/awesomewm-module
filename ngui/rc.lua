@@ -18,8 +18,7 @@ require('signals')
 require('bindings')
 require('rules')
 
-require('utils.tags')
-require('utils.autostart')
+require('utils.autostart')()
 
 require('modules.backdrop')()
-require('modules.leaver')
+require('modules.leaver')()

@@ -1,9 +1,9 @@
 local awful = require('awful')
 local theme = require('beautiful')
 
-local _M = {}
+local _menu = {}
 
-_M.set_menu_position = function(corner)
+_menu.set_menu_position = function(corner)
     local width = 0
     local height = 0
 
@@ -39,4 +39,4 @@ _M.set_menu_position = function(corner)
     end
 end
 
-return _M
+return _menu

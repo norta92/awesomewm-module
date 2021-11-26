@@ -1,18 +1,21 @@
-local vars = _G.cfg.vars.dynamic_opacity
+local cfg_vars = _G.cfg.vars.client.dynamic_opacity
 
-local _V = {
-    focus = vars.focus or 1,
-    unfocus = vars.unfocus or 0.9,
-}
+local _M = function(kwargs)
+    local args = cfg_vars or kwargs or {}
+    local focus = args.focus or 1
+    local unfocus = args.unfocus or 1
 
-client.connect_signal('focus', function(c)
-    if not (c.exclude_opacity or c.fullscreen) then
-        c.opacity = _V.focus
-    end
-end)
+    client.connect_signal('focus', function(c)
+        if not (c.exclude_opacity or c.fullscreen) then
+            c.opacity = focus
+        end
+    end)
 
-client.connect_signal('unfocus', function(c)
-    if not (c.exclude_opacity or c.fullscreen) then
-        c.opacity = _V.unfocus
-    end
-end)
+    client.connect_signal('unfocus', function(c)
+        if not (c.exclude_opacity or c.fullscreen) then
+            c.opacity = unfocus
+        end
+    end)
+end
+
+return _M

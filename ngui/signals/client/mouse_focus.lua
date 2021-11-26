@@ -1,12 +1,21 @@
-local focus = _G.cfg.vars.focus
+local cfg_vars = _G.cfg.vars.client.mouse_focus
 
-local _V = {
-    sloppy = focus.sloppy,
-    raise = focus.raise,
-}
+local _M = function(kwargs)
+    local args = cfg_vars or kwargs or {}
+    local auto = args.auto or true
+    local sloppy = args.sloppy or false
+    local raise = args.raise or false
 
-client.connect_signal('mouse::enter', function(c)
-    if _V.sloppy then
-        c:activate { context = 'mouse_enter', raise = _V.raise }
+    if auto then
+        require("awful.autofocus")
     end
-end)
+
+    client.connect_signal('mouse::enter', function(c)
+        if sloppy then
+            c:activate { context = 'mouse_enter', raise = raise }
+        end
+    end)
+
+end
+
+return _M

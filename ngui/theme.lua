@@ -12,7 +12,7 @@ local svg           = require('resources.svgicons')
 local render        = svg.render_icon
 local cairo         = require("lgi").cairo
 
-require('modules.thwap')
+local gtkini        = require('modules.gtkini')
 
 local theme = dofile(themes_path..'default/theme.lua')
 
@@ -216,22 +216,22 @@ theme.leaver_button_icon            = render(svg.wibars.leaver_menu, theme.butto
 theme.systray_visible_icon          = render(svg.wibars.systray_visible, theme.button_fg, nil, 24)
 theme.systray_hidden_icon           = render(svg.wibars.systray_hidden, theme.button_fg, nil, 24)
 
-theme.layout_cornerne               = render(svg.layouts.cornerne, theme.fg_minimize, nil, 24)
-theme.layout_cornernw               = render(svg.layouts.cornernw, theme.fg_minimize, nil, 24)
-theme.layout_cornerse               = render(svg.layouts.cornerse, theme.fg_minimize, nil, 24)
-theme.layout_cornersw               = render(svg.layouts.cornersw, theme.fg_minimize, nil, 24)
-theme.layout_dwindle                = render(svg.layouts.dwindle, theme.fg_minimize, nil, 24)
-theme.layout_fairh                  = render(svg.layouts.fairh, theme.fg_minimize, nil, 24)
-theme.layout_fairv                  = render(svg.layouts.fairv, theme.fg_minimize, nil, 24)
-theme.layout_floating               = render(svg.layouts.floating, theme.fg_minimize, nil, 24)
-theme.layout_fullscreen             = render(svg.layouts.fullscreen, theme.fg_minimize, nil, 24)
-theme.layout_magnifier              = render(svg.layouts.magnifier, theme.fg_minimize, nil, 24)
-theme.layout_max                    = render(svg.layouts.max, theme.fg_minimize, nil, 24)
-theme.layout_spiral                 = render(svg.layouts.spiral, theme.fg_minimize, nil, 24)
-theme.layout_tile                   = render(svg.layouts.tile, theme.fg_minimize, nil, 24)
-theme.layout_tilebottom             = render(svg.layouts.tilebottom, theme.fg_minimize, nil, 24)
-theme.layout_tileleft               = render(svg.layouts.tileleft, theme.fg_minimize, nil, 24)
-theme.layout_tiletop                = render(svg.layouts.tiletop, theme.fg_minimize, nil, 24)
+theme.layout_cornerne               = render(svg.layouts.cornerne, theme.button_fg, nil, 24)
+theme.layout_cornernw               = render(svg.layouts.cornernw, theme.button_fg, nil, 24)
+theme.layout_cornerse               = render(svg.layouts.cornerse, theme.button_fg, nil, 24)
+theme.layout_cornersw               = render(svg.layouts.cornersw, theme.button_fg, nil, 24)
+theme.layout_dwindle                = render(svg.layouts.dwindle, theme.button_fg, nil, 24)
+theme.layout_fairh                  = render(svg.layouts.fairh, theme.button_fg, nil, 24)
+theme.layout_fairv                  = render(svg.layouts.fairv, theme.button_fg, nil, 24)
+theme.layout_floating               = render(svg.layouts.floating, theme.button_fg, nil, 24)
+theme.layout_fullscreen             = render(svg.layouts.fullscreen, theme.button_fg, nil, 24)
+theme.layout_magnifier              = render(svg.layouts.magnifier, theme.button_fg, nil, 24)
+theme.layout_max                    = render(svg.layouts.max, theme.button_fg, nil, 24)
+theme.layout_spiral                 = render(svg.layouts.spiral, theme.button_fg, nil, 24)
+theme.layout_tile                   = render(svg.layouts.tile, theme.button_fg, nil, 24)
+theme.layout_tilebottom             = render(svg.layouts.tilebottom, theme.button_fg, nil, 24)
+theme.layout_tileleft               = render(svg.layouts.tileleft, theme.button_fg, nil, 24)
+theme.layout_tiletop                = render(svg.layouts.tiletop, theme.button_fg, nil, 24)
 
 theme.tasklist_fg_normal            = theme.base_fg
 theme.tasklist_bg_normal            = theme.button_bg
@@ -245,7 +245,7 @@ theme.tasklist_sticky               = ' '
 theme.tasklist_ontop                = ' '
 theme.tasklist_above                = ' '
 theme.tasklist_below                = ' '
-theme.tasklist_floating             = ' '
+theme.tasklist_floating             = ' '
 theme.tasklist_maximized            = ' '
 theme.tasklist_maximized_horizontal = ' '
 theme.tasklist_maximized_vertical   = ' '
@@ -398,6 +398,6 @@ theme.notification_default_icon = awesomer_icon {
     size = theme.notification_icon_size,
 }
 
-theme.icon_theme = _G.gtkrc['gtk-icon-theme-name'] or nil
+theme.icon_theme = gtkini['gtk-icon-theme-name'] or nil
 
 return theme

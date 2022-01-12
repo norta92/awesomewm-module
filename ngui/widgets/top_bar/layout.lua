@@ -1,10 +1,14 @@
+-- Awesome
 local awful = require('awful')
 local theme = require('beautiful')
 local dpi = theme.xresources.apply_dpi
 local wibox = require('wibox')
-local container = require('widgets.buttons.gtk')
+
+-- Custom
+local container = require('widgets.buttons').wibar
 
 local _M = function(s)
+    s = s or screen.focused()
 
     local buttons = {
         awful.button({ }, 1, function () awful.layout.inc( 1) end),
@@ -13,21 +17,19 @@ local _M = function(s)
         awful.button({ }, 5, function () awful.layout.inc( 1) end),
     }
 
-    local layoutbox = awful.widget.layoutbox {
-        screen  = s,
-        buttons = buttons,
-    }
-
-    local widget = wibox.widget {
+    local w = wibox.widget {
         {
-            layoutbox,
+            awful.widget.layoutbox {
+                screen  = s,
+                buttons = buttons,
+            },
             widget = wibox.container.margin,
             margins = dpi(3),
         },
         widget = container,
     }
 
-    return widget
+    return w
 end
 
 return _M

@@ -2,9 +2,13 @@ local awful = require('awful')
 local theme = require('beautiful')
 local dpi = theme.xresources.apply_dpi
 local wibox = require('wibox')
-local container = require('widgets.buttons.gtk')
+local container = require('widgets.buttons').wibar
 
-local cfg_vars = _G.cfg.vars.top_bar.clock
+local cfg_vars = _G.cfg.vars
+
+local vars = {}
+vars.calendar_enabled = cfg_vars.topbar_calendar_enabled or false
+vars.calendar_hover = cfg_vars.topbar_calendar_hover or false
 
 local _M = function(kwargs)
     local args = cfg_vars or kwargs or {}
@@ -28,14 +32,14 @@ local _M = function(kwargs)
         widget = container,
     }
 
-    if show_calendar then
+    if vars.calendar_enabled then
         local calendar = require('awful.widget.calendar_popup').month()
         function calendar.call_calendar(self, offset, position, _)
             local focus_screen = awful.screen.focused()
             awful.widget.calendar_popup.call_calendar(self, offset, position, focus_screen)
         end
 
-        calendar:attach(widget, 'tr', { on_hover=hover_calendar })
+        calendar:attach(widget, 'tr', { on_hover=vars.calendar_hover })
         calendar.opacity = theme.opacity
     end
 

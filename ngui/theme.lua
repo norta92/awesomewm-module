@@ -1,19 +1,21 @@
-local theme_assets  = require('beautiful.theme_assets')
-local dpi           = require('beautiful.xresources').apply_dpi
+-- Awesome
 local gtk           = require('beautiful.gtk')
+local assets        = require('beautiful.theme_assets')
+local dpi           = require('beautiful.xresources').apply_dpi
 local gears         = require('gears')
 local gfs           = gears.filesystem
 local themes_path   = gfs.get_themes_dir()
-local res_path      = gfs.get_configuration_dir()..'/resources/'
-local shape         = gears.shape
+local resources     = gfs.get_configuration_dir()..'/resources/'
 local debug         = gears.debug
-local colors        = require('utils.colors')
+local shape         = gears.shape
+
+-- Custom
+local gtkini        = require('modules.gtkini')
 local svg           = require('resources.svgicons')
 local render        = svg.render_icon
-local cairo         = require("lgi").cairo
+local color_util    = require('utils.colors')
 
-local gtkini        = require('modules.gtkini')
-
+-- Local
 local theme = dofile(themes_path..'default/theme.lua')
 
 theme.gtk = gtk.get_theme_variables()
@@ -21,9 +23,8 @@ if not theme.gtk then
     debug.print_warning("Can't load GTK+3 theme. You're going to have a bad time.")
     return theme
 end
-local button_shape                  = function(cr, w, h)
-                                          shape.rounded_rect(cr, w, h, theme.border_radius)
-                                      end
+
+theme.icon_theme                    = gtkini['gtk-icon-theme-name'] or nil
 
 theme.font                          = theme.gtk.font_family..' '..theme.gtk.font_size
 theme.font_bold                     = theme.gtk.font_family..' Bold '..theme.gtk.font_size
@@ -31,7 +32,7 @@ theme.font_italic                   = theme.gtk.font_family..' Italic '..theme.g
 
 theme.useless_gap                   = dpi(4)
 
-theme.opacity                       = 0.9
+theme.opacity                       = 1.0
 theme.transparent                   = '#00000000'
 
 theme.fg_normal                     = theme.gtk.fg_color
@@ -58,20 +59,42 @@ theme.bg_error                      = theme.gtk.error_bg_color
 theme.base_fg                       = theme.gtk.text_color
 theme.base_bg                       = theme.gtk.base_color
 
-theme.wibar_fg                      = theme.gtk.fg_color
-theme.wibar_bg                      = theme.gtk.bg_color
+theme.wibar_fg                      = theme.gtk.menubar_fg_color
+theme.wibar_bg                      = theme.gtk.menubar_bg_color
 
 theme.menubar_fg                    = theme.gtk.menubar_fg_color
 theme.menubar_bg                    = theme.gtk.menubar_bg_color
-theme.menubar_border_color          = colors.mix(
-                                          theme.gtk.menubar_bg_color,
-                                          theme.gtk.menubar_fg_color,
-                                          0.7
-                                      )
+
+local button_shape                  = function(cr, w, h)
+                                          shape.rounded_rect(cr, w, h, theme.border_radius)
+                                      end
+
+theme.button_fg                     = theme.gtk.button_fg_color
+theme.button_bg                     = theme.gtk.button_bg_color
+theme.button_border_color           = theme.gtk.button_border_color
+theme.button_border_width           = dpi(theme.gtk.button_border_width or 1)
+theme.button_border_radius          = dpi(theme.gtk.button_border_radius or 0)
+theme.button_shape                  = button_shape
+
+theme.button_fg_hover               = theme.fg_normal
+theme.button_bg_hover               = theme.button_bg
+theme.button_border_color_hover     = color_util.mix(theme.bg_focus, theme.base_fg, 0.8)
+
+theme.button_fg_pressed             = theme.fg_focus
+theme.button_bg_pressed             = theme.bg_focus
+theme.button_border_color_pressed   = color_util.mix(theme.bg_focus, theme.base_fg, 0.8)
 
 theme.header_fg                     = theme.gtk.header_button_fg_color
 theme.header_bg                     = theme.gtk.header_button_bg_color
 theme.header_border_color           = theme.gtk.header_button_border_color
+
+theme.header_fg_hover               = theme.header_fg
+theme.header_bg_hover               = theme.header_bg
+theme.header_border_color_hover     = color_util.mix(theme.bg_focus, theme.base_fg, 0.8)
+
+theme.header_fg_pressed             = theme.fg_focus
+theme.header_bg_pressed             = theme.bg_focus
+theme.header_border_color_pressed   = color_util.mix(theme.bg_focus, theme.base_fg, 0.8)
 
 theme.osd_fg                        = theme.gtk.osd_fg_color
 theme.osd_bg                        = theme.gtk.osd_bg_color
@@ -81,17 +104,17 @@ theme.border_color                  = theme.gtk.wm_bg_color
 theme.border_color_normal           = theme.gtk.wm_bg_color
 theme.border_color_active           = theme.gtk.wm_border_focused_color
 theme.border_color_marked           = theme.gtk.warning_color
-theme.border_width                  = dpi(theme.gtk.button_border_width or 1)
+theme.border_width                  = dpi(theme.gtk.button_border_width or 0)
 theme.border_radius                 = dpi(theme.gtk.button_border_radius or 0)
 
 theme.titlebar_fg_normal            = theme.base_fg
-theme.titlebar_bg_normal            = theme.bg_normal
+theme.titlebar_bg_normal            = theme.menubar_bg
 theme.titlebar_font_normal          = theme.font_bold
 theme.titlebar_fg_focus             = theme.fg_normal
-theme.titlebar_bg_focus             = theme.bg_normal
+theme.titlebar_bg_focus             = theme.menubar_bg
 theme.titlebar_font_focus           = theme.font_bold
 theme.titlebar_fg_urgent            = theme.fg_success
-theme.titlebar_bg_urgent            = theme.bg_normal
+theme.titlebar_bg_urgent            = theme.menubar_bg
 theme.titlebar_font_urgent          = theme.font_bold
 theme.titlebar_height               = dpi(20)
 theme.titlebar_shape                = button_shape
@@ -193,23 +216,6 @@ theme.titlebar_close_button_focus_hover = render(
 theme.titlebar_close_button_focus_press = render(
     svg.titlebar.close_alt, theme.bg_focus)
 
-theme.button_fg                     = theme.gtk.button_fg_color
-theme.button_bg                     = theme.gtk.button_bg_color
-theme.button_border_color           = theme.gtk.button_border_color
-theme.button_border_width           = dpi(theme.gtk.button_border_width or 1)
-theme.button_border_radius          = dpi(theme.gtk.button_border_radius or 0)
-theme.button_shape                  = function(cr, w, h)
-                                          shape.rounded_rect(cr, w, h, theme.border_radius)
-                                      end
-
-theme.button_fg_hover               = theme.fg_normal
-theme.button_bg_hover               = theme.button_bg
-theme.button_border_color_hover     = colors.mix(theme.bg_focus, theme.base_fg, 0.8)
-
-theme.button_fg_pressed             = theme.fg_focus
-theme.button_bg_pressed             = theme.bg_focus
-theme.button_border_color_pressed   = colors.mix(theme.bg_focus, theme.base_fg, 0.8)
-
 theme.menu_button_icon              = render(svg.wibars.main_menu, theme.button_fg, nil, 24)
 theme.keyboard_layout_icon          = render(svg.wibars.keyboard_layout, theme.button_fg, nil, 24)
 theme.leaver_button_icon            = render(svg.wibars.leaver_menu, theme.button_fg, nil, 24)
@@ -233,32 +239,33 @@ theme.layout_tilebottom             = render(svg.layouts.tilebottom, theme.butto
 theme.layout_tileleft               = render(svg.layouts.tileleft, theme.button_fg, nil, 24)
 theme.layout_tiletop                = render(svg.layouts.tiletop, theme.button_fg, nil, 24)
 
-theme.tasklist_fg_normal            = theme.base_fg
-theme.tasklist_bg_normal            = theme.button_bg
+theme.tasklist_fg_normal            = theme.header_fg
+theme.tasklist_bg_normal            = theme.transparent
 theme.tasklist_fg_focus             = theme.base_fg
 theme.tasklist_bg_focus             = theme.bg_focus
 theme.tasklist_fg_urgent            = theme.base_fg
 theme.tasklist_bg_urgent            = theme.bg_success
-theme.tasklist_fg_minimize          = theme.button_border_color
-theme.tasklist_bg_minimize          = theme.button_bg
+theme.tasklist_fg_minimize          = theme.header_border_color
+theme.tasklist_bg_minimize          = theme.transparent
 theme.tasklist_sticky               = ' '
 theme.tasklist_ontop                = ' '
 theme.tasklist_above                = ' '
 theme.tasklist_below                = ' '
 theme.tasklist_floating             = ' '
+theme.tasklist_minimized            = ' '
 theme.tasklist_maximized            = ' '
 theme.tasklist_maximized_horizontal = ' '
 theme.tasklist_maximized_vertical   = ' '
 
-theme.taglist_fg_empty              = theme.button_border_color
-theme.taglist_bg_empty              = theme.button_bg
-theme.taglist_fg_occupied           = theme.button_fg
-theme.taglist_bg_occupied           = theme.button_bg
+theme.taglist_fg_empty              = theme.header_border_color
+theme.taglist_bg_empty              = theme.transparent
+theme.taglist_fg_occupied           = theme.header_fg
+theme.taglist_bg_occupied           = theme.transparent
 theme.taglist_fg_focus              = theme.button_fg
 theme.taglist_bg_focus              = theme.bg_focus
 theme.taglist_fg_urgent             = theme.button_fg
 theme.taglist_bg_urgent             = theme.bg_success
-theme.taglist_bg_container          = theme.button_bg
+theme.taglist_bg_container          = theme.transparent
 theme.taglist_shape                 = button_shape
 theme.taglist_squares_sel           = nil
 theme.taglist_squares_unsel         = nil
@@ -275,28 +282,23 @@ theme.menu_height                   = dpi(24)
 theme.menu_submenu                  = render(svg.menus.submenu, theme.fg_normal, nil, 24)
 theme.menu_submenu_icon             = render(svg.menus.submenu, theme.fg_normal, nil, 24)
 
-theme.menu_terminal_icon            = res_path..'menus/main/terminal.svg'
-theme.menu_files_icon               = res_path..'menus/main/files.svg'
+--theme.menu_terminal_icon            = resources..'menus/main/terminal.svg'
+--theme.menu_files_icon               = resources..'menus/main/files.svg'
 
-theme.awesome_hotkeys_icon          = res_path..'menus/awesome/hotkeys.svg'
-theme.awesome_manual_icon           = res_path..'menus/awesome/manual.svg'
-theme.awesome_config_icon           = res_path..'menus/awesome/config.svg'
-theme.awesome_restart_icon          = res_path..'menus/awesome/restart.svg'
-theme.awesome_exit_icon             = res_path..'menus/awesome/exit.svg'
+--theme.awesome_hotkeys_icon          = resources..'menus/awesome/hotkeys.svg'
+--theme.awesome_manual_icon           = resources..'menus/awesome/manual.svg'
+--theme.awesome_config_icon           = resources..'menus/awesome/config.svg'
+--theme.awesome_restart_icon          = resources..'menus/awesome/restart.svg'
+--theme.awesome_exit_icon             = resources..'menus/awesome/exit.svg'
 
-theme.backdrop_start_icon           = res_path..'menus/backdrop/start.svg'
-theme.backdrop_stop_icon            = res_path..'menus/backdrop/stop.svg'
-theme.backdrop_next_icon            = res_path..'menus/backdrop/next.svg'
-theme.backdrop_prev_icon            = res_path..'menus/backdrop/prev.svg'
-
-theme.leaver_dialog_icon            = res_path..'menus/leaver/dialog.svg'
-theme.leaver_lock_icon              = res_path..'menus/leaver/lock.svg'
-theme.leaver_exit_icon              = res_path..'menus/leaver/exit.svg'
-theme.leaver_reboot_icon            = res_path..'menus/leaver/reboot.svg'
-theme.leaver_suspend_icon           = res_path..'menus/leaver/suspend.svg'
-theme.leaver_poweroff_icon          = res_path..'menus/leaver/shutdown.svg'
-theme.leaver_confirm_icon           = res_path..'menus/leaver/confirm.svg'
-theme.leaver_cancel_icon            = res_path..'menus/leaver/cancel.svg'
+theme.leaver_dialog_icon            = resources..'menus/leaver/dialog.svg'
+--theme.leaver_lock_icon              = resources..'menus/leaver/lock.svg'
+--theme.leaver_exit_icon              = resources..'menus/leaver/exit.svg'
+--theme.leaver_reboot_icon            = resources..'menus/leaver/reboot.svg'
+--theme.leaver_suspend_icon           = resources..'menus/leaver/suspend.svg'
+--theme.leaver_poweroff_icon          = resources..'menus/leaver/shutdown.svg'
+theme.leaver_confirm_icon           = resources..'menus/leaver/confirm.svg'
+theme.leaver_cancel_icon            = resources..'menus/leaver/cancel.svg'
 
 theme.bg_systray                    = theme.wibar_bg
 theme.systray_icon_spacing          = dpi(2)
@@ -363,41 +365,15 @@ theme.hotkeys_border_width          = theme.border_width
 theme.hotkeys_shape                 = button_shape
 theme.hotkeys_group_margin          = dpi(2)
 
-local function awesomer_icon(user_args)
-    local args = user_args or {}
-    local fg = args.fg or theme.bg_normal
-    local bg = args.bg or theme.bg_focus
-    local border_color = args.border_color or theme.transparent
-    local border_width = args.border_width or theme.border_width
-    local size = args.size or theme.menu_height
-    local margin = args.margin or theme.border_width
+theme.awesome_icon = assets.awesome_icon(theme.menu_height, theme.bg_focus, theme.fg_focus)
 
-    local img = cairo.ImageSurface(cairo.Format.ARGB32, size, size)
-    local cr = cairo.Context(img)
-    local icon_size = size - (2*border_width) - (2*margin)
-    cr:set_source(gears.color(border_color))
-    cr:paint()
-    cr:translate(border_width+margin, border_width+margin)
-    cr:set_antialias(cairo.Antialias.NONE)
-    theme_assets.gen_logo(cr, icon_size, icon_size, fg, bg)
-    return img
-end
+theme.notification_default_icon = assets.awesome_icon(
+    theme.notification_icon_size,
+    theme.bg_focus,
+    theme.fg_focus)
 
-theme.awesome_menu_icon = awesomer_icon({bg=theme.border_color_active})
-
-theme.default_app_icon = awesomer_icon {
-    fg = theme.base_bg,
-    bg = theme.base_fg,
-    border_color = theme.transparent,
-}
-
-theme.notification_default_icon = awesomer_icon {
-    fg = theme.bg_normal,
-    bg = theme.bg_focus,
-    border_color = theme.transparent,
-    size = theme.notification_icon_size,
-}
-
-theme.icon_theme = gtkini['gtk-icon-theme-name'] or nil
+theme.wallpaper_fg = theme.bg_normal
+theme.wallpaper_bg = color_util.mix(theme.bg_focus, theme.bg_normal, 0.50)
+theme.wallpaper_markup = '  +  '
 
 return theme

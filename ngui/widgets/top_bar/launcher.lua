@@ -1,40 +1,42 @@
 local awful = require('awful')
 local theme = require('beautiful')
 local wibox = require('wibox')
-local container = require('widgets.buttons.gtk')
-local menu_position = require('utils.menus').set_menu_position
+local menu_button = require('widgets.buttons').menu
+local menu_util = require('utils.menus')
 
-local cfg_vars = _G.cfg.vars.top_bar.launcher
+local cfg_vars = _G.cfg.vars or nil
+
+local vars = {}
+vars.launcher_corner = cfg_vars.topbar_launcher_corner or 'tl'
 
 local _M = function(kwargs)
     local args = cfg_vars or kwargs or {}
-    local menu_pos = args.menu_pos or 'tl'
-
-    local icon = wibox.widget {
-        id = 'icon',
-        image = theme.menu_button_icon,
-        widget = wibox.widget.imagebox,
-        resize = true,
-    }
 
     local buttons = {
-        awful.button({ }, 1, function()
-            _G.menus.main:toggle({coords=menu_position(menu_pos)})
+        awful.button({ }, 1, nil, function()
+            _G.menus.main:toggle({
+                coords = menu_util.set_corner(vars.launcher_corner)
+            })
         end),
     }
 
-    local widget = wibox.widget {
+    local launcher = awful.widget.button {
+        image = theme.menu_button_icon,
+        resize = true,
+        buttons = buttons,
+    }
+
+    local launcher_widget = wibox.widget {
         {
-            widget = icon,
+            widget = launcher,
             forced_width = theme.menu_button_width,
             valign = 'center',
             halign = 'center',
         },
-        widget = container,
-        buttons = buttons,
+        widget = menu_button,
     }
 
-    return widget
+    return launcher_widget
 end
 
 return _M

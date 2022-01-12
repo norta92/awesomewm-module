@@ -2,21 +2,20 @@ local awful = require('awful')
 local theme = require('beautiful')
 local dpi = theme.xresources.apply_dpi
 local wibox = require('wibox')
-local container = require('widgets.buttons.task')
+local container = require('widgets.buttons').tasklist
 
-local cfg_vars = _G.cfg.vars.top_bar.tasklist
+local vars = {}
+vars.button_width = theme.tasklist_button_width or dpi(200)
+vars.menu_width = theme.tasklist_menu_width or dpi(160)
 
-local _M = function(screen, kwargs)
-    local s = screen
-    local args = cfg_vars or kwargs or {}
-    local button_width = args.button_width or theme.tasklist_button_width or dpi(240)
-    local menu_width = args.menu_width or theme.tasklist_menu_width or dpi(160)
+local _M = function(s)
+    s = s or screen.focused()
 
     local buttons = {
         awful.button({ }, 1, function (c)
             c:activate { context = 'tasklist', action = 'toggle_minimization' }
         end),
-        awful.button({ }, 3, function() awful.menu.client_list { theme = { width = menu_width } } end),
+        awful.button({ }, 3, function() awful.menu.client_list { theme = { width = vars.menu_width } } end),
         awful.button({ }, 4, function() awful.client.focus.byidx(-1) end),
         awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
     }
@@ -26,9 +25,13 @@ local _M = function(screen, kwargs)
         spacing = dpi(4),
     }
 
-    local widget_template = {
+    local template = {
         {
-            nil,
+            {
+                wibox.widget.base.make_widget(),
+                widget = wibox.container.background,
+                forced_height = dpi(2),
+            },
             {
                 {
                     {
@@ -60,7 +63,7 @@ local _M = function(screen, kwargs)
             layout = wibox.layout.align.vertical,
         },
         widget = container,
-        forced_width = button_width,
+        forced_width = vars.button_width,
     }
 
     return awful.widget.tasklist {
@@ -68,7 +71,7 @@ local _M = function(screen, kwargs)
         filter  = awful.widget.tasklist.filter.currenttags,
         layout  = layout,
         buttons = buttons,
-        widget_template = widget_template,
+        widget_template = template,
     }
 end
 

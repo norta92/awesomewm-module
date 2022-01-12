@@ -4,14 +4,16 @@ local dpi = require("beautiful.xresources").apply_dpi
 local gears = require('gears')
 local timer = gears.timer
 local wibox = require('wibox')
-local mod = require('bindings.mod')
-local container = require('widgets.buttons.gtk')
+local container = require('widgets.buttons').wibar
 
-local cfg_vars = _G.cfg.vars.top_bar.systray
+local mod = _G.cfg.modkey
 
-local _M = function(kwargs)
-    local args = cfg_vars or kwargs or {}
-    local auto_hide = args.auto_hide or false
+local cfg_vars = _G.cfg.vars or nil
+
+local vars = {}
+vars.systray_autohide = cfg_vars.topbar_systray_autohide or false
+
+local _M = function()
 
     local systray = wibox.widget {
         {
@@ -22,20 +24,16 @@ local _M = function(kwargs)
         visible = true,
     }
 
-    local toggle_button = wibox.widget {
-        {
-            widget = wibox.widget.imagebox,
-            id = 'icon',
-            image = theme.systray_visible_icon,
-            resize = true,
-        },
-        widget = wibox.container.margin,
-        margins = dpi(2),
-    }
-
     local toggle_widget = wibox.widget {
         {
-            widget = toggle_button,
+            {
+                id = 'icon',
+                widget = wibox.widget.imagebox,
+                image = theme.systray_visible_icon,
+                resize = true,
+            },
+            widget = wibox.container.margin,
+            margins = dpi(2),
         },
         widget = container,
     }
@@ -48,15 +46,15 @@ local _M = function(kwargs)
     }
 
     local create_hide_timer = function()
-        if auto_hide then
-            local timeout = tonumber(_V.auto_hide)
+        if vars.systray_autohide then
+            local timeout = tonumber(vars.systray_autohide)
             timer.start_new(timeout, function()
-                toggle_button:emit_signal("systray_toggle")
+                toggle_widget:emit_signal("systray_toggle")
             end)
         end
     end
 
-    toggle_button:connect_signal("systray_toggle", function(self)
+    toggle_widget:connect_signal("systray_toggle", function(self)
         local icon = self:get_children_by_id('icon')[1]
         systray.visible = not systray.visible
         if systray.visible then
@@ -67,26 +65,24 @@ local _M = function(kwargs)
         end
     end)
 
-    toggle_button:buttons(gears.table.join(
-        awful.button({}, 1, function()
-            toggle_button:emit_signal("systray_toggle")
+    toggle_widget:buttons(gears.table.join(
+        awful.button({}, 1, nil, function()
+            toggle_widget:emit_signal("systray_toggle")
         end)
     ))
 
     awful.keyboard.append_global_keybindings({
         awful.key({ mod.super, mod.alt }, 's', function()
-            toggle_button:emit_signal("systray_toggle")
+            toggle_widget:emit_signal("systray_toggle")
         end,
-        {description = 'toggle systray', group = 'Awesome: extras'})
+        {description = 'toggle systray', group = 'awesome'})
     })
 
-    if auto_hide then
-        toggle_button:emit_signal("systray_toggle")
+    if vars.systray_autohide then
+        toggle_widget:emit_signal("systray_toggle")
     end
 
     return awful.widget.only_on_screen(systray_widget, 'primary')
 end
 
 return _M
-
--- vim: ft=lua:et:sw=4:ts=8:sts=4:tw=80:fdm=marker

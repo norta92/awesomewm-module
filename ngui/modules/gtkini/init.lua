@@ -3,16 +3,19 @@ local gfs = require('gears.filesystem')
 local lfs = require('lfs')
 local naughty = require('naughty')
 local notification = naughty.notification
+local action = naughty.action
 local wibox = require('wibox')
 
-local ini_path = os.getenv('XDG_CONFIG_HOME')..'/gtk-3.0/settings.ini'
+local cfg_vars = _G.cfg.vars
+local cfg_paths = _G.cfg.paths
 
-local vars = require('config').vars.gtkini
-local paths = require('config').paths
-local ini = paths.gtkini or ini_path or nil
-local postrun = paths.config..'/modules/gtkini/theme_extras.sh &' or nil
-local do_prompt = vars.prompt or false
-local do_run = vars.run or true
+local vars = {}
+vars.prompt_restart = cfg_vars.gtkini_prompt_restart or false
+vars.run_script = cfg_vars.gtkini_run_script or false
+
+local paths = {}
+paths.gtk_settings = cfg_paths.gtkini_gtk_settings or os.getenv('XDG_CONFIG_HOME')..'/gtk-3.0/settings.ini'
+paths.post_script = cfg_paths.gtkini_post_script or nil
 
 local get_mtime = function(file)
     file = file or ''
@@ -46,10 +49,10 @@ local parse_ini = function(file)
     return data
 end
 
-local prompt_ok = naughty.action { name = "Okay" }
-local prompt_cancel = naughty.action { name = "Cancel" }
+local prompt_ok = action { name = "Okay", selected = true }
+local prompt_cancel = action { name = "Cancel" }
 
-local prompt_restart = function()
+local prompt_notif = function()
     local n = notification {
         title = "Theme Change",
         message = "Restart Awesome now?",
@@ -67,19 +70,19 @@ local prompt_restart = function()
 end
 
 prompt_ok:connect_signal('invoked', function()
-    if do_run then
-        spawn(postrun)
+    if paths.post_script and vars.run_script then
+        spawn(paths.post_script..' &')
     end
     awesome.restart()
 end)
 
-local rc = parse_ini(ini)
+local rc = parse_ini(paths.gtk_settings)
 rc = rc.Settings or {}
-rc._mtime = get_mtime(ini)
+rc._mtime = get_mtime(paths.gtk_settings)
 
 client.connect_signal('request::unmanage', function(c)
     if c.class == "Lxappearance" or c.instance == "lxappearance" then
-        local cur_mtime = get_mtime(ini)
+        local cur_mtime = get_mtime(paths.gtk_settings)
         if rc._mtime ~= cur_mtime then
             rc._mtime = cur_mtime
             awesome.emit_signal('gtkini::update')
@@ -90,11 +93,11 @@ client.connect_signal('request::unmanage', function(c)
 end)
 
 awesome.connect_signal('gtkini::update', function()
-    if do_prompt then
-        prompt_restart()
+    if vars.prompt_restart then
+        prompt_notif()
     else
-        if do_run then
-            spawn(postrun)
+        if paths.post_script and vars.run_script then
+            spawn(paths.post_script..' &')
         end
         awesome.restart()
     end

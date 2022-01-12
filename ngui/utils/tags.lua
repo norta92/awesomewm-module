@@ -1,5 +1,5 @@
 local awful = require('awful')
-local mod = require('bindings.mod')
+local mod = _G.cfg.modkey
 
 local _tag = {}
 
@@ -49,17 +49,4 @@ function _tag.delete()
     tag:delete()
 end
 
-awful.keyboard.append_global_keybindings({
-    awful.key({ mod.super, mod.ctrl  }, "a", function() _tag.add() end,
-              {description = "add new", group = "tag"}),
-    awful.key({ mod.super, mod.ctrl  }, "e",  function() _tag.rename() end,
-              {description = "edit selected", group = "tag"}),
-    awful.key({ mod.super, mod.ctrl }, "[", function() _tag.move(-1) end,
-              {description = "move left", group = "tag"}),
-    awful.key({ mod.super, mod.ctrl }, "]", function() _tag.move(1) end,
-              {description = "move right", group = "tag"}),
-    awful.key({ mod.super, mod.ctrl  }, "d", function() _tag.delete() end,
-              {description = "delete selected", group = "tag"}),
-})
-
-return _tag
+return _M

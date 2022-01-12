@@ -1,24 +1,28 @@
 -- awesome_mode: api-level=4:screen=on
 pcall(require, 'luarocks.loader')
 
+-- Startup errors
 require('utils.errors')
 
-local theme = require('beautiful')
-local gfs = require('gears.filesystem')
-theme.init(gfs.get_configuration_dir()..'theme.lua')
-
+-- Load global config
 _G.cfg = require('config')
 
+-- Load theme
+require('beautiful').init(require('theme'))
+
+-- Load menus
 _G.menus = {
     main = require('widgets.menus.main')(),
-    leaver = require('modules.leaver.widgets.menu')(),
+    leaver = require('widgets.leaver.menu')(),
 }
 
+-- Connect signals and rules
 require('signals')
-require('bindings')
 require('rules')
 
-require('utils.autostart')()
+-- Load key and mouse bindings
+require('bindings')
+require('bindings_external')
 
-require('modules.backdrop')()
-require('modules.leaver')()
+-- XDG autostart
+require('utils.autostart')()

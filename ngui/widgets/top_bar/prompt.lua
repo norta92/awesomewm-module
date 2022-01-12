@@ -1,14 +1,14 @@
 local awful = require('awful')
-local mod = require('bindings.mod')
+local mod = _G.cfg.modkey
 
-local cfg_vars = _G.cfg.vars.top_bar.prompt
+local cfg_vars = _G.cfg.vars or nil
 
-local _M = function(screen, kwargs)
-    local s = screen
-    local args = cfg_vars or kwargs or {}
-    local prompt_text = args.prompt_text or 'Run: '
+local vars = {}
+vars.prompt_text = cfg_vars.topbar_prompt_text or 'Run: '
 
-    s.prompt = awful.widget.prompt({prompt=prompt_text})
+local _M = function(s)
+    s = s or screen.focused()
+    s.prompt = awful.widget.prompt({prompt=vars.prompt_text})
 
     awful.keyboard.append_global_keybindings({
         awful.key({ mod.super }, "r",

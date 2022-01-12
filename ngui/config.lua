@@ -1,89 +1,63 @@
-local awful = require("awful")
-local gfs = require('gears.filesystem')
-local menubar = require("menubar")
+local awful = require('awful')
+local menubar = require('menubar')
 
+-- Define modkeys
+local modkey = {}
+modkey.super    = 'Mod4'
+modkey.ctrl     = 'Control'
+modkey.shift    = 'Shift'
+modkey.alt      = 'Mod1'
+
+-- User variables
 local vars = {}
-vars.tag = {
-    default_layouts = {
-        layouts = {
-            awful.layout.suit.floating,
-            awful.layout.suit.tile.left,
-            awful.layout.suit.fair,
-            awful.layout.suit.fair.horizontal,
-            awful.layout.suit.tile,
-        }
-    }
+vars.tag_default_layouts = {
+    awful.layout.suit.floating,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.fair,
+    awful.layout.suit.fair.horizontal,
+    awful.layout.suit.tile,
 }
-vars.screen = {
-    create_tags = {
-        auto = 4,
-        --list = {' I ', ' II ', ' III ', ' IV '},
-    },
-}
-vars.client = {
-    mouse_focus = { sloppy = true },
-    dynamic_opacity = {
-        focus = 0.9,
-        unfocus = 0.85,
-        exclude = {
-            instance = { 'vlc', 'valheim.x86_64' },
-            class = { 'vlc', 'mpv', 'valheim.x86_64' },
-        },
-    },
-}
-vars.naughty = {}
-vars.top_bar = {}
-vars.backdrop = {
-    path = os.getenv('HOME')..'/Wallpapers/Shuffle/',
-    mode = 'slideshow',
-}
-vars.leaver = {}
-vars.gtkini = {
-    prompt = true,
-    run = false,
-}
+vars.screen_tags_auto = 4
+vars.client_focus_sloppy = true
+vars.client_focus_raise = false
+vars.client_opacity_exclude_class = {'vlc', 'mpv', 'valheim.x86_64'}
+vars.topbar_calendar_enabled = true
+vars.gtkini_prompt_restart = false
+vars.gtkini_run_script = true
 
-local apps = {
-    terminal = os.getenv('TERMINAL') or 'kitty',
-    editor = os.getenv('EDITOR') or 'vim',
-    files = os.getenv('FILEXP') or 'pcmanfm',
-    browser = os.getenv('BROWSER') or 'firefox',
-    email = os.getenv('EMAIL') or 'thunderbird',
-    calendar = os.getenv('CALENDAR') or 'thunderbird --calendar',
-}
-apps.editor_cmd = apps.terminal..' -e '..apps.editor
-apps.awesome = {
-    config = apps.editor_cmd..' '..awesome.conffile,
-    manual = apps.terminal..' -e man awesome',
-    restart = 'awesome-client \'awesome.restart()\'',
-    exit = 'awesome-client \'awesome.quit()\'',
-}
-apps.leaver = {
-    lock = 'light-locker-command -l',
-    exit = 'awesome-client \'awesome.quit()\'',
-    reboot = 'systemctl reboot',
-    suspend = 'systemctl suspend',
-    poweroff = 'systemctl poweroff',
-}
-
+-- User paths
 local paths = {}
-paths.config = gfs.get_configuration_dir()
-paths.cache = os.getenv('XDG_CACHE_HOME')..'/awesome/'
-paths.autostart = '/etc/xdg/autostart/:$XDG_CONFIG_HOME/autostart/'
-paths.gtkini = os.getenv('XDG_CONFIG_HOME')..'/gtk-3.0/settings.ini'
-paths.icons = {
-    '/usr/share/icons/gnome/',
-    '/usr/share/pixmaps/',
-}
+paths.config_dir            = os.getenv('XDG_CONFIG_HOME')..'/awesome/'
+paths.autostart_dirs        = {
+                                '/etc/xdg/autostart/',
+                                '$XDG_CONFIG_HOME/autostart/',
+                              }
+paths.icon_search_dirs      = {
+                                '/usr/share/icons/Papirus/',
+                                '/usr/share/icons/gnome/',
+                                '/usr/share/pixmaps/',
+                              }
+paths.gtkini_post_script    = paths.config_dir..'resources/theme_extras.sh'
 
-require("awful.hotkeys_popup.keys")
+-- User apps
+local apps = {}
+apps.terminal   = os.getenv('TERMINAL') or 'kitty'
+apps.editor     = os.getenv('EDITOR')   or 'vim'
+apps.files      = os.getenv('FILEXP')   or 'pcmanfm'
+
+apps.editor_cmd = apps.terminal..' -e '..apps.editor
+
+-- Extra options
+require('awful.autofocus')
 menubar.utils.terminal = apps.terminal
+menubar.show_categories = false
 awful.titlebar.enable_tooltip = false
 awful.mouse.snap.edge_enabled = true
 awful.mouse.snap.client_enabled = true
 
 return {
-    apps = apps,
+    modkey = modkey,
     vars = vars,
     paths = paths,
+    apps = apps,
 }

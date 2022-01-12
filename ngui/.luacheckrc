@@ -16,6 +16,7 @@ read_globals = {
     "key",
     "keygrabber",
     "mousegrabber",
+    "naughty",
     "selection",
     "tag",
     "window",

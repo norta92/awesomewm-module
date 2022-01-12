@@ -2,9 +2,12 @@ local awful = require('awful')
 local theme = require("beautiful")
 local dpi = theme.xresources.apply_dpi
 local wibox = require('wibox')
-local mod = require('bindings.mod')
+local container = require('widgets.buttons').taglist
+
+local mod = _G.cfg.modkey
 
 local _M = function(s)
+    s = s or screen.focused()
 
     local buttons = {
         awful.button({ }, 1, function(t) t:view_only() end),
@@ -39,7 +42,11 @@ local _M = function(s)
     }
 
     local template = {
-        nil,
+        {
+            wibox.widget.base.make_widget(),
+            widget = wibox.container.background,
+            forced_height = dpi(2),
+        },
         {
             {
                 {
@@ -67,32 +74,18 @@ local _M = function(s)
         layout = wibox.layout.align.vertical,
     }
 
-    local taglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        layout = layout,
-        buttons = buttons,
-        widget_template = template,
+    local taglist_widget = wibox.widget {
+        awful.widget.taglist {
+            screen  = s,
+            filter  = awful.widget.taglist.filter.all,
+            layout = layout,
+            buttons = buttons,
+            widget_template = template,
+        },
+        widget = container,
     }
 
-    local container = wibox.widget {
-        taglist,
-        widget = wibox.container.background,
-        bg = theme.taglist_bg_container,
-        border_color = theme.button_border_color,
-        border_width = theme.button_border_width,
-        shape = theme.taglist_shape,
-    }
-
-    container:connect_signal('mouse::enter', function()
-        container.border_color = theme.button_border_color_hover
-    end)
-
-    container:connect_signal('mouse::leave', function()
-        container.border_color = theme.button_border_color
-    end)
-
-    return container
+    return taglist_widget
 end
 
 return _M

@@ -30,24 +30,24 @@ kitty() {
 }
 [[ $(command -v kitty) ]] && kitty
 
-qute() {
-    cd "$XDG_CONFIG_HOME/qutebrowser" || return
-    cp "themes/.config.py.header" "config.py"
-    if [[ -f "themes/$THEME.py" ]]; then
-        cat "themes/$THEME.py" >> "config.py"
-    fi
-}
-qute
-
-rofi() {
-    cd "$XDG_CONFIG_HOME/rofi/themes" || return
-    if [[ -f "$THEME.rasi" ]]; then
-        cp "$THEME.rasi" ".current.rasi"
-    else
-        cp ".default.rasi" ".current.rasi"
-    fi
-}
-rofi
+#qute() {
+#    cd "$XDG_CONFIG_HOME/qutebrowser" || return
+#    cp "themes/.config.py.header" "config.py"
+#    if [[ -f "themes/$THEME.py" ]]; then
+#        cat "themes/$THEME.py" >> "config.py"
+#    fi
+#}
+#qute
+#
+#rofi() {
+#    cd "$XDG_CONFIG_HOME/rofi/themes" || return
+#    if [[ -f "$THEME.rasi" ]]; then
+#        cp "$THEME.rasi" ".current.rasi"
+#    else
+#        cp ".default.rasi" ".current.rasi"
+#    fi
+#}
+#rofi
 
 spotify() {
     PRESET="$XDG_CONFIG_HOME/oomox/colors/$THEME"

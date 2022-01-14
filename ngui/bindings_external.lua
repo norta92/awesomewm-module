@@ -5,6 +5,8 @@ local mod = _G.cfg.modkey
 spawn.easy_async_with_shell('command -v rofi', function(path)
     if not path then return end
 
+    require('utils.rofi')()
+
     local cmd = { exe = 'rofi' }
     cmd.run = cmd.exe..' -show run'
     cmd.drun = cmd.exe..' -show drun'

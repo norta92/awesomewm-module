@@ -1,22 +1,28 @@
+-- Awesome
 local spawn = require('awful.spawn')
 local gfs = require('gears.filesystem')
-local lfs = require('lfs')
 local naughty = require('naughty')
 local notification = naughty.notification
 local action = naughty.action
 local wibox = require('wibox')
 
+-- External
+local lfs = require('lfs')
+
+-- Global
 local cfg_vars = _G.cfg.vars
 local cfg_paths = _G.cfg.paths
 
+-- Local
 local vars = {}
-vars.prompt_restart = cfg_vars.gtkini_prompt_restart or false
-vars.run_script = cfg_vars.gtkini_run_script or false
+vars.restart = cfg_vars.theme_switch_prompt or false
+vars.run = cfg_vars.theme_switch_run or false
 
 local paths = {}
-paths.gtk_settings = cfg_paths.gtkini_gtk_settings or os.getenv('XDG_CONFIG_HOME')..'/gtk-3.0/settings.ini'
-paths.post_script = cfg_paths.gtkini_post_script or nil
+paths.settings = cfg_paths.gtk_settings or os.getenv('XDG_CONFIG_HOME')..'/gtk-3.0/settings.ini'
+paths.script = cfg_paths.theme_switch_script or nil
 
+-- Return modification time of file
 local get_mtime = function(file)
     file = file or ''
     assert(type(file) == 'string')
@@ -25,6 +31,7 @@ local get_mtime = function(file)
     return attr.modification
 end
 
+-- Return table from INI file
 local parse_ini = function(file)
     file = file or ''
     assert(type(file) == 'string')
@@ -49,9 +56,15 @@ local parse_ini = function(file)
     return data
 end
 
+local rc = parse_ini(paths.settings)
+rc = rc.Settings or {}
+rc._mtime = get_mtime(paths.settings)
+
+-- Prompt buttons
 local prompt_ok = action { name = "Okay", selected = true }
 local prompt_cancel = action { name = "Cancel" }
 
+-- Prompt notification
 local prompt_notif = function()
     local n = notification {
         title = "Theme Change",
@@ -69,20 +82,17 @@ local prompt_notif = function()
 
 end
 
+-- Prompt OK button pressed
 prompt_ok:connect_signal('invoked', function()
-    if paths.post_script and vars.run_script then
-        spawn(paths.post_script..' &')
+    if paths.script and vars.run then
+        spawn(paths.script..' &')
     end
     awesome.restart()
 end)
 
-local rc = parse_ini(paths.gtk_settings)
-rc = rc.Settings or {}
-rc._mtime = get_mtime(paths.gtk_settings)
-
 client.connect_signal('request::unmanage', function(c)
     if c.class == "Lxappearance" or c.instance == "lxappearance" then
-        local cur_mtime = get_mtime(paths.gtk_settings)
+        local cur_mtime = get_mtime(paths.settings)
         if rc._mtime ~= cur_mtime then
             rc._mtime = cur_mtime
             awesome.emit_signal('gtkini::update')
@@ -93,11 +103,11 @@ client.connect_signal('request::unmanage', function(c)
 end)
 
 awesome.connect_signal('gtkini::update', function()
-    if vars.prompt_restart then
+    if vars.restart then
         prompt_notif()
     else
-        if paths.post_script and vars.run_script then
-            spawn(paths.post_script..' &')
+        if paths.script and vars.run then
+            spawn(paths.script..' &')
         end
         awesome.restart()
     end

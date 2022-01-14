@@ -247,7 +247,8 @@ local _M = function(s)
     end)
 
     awful.keyboard.append_global_keybindings({
-        awful.key({ mod.super, mod.ctrl }, 'q', function()
+        awful.key({ mod.super, mod.ctrl }, 'q',
+            function()
                 local pos = menu_util.set_corner('tr')
                 _G.menus.leaver:show({coords=pos})
             end,

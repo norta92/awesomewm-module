@@ -1,10 +1,15 @@
+-- Awesome
 local theme = require('beautiful')
 
+-- Global
 local cfg_vars = _G.cfg.vars or nil
+
+-- Local
 local vars = {}
 vars.fg     = cfg_vars.rofi_fg      or theme.fg_normal
 vars.bg     = cfg_vars.rofi_bg      or theme.bg_normal
 vars.focus  = cfg_vars.rofi_focus   or theme.bg_focus
+vars.width  = cfg_vars.rofi_width   or theme.menu_width*2
 vars.radius = cfg_vars.rofi_radius  or theme.border_radius
 vars.font   = cfg_vars.rofi_font    or theme.font
 
@@ -24,12 +29,8 @@ local data_str = [[
 }
 
 window {
-    width: 320px;
-    columns: 1;
+    width: ##WIDTH##px;
     font: "##FONT##";
-    location: 0;
-    yoffset: -120;
-    xoffset: 0;
     border-radius: ##RADIUS##;
 }
 

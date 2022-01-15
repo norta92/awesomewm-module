@@ -1,57 +1,53 @@
 #!/usr/bin/env bash
 
-SETTINGS="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
-[[ -f "$SETTINGS" ]] || return
+declare GTK_INI GTK_THEME GTK_ICONS
+declare START_DIR TRAY_ITEMS
 
-THEME="$(grep gtk-theme-name "$SETTINGS" | cut -d= -f2)"
-#ICONS="$(grep gtk-icon-theme-name "$SETTINGS" | cut -d= -f2)"
+GTK_INI="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
+[ -f "$GTK_INI" ] || return
 
-restart_systray() {
-    AUTOSTART=/etc/xdg/autostart
+GTK_THEME="$(grep gtk-theme-name "$GTK_INI" | cut -d= -f2)"
+GTK_ICONS="$(grep gtk-icon-theme-name "$GTK_INI" | cut -d= -f2)"
 
-    killall nm-applet
-    dex -v "$AUTOSTART/nm-applet.desktop"
+[ -d /etc/xdg/autostart ] && START_DIR=/etc/xdg/autostart
+TRAY_ITEMS="nm-applet blueman volumeicon cbatticon"
 
-    killall blueman-applet
-    dex -v "$AUTOSTART/blueman.desktop"
+function restart() {
+    declare file exe
 
-    killall volumeicon
-    dex -v "$AUTOSTART/volumeicon.desktop"
+    file="$START_DIR/$1.desktop"
+    [ -e "$file" ] || return
+
+    exe=$(grep Exec= "$file" | cut -d= -f2)
+    [ -n "$exe" ] || return
+
+    if pidof -x "$exe" >/dev/null 2>&1
+    then
+        killall "$exe"
+        dex -v "$file" >/dev/null 2>&1
+    fi
 }
-restart_systray || notify-send 'failed to restart systray'
 
-kitty() {
+for i in ${TRAY_ITEMS[@]}
+do
+    restart "$i"
+done
+
+theme_kitty() {
     cd "$XDG_CONFIG_HOME/kitty" || return
-    if [[ -f "themes/$THEME.conf" ]]; then
-        cp "themes/$THEME.conf" theme.conf
+    if [[ -f "themes/$GTK_THEME.conf" ]]; then
+        cp "themes/$GTK_THEME.conf" theme.conf
     else
         cp "themes/.default.conf" theme.conf
     fi
 }
-[[ $(command -v kitty) ]] && kitty
+[[ $(command -v kitty) ]] && theme_kitty
 
-#qute() {
-#    cd "$XDG_CONFIG_HOME/qutebrowser" || return
-#    cp "themes/.config.py.header" "config.py"
-#    if [[ -f "themes/$THEME.py" ]]; then
-#        cat "themes/$THEME.py" >> "config.py"
-#    fi
-#}
-#qute
-#
-#rofi() {
-#    cd "$XDG_CONFIG_HOME/rofi/themes" || return
-#    if [[ -f "$THEME.rasi" ]]; then
-#        cp "$THEME.rasi" ".current.rasi"
-#    else
-#        cp ".default.rasi" ".current.rasi"
-#    fi
-#}
-#rofi
+theme_spotify() {
+    PRESET="$XDG_CONFIG_HOME/oomox/colors/Penguin/$GTK_THEME"
 
-spotify() {
-    PRESET="$XDG_CONFIG_HOME/oomox/colors/$THEME"
-    [[ -f "$PRESET" ]] && \
-        /opt/oomox/plugins/oomoxify/oomoxify.sh "$PRESET"
+    [ -f "$PRESET" ] && \
+        /opt/oomox/plugins/oomoxify/oomoxify.sh "$PRESET" >/dev/null 2>&1
 }
-spotify
+[[ $(command -v spotify) ]] && theme_spotify
+

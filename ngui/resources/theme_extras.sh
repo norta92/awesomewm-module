@@ -47,6 +47,7 @@ GTK_ICONS="$(grep gtk-icon-theme-name "$GTK_INI" | cut -d= -f2)"
         else
             cp "themes/.default.conf" theme.conf
         fi
+        killall -SIGUSR1 kitty
     fi
 
     # SPOTIFY THEME

@@ -91,10 +91,13 @@ client.connect_signal('request::manage', function(c)
     if not c.size_hints.user_position and
        not c.size_hints.program_position
     then
-        awful.placement.no_offscreen(c, {
+        local opts = {
             honor_workarea = true,
             margins = theme.useless_gap or 4,
-        })
+        }
+        awful.placement.centered(c, opts)
+        awful.placement.no_overlap(c, opts)
+        awful.placement.no_offscreen(c, opts)
     end
 
     -- Center dialogs over parent

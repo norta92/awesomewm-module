@@ -91,18 +91,20 @@ prompt_ok:connect_signal('invoked', function()
 end)
 
 client.connect_signal('request::unmanage', function(c)
-    if c.class == "Lxappearance" or c.instance == "lxappearance" then
+    if not c.transient_for
+        and (c.class == "Lxappearance" or c.instance == "lxappearance")
+    then
         local cur_mtime = get_mtime(paths.settings)
         if rc._mtime ~= cur_mtime then
             rc._mtime = cur_mtime
-            awesome.emit_signal('gtkini::update')
+            awesome.emit_signal('theme_changed')
         else
             return
         end
     end
 end)
 
-awesome.connect_signal('gtkini::update', function()
+awesome.connect_signal('theme_changed', function()
     if vars.restart then
         prompt_notif()
     else

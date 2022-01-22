@@ -38,7 +38,7 @@ local _M = function(s, args)
                     --require('widgets.top_bar.keyboard')(),
                     require('widgets.top_bar.systray')(),
                     require('widgets.top_bar.clock')(),
-                    require('widgets.leaver.wibar')(),
+                    require('widgets.top_bar.session')(),
                     layout = wibox.layout.fixed.horizontal,
                     spacing = dpi(4),
                 },

@@ -9,14 +9,14 @@ local _M = function()
     local buttons = {
         awful.button({ }, 1, nil, function()
             local pos = menu_util.set_corner('tr')
-            _G.menus.leaver:toggle({coords=pos})
+            _G.menus.session:toggle({coords=pos})
         end),
     }
 
     local menu_widget = wibox.widget {
         {
             widget = awful.widget.button {
-                image = theme.leaver_button_icon,
+                image = theme.session_button_icon,
                 resize = true,
             },
             forced_width = theme.menu_height,

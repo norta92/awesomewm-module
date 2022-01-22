@@ -12,10 +12,10 @@ local mod = _G.cfg.modkey
 local cfg_vars = _G.cfg.vars
 
 local vars = {}
-vars.timeout = cfg_vars.leaver_timeout or 10
-vars.timeout_run = cfg_vars.leaver_timeout_run or false
+vars.timeout = cfg_vars.session_timeout or 10
+vars.timeout_run = cfg_vars.session_timeout_run or false
 
-_G.leaver = {
+_G.session = {
     cmd     = nil,
     text    = nil,
     icon    = nil,
@@ -31,7 +31,7 @@ local _M = function(s)
 
     local icon = wibox.widget {
         widget          = wibox.widget.imagebox,
-        image           = theme.leaver_dialog_icon,
+        image           = theme.awesome_icon,
         resize          = true,
         forced_height   = dpi(128),
     }
@@ -90,20 +90,20 @@ local _M = function(s)
     }
 
     local on_confirm = function()
-        spawn(_G.leaver.cmd)
-        awesome.emit_signal('leaver::confirm:hide')
+        spawn(_G.session.cmd)
+        awesome.emit_signal('session::confirm:hide')
     end
 
     local on_cancel = function()
-        awesome.emit_signal('leaver::confirm:hide')
+        awesome.emit_signal('session::confirm:hide')
     end
 
-    local confirm_button = build_button(theme.leaver_confirm_icon, on_confirm)
-    local cancel_button = build_button(theme.leaver_cancel_icon, on_cancel)
+    local confirm_button = build_button(theme.session_confirm_icon, on_confirm)
+    local cancel_button = build_button(theme.session_cancel_icon, on_cancel)
 
     local create_dialog = function(screen)
 
-        s.leaver_confirm = wibox {
+        s.session_confirm = wibox {
             screen      = screen,
             type        = 'splash',
             visible     = false,
@@ -116,7 +116,7 @@ local _M = function(s)
             y           = s.geometry.y,
         }
 
-        s.leaver_confirm:setup {
+        s.session_confirm:setup {
             {
                 layout = wibox.layout.align.horizontal,
                 expand = 'none',
@@ -187,7 +187,7 @@ local _M = function(s)
     end
 
     local create_backdrop = function(screen)
-        s.leaver_backdrop = wibox {
+        s.session_backdrop = wibox {
             screen      = screen,
             type        = 'splash',
             visible     = false,
@@ -224,33 +224,33 @@ local _M = function(s)
         end,
     }
 
-    awesome.connect_signal('leaver::confirm:show', function()
-        message:set_text(_G.leaver.text)
-        icon:set_image(_G.leaver.icon)
+    awesome.connect_signal('session::confirm:show', function()
+        message:set_text(_G.session.text)
+        icon:set_image(_G.session.icon)
 
-        s.leaver_backdrop.visible = true
-        s.leaver_confirm.visible = false
+        s.session_backdrop.visible = true
+        s.session_confirm.visible = false
 
-        awful.screen.focused().leaver_confirm.visible = true
-        awful.screen.focused().leaver_backdrop.visible = false
+        awful.screen.focused().session_confirm.visible = true
+        awful.screen.focused().session_backdrop.visible = false
 
         screen_grabber:start()
     end)
 
-    awesome.connect_signal('leaver::confirm:hide', function()
-        s.leaver_backdrop.visible = false
-        s.leaver_confirm.visible = false
+    awesome.connect_signal('session::confirm:hide', function()
+        s.session_backdrop.visible = false
+        s.session_confirm.visible = false
 
         screen_grabber:stop()
 
-        _G.leaver = {}
+        _G.session = {}
     end)
 
     awful.keyboard.append_global_keybindings({
         awful.key({ mod.super, mod.ctrl }, 'q',
             function()
                 local pos = menu_util.set_corner('tr')
-                _G.menus.leaver:show({coords=pos})
+                _G.menus.session:show({coords=pos})
             end,
             {description = 'show session menu', group = 'awesome'}
         ),

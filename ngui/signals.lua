@@ -76,7 +76,7 @@ screen.connect_signal('request::desktop_decoration', function(s)
     awful.tag(vars.screen_tags_list, s, awful.layout.layouts[1])
 
     require('widgets.top_bar')(s)
-    require('widgets.leaver')(s)
+    require('widgets.session')(s)
 end)
 
 -- Wallpaper requested for screen
@@ -95,8 +95,8 @@ client.connect_signal('request::manage', function(c)
             honor_workarea = true,
             margins = theme.useless_gap or 4,
         }
-        awful.placement.centered(c, opts)
-        awful.placement.no_overlap(c, opts)
+        --awful.placement.centered(c, opts)
+        --awful.placement.no_overlap(c, opts)
         awful.placement.no_offscreen(c, opts)
     end
 

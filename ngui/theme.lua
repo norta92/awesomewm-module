@@ -173,7 +173,7 @@ theme.titlebar_close_button_focus_press = render(svg.titlebar.close_alt, theme.b
 
 theme.menu_button_icon              = render(svg.wibars.main_menu, theme.button_fg, nil, 24)
 theme.keyboard_layout_icon          = render(svg.wibars.keyboard_layout, theme.button_fg, nil, 24)
-theme.leaver_button_icon            = render(svg.wibars.leaver_menu, theme.button_fg, nil, 24)
+theme.session_button_icon            = render(svg.wibars.session_menu, theme.button_fg, nil, 24)
 theme.systray_visible_icon          = render(svg.wibars.systray_visible, theme.button_fg, nil, 24)
 theme.systray_hidden_icon           = render(svg.wibars.systray_hidden, theme.button_fg, nil, 24)
 
@@ -227,7 +227,6 @@ theme.taglist_squares_unsel         = nil
 -- Menus
 theme.menu_button_width             = dpi(32)
 theme.menu_button_text              = nil
-
 theme.menu_fg_normal                = theme.menubar_fg
 theme.menu_bg_normal                = theme.menubar_bg
 theme.menu_border_width             = theme.button_border_width
@@ -237,9 +236,8 @@ theme.menu_height                   = dpi(24)
 theme.menu_submenu                  = render(svg.menus.submenu, theme.fg_normal, nil, 24)
 theme.menu_submenu_icon             = render(svg.menus.submenu, theme.fg_normal, nil, 24)
 -- Exit screen
-theme.leaver_dialog_icon            = resources..'menus/leaver/dialog.svg'
-theme.leaver_confirm_icon           = resources..'menus/leaver/confirm.svg'
-theme.leaver_cancel_icon            = resources..'menus/leaver/cancel.svg'
+theme.session_confirm_icon           = render(svg.session.confirm, theme.fg_normal, nil, 24)
+theme.session_cancel_icon            = render(svg.session.cancel, theme.fg_normal, nil, 24)
 -- Systray
 theme.bg_systray                    = theme.wibar_bg
 theme.systray_icon_spacing          = dpi(2)

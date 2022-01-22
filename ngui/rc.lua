@@ -13,7 +13,7 @@ require('beautiful').init(require('theme'))
 -- Load menus
 _G.menus = {
     main = require('widgets.menus.main')(),
-    leaver = require('widgets.leaver.menu')(),
+    session = require('widgets.menus.session')(),
 }
 
 -- Connect signals and rules

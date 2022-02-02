@@ -22,8 +22,6 @@ vars.client_focus_sloppy = true
 vars.client_focus_raise = false
 vars.client_opacity_exclude_class = {'vlc', 'mpv', 'valheim.x86_64'}
 vars.topbar_calendar_enabled = true
-vars.theme_switch_prompt = false
-vars.theme_switch_run = true
 
 -- User paths
 local paths = {}
@@ -37,7 +35,6 @@ paths.icon_search_dirs      = {
                                 '/usr/share/icons/gnome/',
                                 '/usr/share/pixmaps/',
                               }
-paths.theme_switch_script   = paths.config_dir..'resources/theme_extras.sh'
 
 -- User apps
 local apps = {}

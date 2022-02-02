@@ -34,11 +34,11 @@ function _tag.rename()
     }
 end
 
-function _tag.move(pos)
+function _tag.move(dir)
     local tag = awful.screen.focused().selected_tag
-    if tonumber(pos) <= -1 then
+    if dir == 'left' then
         tag.index = tag.index-1
-    else
+    elseif dir == 'right' then
         tag.index = tag.index+1
     end
 end

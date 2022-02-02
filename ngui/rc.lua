@@ -1,11 +1,11 @@
 -- awesome_mode: api-level=4:screen=on
 pcall(require, 'luarocks.loader')
 
--- Startup errors
-require('utils.errors')
-
 -- Load global config
 _G.cfg = require('config')
+
+-- Startup errors
+require('utils.errors')
 
 -- Load theme
 require('beautiful').init(require('theme'))

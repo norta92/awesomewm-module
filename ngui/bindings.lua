@@ -169,7 +169,11 @@ awful.keyboard.append_global_keybindings({
         on_press    = function (index)
             local screen = awful.screen.focused()
             local tag = screen.tags[index]
-            if tag then
+            if not tag then
+                return
+            elseif tag.selected then
+                awful.tag.history.restore(screen, 1)
+            else
                 tag:view_only()
             end
         end,
@@ -225,10 +229,10 @@ awful.keyboard.append_global_keybindings({
     awful.key({ mod.super, mod.ctrl  }, 'e',  function() tag_util.rename() end,
               {description = 'edit selected', group = 'tag'}),
     -- Move tag left
-    awful.key({ mod.super, mod.ctrl }, '[', function() tag_util.move(-1) end,
+    awful.key({ mod.super, mod.ctrl }, '[', function() tag_util.move('left') end,
               {description = 'move left', group = 'tag'}),
     -- Move tag right
-    awful.key({ mod.super, mod.ctrl }, ']', function() tag_util.move(1) end,
+    awful.key({ mod.super, mod.ctrl }, ']', function() tag_util.move('right') end,
               {description = 'move right', group = 'tag'}),
     -- Delete current tag
     awful.key({ mod.super, mod.ctrl  }, 'd', function() tag_util.delete() end,

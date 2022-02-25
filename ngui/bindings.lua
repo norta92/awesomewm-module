@@ -1,7 +1,6 @@
 local awful = require('awful')
 local hotkeys_popup = require('awful.hotkeys_popup')
 require('awful.hotkeys_popup.keys')
-local menubar = require("menubar")
 
 local menu_util = require('utils.menus')
 local tag_util = require('utils.tags')
@@ -35,15 +34,12 @@ awful.keyboard.append_global_keybindings({
     -- Launch terminal
     awful.key({ mod.super }, 'Return', function () awful.spawn(apps.terminal) end,
               {description = 'open a terminal', group = 'launcher'}),
-    -- Launch application picker
-    awful.key({ mod.super }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
 })
 
 -- Global: Focus clients
 awful.keyboard.append_global_keybindings({
     -- Focus client to left
-    awful.key({ mod.super }, 'h',
+    awful.key({ mod.super }, 'Left',
         function()
             awful.client.focus.bydirection('left')
             if client.focus and vars.client_focus_raise then
@@ -53,7 +49,7 @@ awful.keyboard.append_global_keybindings({
         {description = 'focus client to left', group = 'client'}
     ),
     -- Focus client below
-    awful.key({ mod.super }, 'j',
+    awful.key({ mod.super }, 'Down',
         function()
             awful.client.focus.bydirection('down')
             if client.focus and vars.client_focus_raise then
@@ -63,7 +59,7 @@ awful.keyboard.append_global_keybindings({
         {description = 'focus client below', group = 'client'}
     ),
     -- Focus client above
-    awful.key({ mod.super }, 'k',
+    awful.key({ mod.super }, 'Up',
         function()
             awful.client.focus.bydirection('up')
             if client.focus and vars.client_focus_raise then
@@ -73,7 +69,7 @@ awful.keyboard.append_global_keybindings({
         {description = 'focus client above', group = 'client'}
     ),
     -- Focus client to right
-    awful.key({ mod.super }, 'l',
+    awful.key({ mod.super }, 'Right',
         function()
             awful.client.focus.bydirection('right')
             if client.focus and vars.client_focus_raise then
@@ -83,7 +79,7 @@ awful.keyboard.append_global_keybindings({
         {description = 'focus client to right', group = 'client'}
     ),
     -- Cycle focus previous
-    awful.key({ mod.alt }, 'Tab',
+    awful.key({ mod.super }, 'Tab',
         function ()
             awful.client.focus.byidx(-1)
             if client.focus then
@@ -93,7 +89,7 @@ awful.keyboard.append_global_keybindings({
         {description = 'focus previous client', group = 'client'}
     ),
     -- Cycle focus next
-    awful.key({ mod.alt, mod.shift }, 'Tab',
+    awful.key({ mod.super, mod.shift }, 'Tab',
         function ()
             awful.client.focus.byidx( 1)
             if client.focus then
@@ -120,43 +116,37 @@ awful.keyboard.append_global_keybindings({
 -- Global: Swap clients
 awful.keyboard.append_global_keybindings({
     -- Swap with client to left
-    awful.key({ mod.super, mod.shift   }, 'h', function() awful.client.swap.bydirection('left') end,
+    awful.key({ mod.super, mod.shift   }, 'Left', function() awful.client.swap.bydirection('left') end,
         {description = 'swap with client to left', group = 'client'}),
     -- Swap with client below
-    awful.key({ mod.super, mod.shift   }, 'j', function() awful.client.swap.bydirection('down') end,
+    awful.key({ mod.super, mod.shift   }, 'Down', function() awful.client.swap.bydirection('down') end,
               {description = 'swap with client below', group = 'client'}),
     -- Swap with client right
-    awful.key({ mod.super, mod.shift   }, 'k', function() awful.client.swap.bydirection('up') end,
+    awful.key({ mod.super, mod.shift   }, 'Up', function() awful.client.swap.bydirection('up') end,
               {description = 'swap with client above', group = 'client'}),
     -- Swap with client to right
-    awful.key({ mod.super, mod.shift   }, 'l', function() awful.client.swap.bydirection('right') end,
+    awful.key({ mod.super, mod.shift   }, 'Right', function() awful.client.swap.bydirection('right') end,
               {description = 'swap with client to right', group = 'client'}),
 })
 
 -- Global: Focus screen
 awful.keyboard.append_global_keybindings({
     -- Focus screen to left
-    awful.key({ mod.super, mod.ctrl }, 'h', function() awful.screen.focus_bydirection('left') end,
+    awful.key({ mod.super, mod.ctrl }, 'Left', function() awful.screen.focus_bydirection('left') end,
               {description = 'focus screen to left', group = 'screen'}),
     -- Focus screen below
-    awful.key({ mod.super, mod.ctrl }, 'j', function() awful.screen.focus_bydirection('down') end,
+    awful.key({ mod.super, mod.ctrl }, 'Down', function() awful.screen.focus_bydirection('down') end,
               {description = 'focus screen below', group = 'screen'}),
     -- Focus screen above
-    awful.key({ mod.super, mod.ctrl }, 'k', function() awful.screen.focus_bydirection('up') end,
+    awful.key({ mod.super, mod.ctrl }, 'Up', function() awful.screen.focus_bydirection('up') end,
               {description = 'focus screen above', group = 'screen'}),
     -- Focus screen to right
-    awful.key({ mod.super, mod.ctrl }, 'l', function() awful.screen.focus_bydirection('right') end,
+    awful.key({ mod.super, mod.ctrl }, 'Right', function() awful.screen.focus_bydirection('right') end,
               {description = 'focus screen to right', group = 'screen'}),
 })
 
 -- Global: Tags
 awful.keyboard.append_global_keybindings({
-    -- View next tag
-    awful.key({ mod.super }, 'Right',  awful.tag.viewnext,
-              {description = 'view next', group = 'tag'}),
-    -- View previous tag
-    awful.key({ mod.super }, 'Left',   awful.tag.viewprev,
-              {description = 'view previous', group = 'tag'}),
     -- View last tag
     awful.key({ mod.super }, '`', awful.tag.history.restore,
               {description = 'go back', group = 'tag'}),

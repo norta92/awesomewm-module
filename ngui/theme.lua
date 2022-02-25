@@ -60,7 +60,7 @@ theme.menubar_fg                    = theme.gtk.menubar_fg_color
 theme.menubar_bg                    = theme.gtk.menubar_bg_color
 
 -- Icon theme
-theme.icon_theme = 'Papirus'
+theme.icon_theme = 'Antsy'
 
 -- Fonts
 theme.font                          = theme.gtk.font_family..' '..theme.gtk.font_size

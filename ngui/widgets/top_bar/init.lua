@@ -1,11 +1,12 @@
+-- Awesome
 local awful = require('awful')
 local theme = require('beautiful')
 local dpi = theme.xresources.apply_dpi
 local wibox = require('wibox')
 
-local _M = function(s, args)
+-- Wibar widget
+local _M = function(s)
     s = s or screen.focused()
-    args = args or {}
 
     return awful.wibar {
         screen       = s,
@@ -17,6 +18,7 @@ local _M = function(s, args)
         widget   = {
             {
                 {
+                    -- Left side
                     require('widgets.top_bar.launcher')(),
                     require('widgets.top_bar.taglist')(s),
                     require('widgets.top_bar.layout')(s),
@@ -25,6 +27,7 @@ local _M = function(s, args)
                     spacing = dpi(4),
                 },
                 {
+                    -- Middle
                     {
                         require('widgets.top_bar.tasklist')(s),
                         layout = wibox.layout.align.horizontal,
@@ -35,6 +38,7 @@ local _M = function(s, args)
                     right = dpi(4),
                 },
                 {
+                    -- Right side
                     --require('widgets.top_bar.keyboard')(),
                     require('widgets.top_bar.systray')(),
                     require('widgets.top_bar.clock')(),
